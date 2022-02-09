@@ -1,0 +1,19 @@
+﻿using System;
+
+namespace NativeEngine
+{
+	// Token: 0x02000264 RID: 612
+	internal enum RenderTextureDetail
+	{
+		// Token: 0x04001104 RID: 4356
+		RENDER_TEXTURE_DETAIL_DEFAULT,
+		// Token: 0x04001105 RID: 4357
+		RENDER_TEXTURE_DETAIL_LOW = -1,
+		// Token: 0x04001106 RID: 4358
+		RENDER_TEXTURE_DETAIL_MEDIUM = -2,
+		// Token: 0x04001107 RID: 4359
+		RENDER_TEXTURE_DETAIL_HIGH = -3,
+		// Token: 0x04001108 RID: 4360
+		RENDER_TEXTURE_DETAIL_INVALID = -4
+	}
+}

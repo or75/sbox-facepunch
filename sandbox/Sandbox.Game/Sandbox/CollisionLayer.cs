@@ -1,0 +1,82 @@
+﻿using System;
+
+namespace Sandbox
+{
+	// Token: 0x020000D5 RID: 213
+	[Flags]
+	public enum CollisionLayer : ulong
+	{
+		// Token: 0x0400041F RID: 1055
+		Empty = 0UL,
+		// Token: 0x04000420 RID: 1056
+		Solid = 1UL,
+		// Token: 0x04000421 RID: 1057
+		Trigger = 4UL,
+		// Token: 0x04000422 RID: 1058
+		SKY = 8UL,
+		// Token: 0x04000423 RID: 1059
+		Hitbox = 2UL,
+		// Token: 0x04000424 RID: 1060
+		PLAYER_CLIP = 16UL,
+		// Token: 0x04000425 RID: 1061
+		NPC_CLIP = 32UL,
+		// Token: 0x04000426 RID: 1062
+		BLOCK_LOS = 64UL,
+		// Token: 0x04000427 RID: 1063
+		BLOCK_LIGHT = 128UL,
+		// Token: 0x04000428 RID: 1064
+		LADDER = 256UL,
+		// Token: 0x04000429 RID: 1065
+		PICKUP = 512UL,
+		// Token: 0x0400042A RID: 1066
+		NODRAW = 2048UL,
+		// Token: 0x0400042B RID: 1067
+		WINDOW = 4096UL,
+		// Token: 0x0400042C RID: 1068
+		GRATE = 8192UL,
+		// Token: 0x0400042D RID: 1069
+		WORLD_GEOMETRY = 16384UL,
+		// Token: 0x0400042E RID: 1070
+		Water = 32768UL,
+		// Token: 0x0400042F RID: 1071
+		SLIME = 65536UL,
+		// Token: 0x04000430 RID: 1072
+		TOUCH_ALL = 131072UL,
+		/// <summary>
+		/// Player hull (movement and trace attacks)
+		/// </summary>
+		// Token: 0x04000431 RID: 1073
+		Player = 262144UL,
+		// Token: 0x04000432 RID: 1074
+		NPC = 524288UL,
+		/// <summary>
+		/// Ragdolls etc
+		/// </summary>
+		// Token: 0x04000433 RID: 1075
+		Debris = 1048576UL,
+		// Token: 0x04000434 RID: 1076
+		PhysicsProp = 2097152UL,
+		// Token: 0x04000435 RID: 1077
+		HMD_AVATAR = 4194304UL,
+		// Token: 0x04000436 RID: 1078
+		LEFT_HAND = 8388608UL,
+		// Token: 0x04000437 RID: 1079
+		RIGHT_HAND = 16777216UL,
+		// Token: 0x04000438 RID: 1080
+		HAND_ATTACHMENT = 33554432UL,
+		// Token: 0x04000439 RID: 1081
+		CARRIED_OBJECT = 67108864UL,
+		// Token: 0x0400043A RID: 1082
+		TELEPORT_CLIP = 134217728UL,
+		// Token: 0x0400043B RID: 1083
+		SERVER_ENTITY_ON_CLIENT = 268435456UL,
+		// Token: 0x0400043C RID: 1084
+		CARRIED_WEAPON = 536870912UL,
+		// Token: 0x0400043D RID: 1085
+		STATIC_LEVEL = 1073741824UL,
+		// Token: 0x0400043E RID: 1086
+		BLOCK_SOUND = 1024UL,
+		// Token: 0x0400043F RID: 1087
+		All = 18446744073709551615UL
+	}
+}

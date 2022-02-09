@@ -1,0 +1,227 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{3FF0B6B7-8BB1-4D2E-9B40-27957B880F84}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Sandbox.System</RootNamespace>
+    <AssemblyName>Sandbox.System</AssemblyName>
+    <TargetFrameworkVersion>v3.1</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETCoreApp</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>E:\SteamGames\SBox\bin\managed\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.TypeConverter">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ComponentModel.TypeConverter.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Console">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Debug">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Diagnostics.Debug.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.StackTrace">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Diagnostics.StackTrace.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics.Vectors">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ObjectModel">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Extensions">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Primitives">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.Serialization.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.RegularExpressions">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Text.RegularExpressions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Tasks">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Threading.Tasks.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.HttpUtility">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Web.HttpUtility.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AdminCmdAttribute.cs" />
+    <Compile Include="Angles.cs" />
+    <Compile Include="BBox.cs" />
+    <Compile Include="Capsule.cs" />
+    <Compile Include="ClientCmdAttribute.cs" />
+    <Compile Include="ClientVarAttribute.cs" />
+    <Compile Include="Color.cs" />
+    <Compile Include="Color24.cs" />
+    <Compile Include="Color32.cs" />
+    <Compile Include="ColorHsv.cs" />
+    <Compile Include="ColorXYZ.cs" />
+    <Compile Include="ConsoleCommand.cs" />
+    <Compile Include="ConsoleVariableAttribute.cs" />
+    <Compile Include="Frustum.cs" />
+    <Compile Include="Line.cs" />
+    <Compile Include="Matrix.cs" />
+    <Compile Include="MenuCmdAttribute.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="NativeRect.cs" />
+    <Compile Include="OrderedSet.cs" />
+    <Compile Include="Plane.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QRectF.cs" />
+    <Compile Include="RangedFloat.cs" />
+    <Compile Include="Ray.cs" />
+    <Compile Include="Rect.cs" />
+    <Compile Include="Rect3D.cs" />
+    <Compile Include="ReplicatedVarAttribute.cs" />
+    <Compile Include="Rotation.cs" />
+    <Compile Include="Sandbox\Assert.cs" />
+    <Compile Include="Sandbox\Base36Extensions.cs" />
+    <Compile Include="Sandbox\BinaryStreamExtension.cs" />
+    <Compile Include="Sandbox\CaptureStdOut.cs" />
+    <Compile Include="Sandbox\ChangeAttribute.cs" />
+    <Compile Include="Sandbox\ConVar.cs" />
+    <Compile Include="Sandbox\CursorType.cs" />
+    <Compile Include="Sandbox\DateTimeExtensions.cs" />
+    <Compile Include="Sandbox\DescriptionAttribute.cs" />
+    <Compile Include="Sandbox\DictionaryExtensions.cs" />
+    <Compile Include="Sandbox\DisplayInfo.cs" />
+    <Compile Include="Sandbox\EnumerableExtensions.cs" />
+    <Compile Include="Sandbox\GameLog.cs" />
+    <Compile Include="Sandbox\Html\Attribute.cs" />
+    <Compile Include="Sandbox\Html\Document.cs" />
+    <Compile Include="Sandbox\Html\INode.cs" />
+    <Compile Include="Sandbox\Html\Node.cs" />
+    <Compile Include="Sandbox\Html\NodeType.cs" />
+    <Compile Include="Sandbox\Html\ParseError.cs" />
+    <Compile Include="Sandbox\Html\ParseErrorCode.cs" />
+    <Compile Include="Sandbox\Html\TextNode.cs" />
+    <Compile Include="Sandbox\IconAttribute.cs" />
+    <Compile Include="Sandbox\InputAttribute.cs" />
+    <Compile Include="Sandbox\Internal\DefaultValueAttribute.cs" />
+    <Compile Include="Sandbox\Internal\DescriptionAttribute.cs" />
+    <Compile Include="Sandbox\Internal\GlobalSystemNamespace.cs" />
+    <Compile Include="Sandbox\Internal\JsonConvert\AnglesConverter.cs" />
+    <Compile Include="Sandbox\Internal\JsonConvert\ColorConverter.cs" />
+    <Compile Include="Sandbox\Internal\JsonConvert\RangedFloatConverter.cs" />
+    <Compile Include="Sandbox\Internal\JsonConvert\RotationConverter.cs" />
+    <Compile Include="Sandbox\Internal\JsonConvert\Vector2Converter.cs" />
+    <Compile Include="Sandbox\Internal\JsonConvert\Vector3Converter.cs" />
+    <Compile Include="Sandbox\Internal\JsonConvert\Vector4Converter.cs" />
+    <Compile Include="Sandbox\IRuntimeAsset.cs" />
+    <Compile Include="Sandbox\IValid.cs" />
+    <Compile Include="Sandbox\IValidCheckExtension.cs" />
+    <Compile Include="Sandbox\LibraryAttribute.cs" />
+    <Compile Include="Sandbox\LibraryMethod.cs" />
+    <Compile Include="Sandbox\LocalAttribute.cs" />
+    <Compile Include="Sandbox\LogEvent.cs" />
+    <Compile Include="Sandbox\Logger.cs" />
+    <Compile Include="Sandbox\Logging.cs" />
+    <Compile Include="Sandbox\LogLevel.cs" />
+    <Compile Include="Sandbox\MaterialIcon.cs" />
+    <Compile Include="Sandbox\MaterialIconUtility.cs" />
+    <Compile Include="Sandbox\MathX.cs" />
+    <Compile Include="Sandbox\NetAttribute.cs" />
+    <Compile Include="Sandbox\NumberExtensions.cs" />
+    <Compile Include="Sandbox\OrderAttribute.cs" />
+    <Compile Include="Sandbox\Parse.cs" />
+    <Compile Include="Sandbox\PlaceholderAttribute.cs" />
+    <Compile Include="Sandbox\PredictedAttribute.cs" />
+    <Compile Include="Sandbox\PropAttribute.cs" />
+    <Compile Include="Sandbox\PropertyAttribute.cs" />
+    <Compile Include="Sandbox\Rand.cs" />
+    <Compile Include="Sandbox\RandomExtension.cs" />
+    <Compile Include="Sandbox\RangeAttribute.cs" />
+    <Compile Include="Sandbox\RealTime.cs" />
+    <Compile Include="Sandbox\RealTimeSince.cs" />
+    <Compile Include="Sandbox\RealTimeUntil.cs" />
+    <Compile Include="Sandbox\ReflectionExtensions.cs" />
+    <Compile Include="Sandbox\SpawnflagAttribute.cs" />
+    <Compile Include="Sandbox\SpawnflagsAttribute.cs" />
+    <Compile Include="Sandbox\StreamExtension.cs" />
+    <Compile Include="Sandbox\StringX.cs" />
+    <Compile Include="Sandbox\StyleHelpers.cs" />
+    <Compile Include="Sandbox\TextValueAttribute.cs" />
+    <Compile Include="Sandbox\ThreadSafe.cs" />
+    <Compile Include="Sandbox\TitleAttribute.cs" />
+    <Compile Include="Sandbox\UI\Length.cs" />
+    <Compile Include="Sandbox\UI\LengthUnit.cs" />
+    <Compile Include="Sandbox\UI\Margin.cs" />
+    <Compile Include="Sandbox\Utility\CodeWriter.cs" />
+    <Compile Include="Sandbox\Utility\CommandLine.cs" />
+    <Compile Include="Sandbox\Utility\Crc32.cs" />
+    <Compile Include="Sandbox\Utility\Crc64.cs" />
+    <Compile Include="Sandbox\Utility\GroupTiming.cs" />
+    <Compile Include="ServerCmdAttribute.cs" />
+    <Compile Include="ServerVarAttribute.cs" />
+    <Compile Include="Sphere.cs" />
+    <Compile Include="System\Collections\ObjectModel\ObservableDictionary.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+    <Compile Include="Transform.cs" />
+    <Compile Include="UserVarAttribute.cs" />
+    <Compile Include="Vector2.cs" />
+    <Compile Include="Vector3.cs" />
+    <Compile Include="Vector4.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

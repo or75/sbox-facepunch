@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{2B24DA70-BE19-44F8-8926-0344732C87D3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Sandbox.Tools</RootNamespace>
+    <AssemblyName>Sandbox.Tools</AssemblyName>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETCoreApp</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Sandbox.Engine">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Event">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Event.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Hotload">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Hotload.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Reflection">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.System">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Diagnostics.Process">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Diagnostics.Process.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Loader">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.Loader.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Threading.Thread.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInitialize.cs" />
+    <Compile Include="AssetLocation_t.cs" />
+    <Compile Include="CCheckBox.cs" />
+    <Compile Include="CComboBox.cs" />
+    <Compile Include="CDataDelegate.cs" />
+    <Compile Include="CDataModel.cs" />
+    <Compile Include="CDockWidget.cs" />
+    <Compile Include="CFrame.cs" />
+    <Compile Include="CLineEdit.cs" />
+    <Compile Include="CListView.cs" />
+    <Compile Include="CMenuBar.cs" />
+    <Compile Include="CPlainTextEdit.cs" />
+    <Compile Include="CPushButton.cs" />
+    <Compile Include="CStatusBar.cs" />
+    <Compile Include="CSystemTrayIcon.cs" />
+    <Compile Include="CToolBar.cs" />
+    <Compile Include="CTreeView.cs" />
+    <Compile Include="CWidget.cs" />
+    <Compile Include="g_pToolFramework2.cs" />
+    <Compile Include="IAsset.cs" />
+    <Compile Include="IAssetPreviewSystem.cs" />
+    <Compile Include="IAssetSystem.cs" />
+    <Compile Include="LineWrapMode.cs" />
+    <Compile Include="Managed\SourceAssetSytem\Exports.cs" />
+    <Compile Include="Managed\SourceAssetSytem\NativeInterop.cs" />
+    <Compile Include="Managed\SourceTools\Exports.cs" />
+    <Compile Include="Managed\SourceTools\NativeInterop.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="NativeEngine\CUtlVectorAsset.cs" />
+    <Compile Include="Native\CAction.cs" />
+    <Compile Include="Native\CFramelessMainWindow.cs" />
+    <Compile Include="Native\CManagedGraphicsItem.cs" />
+    <Compile Include="Native\CManagedLineGraphicsItem.cs" />
+    <Compile Include="Native\CManagedMainWindow.cs" />
+    <Compile Include="Native\EventType.cs" />
+    <Compile Include="Native\Flow.cs" />
+    <Compile Include="Native\GraphicsItemChange.cs" />
+    <Compile Include="Native\GraphicsItemFlag.cs" />
+    <Compile Include="Native\LayoutMode.cs" />
+    <Compile Include="Native\ManagedEventFilter.cs" />
+    <Compile Include="Native\Movement.cs" />
+    <Compile Include="Native\QAbstractButton.cs" />
+    <Compile Include="Native\QAbstractScrollArea.cs" />
+    <Compile Include="Native\QAction.cs" />
+    <Compile Include="Native\QApp.cs" />
+    <Compile Include="Native\QBoxLayout.cs" />
+    <Compile Include="Native\QBrush.cs" />
+    <Compile Include="Native\QCheckBox.cs" />
+    <Compile Include="Native\QComboBox.cs" />
+    <Compile Include="Native\QDockWidget.cs" />
+    <Compile Include="Native\QFrame.cs" />
+    <Compile Include="Native\QGraphicsItem.cs" />
+    <Compile Include="Native\QGraphicsProxyWidget.cs" />
+    <Compile Include="Native\QGraphicsScene.cs" />
+    <Compile Include="Native\QGraphicsSimpleTextItem.cs" />
+    <Compile Include="Native\QGraphicsView.cs" />
+    <Compile Include="Native\QLabel.cs" />
+    <Compile Include="Native\QLayout.cs" />
+    <Compile Include="Native\QLineEdit.cs" />
+    <Compile Include="Native\QListView.cs" />
+    <Compile Include="Native\QMainWindow.cs" />
+    <Compile Include="Native\QMenu.cs" />
+    <Compile Include="Native\QMenuBar.cs" />
+    <Compile Include="Native\QObject.cs" />
+    <Compile Include="Native\QPen.cs" />
+    <Compile Include="Native\QPixmap.cs" />
+    <Compile Include="Native\QPlainTextEdit.cs" />
+    <Compile Include="Native\QPushButton.cs" />
+    <Compile Include="Native\QScrollArea.cs" />
+    <Compile Include="Native\QScrollBar.cs" />
+    <Compile Include="Native\QStatusBar.cs" />
+    <Compile Include="Native\QTabBar.cs" />
+    <Compile Include="Native\QToolBar.cs" />
+    <Compile Include="Native\QTreeView.cs" />
+    <Compile Include="Native\QWidget.cs" />
+    <Compile Include="Native\ResizeMode.cs" />
+    <Compile Include="Native\ToolGlue.cs" />
+    <Compile Include="Native\ViewMode.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QContextMenuEvent.cs" />
+    <Compile Include="QDrag.cs" />
+    <Compile Include="QDragEnterEvent.cs" />
+    <Compile Include="QDragLeaveEvent.cs" />
+    <Compile Include="QDragMoveEvent.cs" />
+    <Compile Include="QDropEvent.cs" />
+    <Compile Include="QEvent.cs" />
+    <Compile Include="QFileDialog.cs" />
+    <Compile Include="QFontDatabase.cs" />
+    <Compile Include="QGraphicsSceneHoverEvent.cs" />
+    <Compile Include="QGraphicsSceneMouseEvent.cs" />
+    <Compile Include="QInputEvent.cs" />
+    <Compile Include="QKeyEvent.cs" />
+    <Compile Include="QMimeData.cs" />
+    <Compile Include="QMouseEvent.cs" />
+    <Compile Include="QMoveEvent.cs" />
+    <Compile Include="QPainter.cs" />
+    <Compile Include="QResizeEvent.cs" />
+    <Compile Include="QTextBlock.cs" />
+    <Compile Include="QTextCursorSelectionType.cs" />
+    <Compile Include="QTextDocument.cs" />
+    <Compile Include="QTextOptionWrapMode.cs" />
+    <Compile Include="QWheelEvent.cs" />
+    <Compile Include="SandboxToolsInteropAssetSystemInternal.cs" />
+    <Compile Include="SandboxToolsInteropToolsInternal.cs" />
+    <Compile Include="Sandbox\FileSystem.cs" />
+    <Compile Include="Sandbox\Global.cs" />
+    <Compile Include="Sandbox\Internal\GlobalToolsNamespace.cs" />
+    <Compile Include="Sandbox\ToolsDll.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+    <Compile Include="TextInteractionFlags.cs" />
+    <Compile Include="Tools\AboutDialog.cs" />
+    <Compile Include="Tools\AddonManager.cs" />
+    <Compile Include="Tools\Application.cs" />
+    <Compile Include="Tools\Asset.cs" />
+    <Compile Include="Tools\AssetSystem.cs" />
+    <Compile Include="Tools\AutoComplete.cs" />
+    <Compile Include="Tools\BoxLayout.cs" />
+    <Compile Include="Tools\Brush.cs" />
+    <Compile Include="Tools\Button.cs" />
+    <Compile Include="Tools\CanEditAttribute.cs" />
+    <Compile Include="Tools\CheckBox.cs" />
+    <Compile Include="Tools\CheckState.cs" />
+    <Compile Include="Tools\CloseEvent.cs" />
+    <Compile Include="Tools\ComboBox.cs" />
+    <Compile Include="Tools\ConsoleOutput.cs" />
+    <Compile Include="Tools\ConsoleSystem.cs" />
+    <Compile Include="Tools\ConsoleWidget.cs" />
+    <Compile Include="Tools\ContextMenuEvent.cs" />
+    <Compile Include="Tools\ConVarBind.cs" />
+    <Compile Include="Tools\CursorShape.cs" />
+    <Compile Include="Tools\DataBind.cs" />
+    <Compile Include="Tools\DataList.cs" />
+    <Compile Include="Tools\DataModel.cs" />
+    <Compile Include="Tools\DataNode.cs" />
+    <Compile Include="Tools\DataValueNode.cs" />
+    <Compile Include="Tools\Dictionary.cs" />
+    <Compile Include="Tools\DockArea.cs" />
+    <Compile Include="Tools\DockAttribute.cs" />
+    <Compile Include="Tools\DockWidget.cs" />
+    <Compile Include="Tools\DockWidgetFeatures.cs" />
+    <Compile Include="Tools\Drag.cs" />
+    <Compile Include="Tools\DragData.cs" />
+    <Compile Include="Tools\DropAction.cs" />
+    <Compile Include="Tools\EditorMainWindow.cs" />
+    <Compile Include="Tools\EngineOverlay.cs" />
+    <Compile Include="Tools\EngineTools.cs" />
+    <Compile Include="Tools\EngineView.cs" />
+    <Compile Include="Tools\EngineViewRenderMode.cs" />
+    <Compile Include="Tools\EnumBox.cs" />
+    <Compile Include="Tools\EventFilter.cs" />
+    <Compile Include="Tools\FileDialog.cs" />
+    <Compile Include="Tools\FocusChangeReason.cs" />
+    <Compile Include="Tools\FocusMode.cs" />
+    <Compile Include="Tools\Frame.cs" />
+    <Compile Include="Tools\GameFrame.cs" />
+    <Compile Include="Tools\GraphicsItem.cs" />
+    <Compile Include="Tools\GraphicsLine.cs" />
+    <Compile Include="Tools\GraphicsMouseEvent.cs" />
+    <Compile Include="Tools\GraphicsScene.cs" />
+    <Compile Include="Tools\GraphicsView.cs" />
+    <Compile Include="Tools\GraphicsWidget.cs" />
+    <Compile Include="Tools\Graphic\SimpleText.cs" />
+    <Compile Include="Tools\KeyboardModifiers.cs" />
+    <Compile Include="Tools\KeyCode.cs" />
+    <Compile Include="Tools\KeyEvent.cs" />
+    <Compile Include="Tools\Label.cs" />
+    <Compile Include="Tools\Layout.cs" />
+    <Compile Include="Tools\LineEdit.cs" />
+    <Compile Include="Tools\ListView.2.cs" />
+    <Compile Include="Tools\ListView.cs" />
+    <Compile Include="Tools\ManagedTools.cs" />
+    <Compile Include="Tools\Menu.cs" />
+    <Compile Include="Tools\MenuAttribute.cs" />
+    <Compile Include="Tools\MenuBar.cs" />
+    <Compile Include="Tools\ModelIndex.cs" />
+    <Compile Include="Tools\MouseButtons.cs" />
+    <Compile Include="Tools\MouseEvent.cs" />
+    <Compile Include="Tools\ObjectPropertyNode.cs" />
+    <Compile Include="Tools\Option.cs" />
+    <Compile Include="Tools\Paint.cs" />
+    <Compile Include="Tools\Pen.cs" />
+    <Compile Include="Tools\Pixmap.cs" />
+    <Compile Include="Tools\PropertyBind.cs" />
+    <Compile Include="Tools\QItemSelectionModel.cs" />
+    <Compile Include="Tools\QModelIndexList.cs" />
+    <Compile Include="Tools\QObject.cs" />
+    <Compile Include="Tools\QStringList.cs" />
+    <Compile Include="Tools\ReflectionNode.cs" />
+    <Compile Include="Tools\RenderHints.cs" />
+    <Compile Include="Tools\ScrollArea.cs" />
+    <Compile Include="Tools\ScrollBar.cs" />
+    <Compile Include="Tools\ScrollbarMode.cs" />
+    <Compile Include="Tools\SizeMode.cs" />
+    <Compile Include="Tools\StateFlag.cs" />
+    <Compile Include="Tools\StatusBar.cs" />
+    <Compile Include="Tools\SuspendUpdates.cs" />
+    <Compile Include="Tools\TabBar.cs" />
+    <Compile Include="Tools\TextCursor.cs" />
+    <Compile Include="Tools\TextEdit.cs" />
+    <Compile Include="Tools\TextFlag.cs" />
+    <Compile Include="Tools\TitleBar.cs" />
+    <Compile Include="Tools\ToolAddon.cs" />
+    <Compile Include="Tools\ToolAttribute.cs" />
+    <Compile Include="Tools\ToolBar.cs" />
+    <Compile Include="Tools\ToolbarPosition.cs" />
+    <Compile Include="Tools\TrayIcon.cs" />
+    <Compile Include="Tools\TreeView.cs" />
+    <Compile Include="Tools\Utility.cs" />
+    <Compile Include="Tools\WheelEvent.cs" />
+    <Compile Include="Tools\Widget.cs" />
+    <Compile Include="Tools\WidgetSignal.cs" />
+    <Compile Include="Tools\Window.cs" />
+    <Compile Include="Tools\WindowDragger.cs" />
+    <Compile Include="Tools\WindowFlags.cs" />
+    <Compile Include="WidgetUtil.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

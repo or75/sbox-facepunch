@@ -1,0 +1,27 @@
+﻿using System;
+
+namespace NativeEngine
+{
+	// Token: 0x02000257 RID: 599
+	internal enum EntityIOTargetType
+	{
+		// Token: 0x0400104D RID: 4173
+		INVALID = -1,
+		// Token: 0x0400104E RID: 4174
+		CLASSNAME,
+		// Token: 0x0400104F RID: 4175
+		CLASSNAME_DERIVES_FROM,
+		// Token: 0x04001050 RID: 4176
+		ENTITYNAME,
+		// Token: 0x04001051 RID: 4177
+		CONTAINS_COMPONENT,
+		// Token: 0x04001052 RID: 4178
+		SPECIAL_ACTIVATOR,
+		// Token: 0x04001053 RID: 4179
+		SPECIAL_CALLER,
+		// Token: 0x04001054 RID: 4180
+		EHANDLE,
+		// Token: 0x04001055 RID: 4181
+		ENTITYNAME_OR_CLASSNAME
+	}
+}

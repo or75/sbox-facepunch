@@ -1,0 +1,21 @@
+﻿using System;
+
+namespace NativeEngine
+{
+	// Token: 0x0200026F RID: 623
+	internal enum TextureScope
+	{
+		// Token: 0x0400116E RID: 4462
+		TEXTURE_SCOPE_INVALID = -1,
+		// Token: 0x0400116F RID: 4463
+		TEXTURE_SCOPE_GLOBAL,
+		// Token: 0x04001170 RID: 4464
+		TEXTURE_SCOPE_DEFAULT = 0,
+		// Token: 0x04001171 RID: 4465
+		TEXTURE_SCOPE_PER_FRAME,
+		// Token: 0x04001172 RID: 4466
+		TEXTURE_SCOPE_PER_CONTEXT,
+		// Token: 0x04001173 RID: 4467
+		TEXTURE_SCOPE_COUNT
+	}
+}

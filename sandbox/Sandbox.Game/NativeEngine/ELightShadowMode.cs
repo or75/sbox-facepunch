@@ -1,0 +1,17 @@
+﻿using System;
+
+namespace NativeEngine
+{
+	// Token: 0x0200005D RID: 93
+	internal enum ELightShadowMode
+	{
+		// Token: 0x04000105 RID: 261
+		SHADOW_MODE_NONE,
+		// Token: 0x04000106 RID: 262
+		SHADOW_MODE_FULLY_DYNAMIC_VARIANCE_SHADOWS,
+		// Token: 0x04000107 RID: 263
+		SHADOW_MODE_VOLUMETEXTURE_SHADOWS,
+		// Token: 0x04000108 RID: 264
+		SHADOW_MODE_DO_NOT_OVERRIDE
+	}
+}

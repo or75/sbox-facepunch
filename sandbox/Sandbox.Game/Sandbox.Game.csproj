@@ -1,0 +1,544 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{702E4E4D-9B12-4C68-BA5A-7225041C3D57}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Sandbox.Game</RootNamespace>
+    <AssemblyName>Sandbox.Game</AssemblyName>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETCoreApp</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Facebook.Yoga">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Facebook.Yoga.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Engine">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Event">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Event.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Hotload">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Hotload.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Reflection">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.System">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.System.dll</HintPath>
+    </Reference>
+    <Reference Include="Sentry">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sentry.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp">
+      <HintPath>E:\SteamGames\SBox\bin\managed\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Concurrent">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Collections.Concurrent.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Annotations">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.EventBasedAsync">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ComponentModel.EventBasedAsync.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Primitives">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ComponentModel.Primitives.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Console">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Console.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Net.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Net.WebSockets.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.WebSockets.Client">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Net.WebSockets.Client.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ObjectModel">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.ObjectModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Loader">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.Loader.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Speech">
+      <HintPath>E:\SteamGames\SBox\bin\managed\System.Speech.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Text.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Threading.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Channels">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Threading.Channels.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Threading.Thread">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Threading.Thread.dll</HintPath>
+    </Reference>
+    <Reference Include="Topten.RichTextKit">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Topten.RichTextKit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="GameServices.cs" />
+    <Compile Include="Managed\SourceClient\Exports.cs" />
+    <Compile Include="Managed\SourceClient\NativeInterop.cs" />
+    <Compile Include="Managed\SourceServer\Exports.cs" />
+    <Compile Include="Managed\SourceServer\NativeInterop.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="NativeEngine\AudioOutputStream.cs" />
+    <Compile Include="NativeEngine\CBaseAnimating.cs" />
+    <Compile Include="NativeEngine\CBaseEntity.cs" />
+    <Compile Include="NativeEngine\CBaseModelEntity.cs" />
+    <Compile Include="NativeEngine\CBasePlayer.cs" />
+    <Compile Include="NativeEngine\CEntityInstance.cs" />
+    <Compile Include="NativeEngine\CGameEntity.cs" />
+    <Compile Include="NativeEngine\CGameSceneNode.cs" />
+    <Compile Include="NativeEngine\CGlowProperty.cs" />
+    <Compile Include="NativeEngine\ClientEngine.cs" />
+    <Compile Include="NativeEngine\ClientGlobal.cs" />
+    <Compile Include="NativeEngine\ClientGlobalVars.cs" />
+    <Compile Include="NativeEngine\CLightComponent.cs" />
+    <Compile Include="NativeEngine\CManagedSceneObject.cs" />
+    <Compile Include="NativeEngine\CollisionProperty.cs" />
+    <Compile Include="NativeEngine\CRenderAttributes.cs" />
+    <Compile Include="NativeEngine\CSceneAnimatableObject.cs" />
+    <Compile Include="NativeEngine\CSceneLightObject.cs" />
+    <Compile Include="NativeEngine\CSceneMonitorObject.cs" />
+    <Compile Include="NativeEngine\CSceneObject.cs" />
+    <Compile Include="NativeEngine\CSceneParticleObject.cs" />
+    <Compile Include="NativeEngine\CSceneSkyBoxObject.cs" />
+    <Compile Include="NativeEngine\CSceneSystem.cs" />
+    <Compile Include="NativeEngine\CSkeletonInstance.cs" />
+    <Compile Include="NativeEngine\CSunLightManager.cs" />
+    <Compile Include="NativeEngine\CUtlVectorOverlapResult.cs" />
+    <Compile Include="NativeEngine\CUtlVectorSceneObjectResult.cs" />
+    <Compile Include="NativeEngine\C_BaseAnimating.cs" />
+    <Compile Include="NativeEngine\C_BaseEntity.cs" />
+    <Compile Include="NativeEngine\C_BaseModelEntity.cs" />
+    <Compile Include="NativeEngine\C_BasePlayer.cs" />
+    <Compile Include="NativeEngine\DataTable.cs" />
+    <Compile Include="NativeEngine\DebugOverlay.cs" />
+    <Compile Include="NativeEngine\DecalGameSystem.cs" />
+    <Compile Include="NativeEngine\ELayerFlags.cs" />
+    <Compile Include="NativeEngine\ELightShadowMode.cs" />
+    <Compile Include="NativeEngine\EngineInputContextId.cs" />
+    <Compile Include="NativeEngine\EngineServiceMgr.cs" />
+    <Compile Include="NativeEngine\EntitySystem.cs" />
+    <Compile Include="NativeEngine\ESceneObjectFlags.cs" />
+    <Compile Include="NativeEngine\ESceneObjectTypeFlags.cs" />
+    <Compile Include="NativeEngine\GameGlue.cs" />
+    <Compile Include="NativeEngine\GameParticleManager.cs" />
+    <Compile Include="NativeEngine\GameUI.cs" />
+    <Compile Include="NativeEngine\IHandleEntity.cs" />
+    <Compile Include="NativeEngine\INetworkStringTable.cs" />
+    <Compile Include="NativeEngine\InputData.cs" />
+    <Compile Include="NativeEngine\IPhysAggregateInstance.cs" />
+    <Compile Include="NativeEngine\IPhysicsBody.cs" />
+    <Compile Include="NativeEngine\IPhysicsJoint.cs" />
+    <Compile Include="NativeEngine\IPhysicsShape.cs" />
+    <Compile Include="NativeEngine\IRenderContext.cs" />
+    <Compile Include="NativeEngine\ISceneLayer.cs" />
+    <Compile Include="NativeEngine\ISceneView.cs" />
+    <Compile Include="NativeEngine\ISceneWorld.cs" />
+    <Compile Include="NativeEngine\IVPhysics2World.cs" />
+    <Compile Include="NativeEngine\LightDesc.cs" />
+    <Compile Include="NativeEngine\LightQueryGameSystem.cs" />
+    <Compile Include="NativeEngine\LightSourceShape_t.cs" />
+    <Compile Include="NativeEngine\MeshSystem.cs" />
+    <Compile Include="NativeEngine\MoveCollide.cs" />
+    <Compile Include="NativeEngine\NavObstacle.cs" />
+    <Compile Include="NativeEngine\NetworkStringTableContainer.cs" />
+    <Compile Include="NativeEngine\NetworkStringtableFlags.cs" />
+    <Compile Include="NativeEngine\OptimizationFlags.cs" />
+    <Compile Include="NativeEngine\PhysicsGameSystem.cs" />
+    <Compile Include="NativeEngine\PhysicsJointConfig.cs" />
+    <Compile Include="NativeEngine\PhysicsQuery.cs" />
+    <Compile Include="NativeEngine\PhysJoints.cs" />
+    <Compile Include="NativeEngine\PVSManager.cs" />
+    <Compile Include="NativeEngine\ResourceSystem.cs" />
+    <Compile Include="NativeEngine\SboxRender.cs" />
+    <Compile Include="NativeEngine\ServerEngine.cs" />
+    <Compile Include="NativeEngine\StringTableChangedCallback.cs" />
+    <Compile Include="NativeEngine\Trace.cs" />
+    <Compile Include="NativeEngine\TraceRequest.cs" />
+    <Compile Include="NativeEngine\TraceResult.cs" />
+    <Compile Include="NativeEngine\ViewDesc.cs" />
+    <Compile Include="NativeEngine\VisInfo.cs" />
+    <Compile Include="NativeEngine\VRGlue.cs" />
+    <Compile Include="NativeGlue\ConVar.cs" />
+    <Compile Include="NativeGlue\GameSoundManager.cs" />
+    <Compile Include="NativeGlue\NavMesh.cs" />
+    <Compile Include="OpenVR\IVRInput.cs" />
+    <Compile Include="OpenVR\IVROverlay.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SandboxGameInteropClientInternal.cs" />
+    <Compile Include="SandboxGameInteropServerInternal.cs" />
+    <Compile Include="Sandbox\AddonProvision\Utility.cs" />
+    <Compile Include="Sandbox\AnimationSequence.cs" />
+    <Compile Include="Sandbox\AnimEntity.cs" />
+    <Compile Include="Sandbox\AnimSceneObject.cs" />
+    <Compile Include="Sandbox\AssemblyWrapper.cs" />
+    <Compile Include="Sandbox\Asset.cs" />
+    <Compile Include="Sandbox\BaseNetworkable.cs" />
+    <Compile Include="Sandbox\BasePostProcess.cs" />
+    <Compile Include="Sandbox\BindComponentAttribute.cs" />
+    <Compile Include="Sandbox\Bot.cs" />
+    <Compile Include="Sandbox\CameraSetup.cs" />
+    <Compile Include="Sandbox\Client.cs" />
+    <Compile Include="Sandbox\ClientEntity.cs" />
+    <Compile Include="Sandbox\CollisionEventData.cs" />
+    <Compile Include="Sandbox\CollisionFunctionMask.cs" />
+    <Compile Include="Sandbox\CollisionGroup.cs" />
+    <Compile Include="Sandbox\CollisionLayer.cs" />
+    <Compile Include="Sandbox\Component\Glow.cs" />
+    <Compile Include="Sandbox\Component\NavBlocker.cs" />
+    <Compile Include="Sandbox\ConsoleCommand.cs" />
+    <Compile Include="Sandbox\ConsoleSystem.cs" />
+    <Compile Include="Sandbox\ConstantBuffer.cs" />
+    <Compile Include="Sandbox\Content.cs" />
+    <Compile Include="Sandbox\ContextInterface.cs" />
+    <Compile Include="Sandbox\CurrentView.cs" />
+    <Compile Include="Sandbox\CustomSceneObject.cs" />
+    <Compile Include="Sandbox\DamageFlags.cs" />
+    <Compile Include="Sandbox\DamageInfo.cs" />
+    <Compile Include="Sandbox\Easing.cs" />
+    <Compile Include="Sandbox\Entity.cs" />
+    <Compile Include="Sandbox\EntityComponent.2.cs" />
+    <Compile Include="Sandbox\EntityComponent.cs" />
+    <Compile Include="Sandbox\EntityEffects.cs" />
+    <Compile Include="Sandbox\EntityExtensions.cs" />
+    <Compile Include="Sandbox\EntityFlag.cs" />
+    <Compile Include="Sandbox\EntityIO\Output.cs" />
+    <Compile Include="Sandbox\EntityIO\OutputCollection.cs" />
+    <Compile Include="Sandbox\EntityManager.cs" />
+    <Compile Include="Sandbox\EnvironmentLightEntity.cs" />
+    <Compile Include="Sandbox\FGDCurve.cs" />
+    <Compile Include="Sandbox\FileSystem.cs" />
+    <Compile Include="Sandbox\FingerValue.cs" />
+    <Compile Include="Sandbox\Friend.cs" />
+    <Compile Include="Sandbox\FriendHelper.cs" />
+    <Compile Include="Sandbox\GameAssemblyManager.cs" />
+    <Compile Include="Sandbox\GameBase.cs" />
+    <Compile Include="Sandbox\GameCommand.cs" />
+    <Compile Include="Sandbox\GameConVar.cs" />
+    <Compile Include="Sandbox\GameConVarClientData.cs" />
+    <Compile Include="Sandbox\GameLoadContext.cs" />
+    <Compile Include="Sandbox\GameLobby.cs" />
+    <Compile Include="Sandbox\GameLoop.cs" />
+    <Compile Include="Sandbox\GameTask.cs" />
+    <Compile Include="Sandbox\GlowStates.cs" />
+    <Compile Include="Sandbox\GlyphStyle.cs" />
+    <Compile Include="Sandbox\GlyphStyleMask.cs" />
+    <Compile Include="Sandbox\Host.cs" />
+    <Compile Include="Sandbox\IBaseInventory.cs" />
+    <Compile Include="Sandbox\ICamera.cs" />
+    <Compile Include="Sandbox\INetworkSerializer.cs" />
+    <Compile Include="Sandbox\Input.cs" />
+    <Compile Include="Sandbox\InputAnalog.cs" />
+    <Compile Include="Sandbox\InputBuilder.cs" />
+    <Compile Include="Sandbox\InputButton.cs" />
+    <Compile Include="Sandbox\InputGlyphSize.cs" />
+    <Compile Include="Sandbox\InputGlyphSizeExtension.cs" />
+    <Compile Include="Sandbox\InputRouter.cs" />
+    <Compile Include="Sandbox\Internal\Decals.cs" />
+    <Compile Include="Sandbox\Internal\EntityComponentAccessor.cs" />
+    <Compile Include="Sandbox\Internal\EntityHandle.cs" />
+    <Compile Include="Sandbox\Internal\EntityTags.cs" />
+    <Compile Include="Sandbox\Internal\GlobalGameNamespace.cs" />
+    <Compile Include="Sandbox\Internal\Globals\DebugOverlay.cs" />
+    <Compile Include="Sandbox\Internal\Globals\Global.cs" />
+    <Compile Include="Sandbox\Internal\Http.cs" />
+    <Compile Include="Sandbox\Internal\INetworkTable.cs" />
+    <Compile Include="Sandbox\Internal\JsonConvert\FGDCurveConverter.cs" />
+    <Compile Include="Sandbox\Internal\JsonConvert\TagListConverter.cs" />
+    <Compile Include="Sandbox\Internal\NetworkBaseDictionary.cs" />
+    <Compile Include="Sandbox\Internal\NetworkBaseList.cs" />
+    <Compile Include="Sandbox\Internal\SpawnFlagAccessor.cs" />
+    <Compile Include="Sandbox\Internal\UI\TextPanel.cs" />
+    <Compile Include="Sandbox\Internal\Var.cs" />
+    <Compile Include="Sandbox\Internal\VarClass.cs" />
+    <Compile Include="Sandbox\Internal\VarComponent.cs" />
+    <Compile Include="Sandbox\Internal\VarComponentList.cs" />
+    <Compile Include="Sandbox\Internal\VarContainer.cs" />
+    <Compile Include="Sandbox\Internal\VarDictionaryCC.cs" />
+    <Compile Include="Sandbox\Internal\VarDictionaryCU.cs" />
+    <Compile Include="Sandbox\Internal\VarDictionaryUC.cs" />
+    <Compile Include="Sandbox\Internal\VarDictionaryUU.cs" />
+    <Compile Include="Sandbox\Internal\VarEmbedDictionary.cs" />
+    <Compile Include="Sandbox\Internal\VarEmbedDictionaryC.cs" />
+    <Compile Include="Sandbox\Internal\VarEmbedDictionaryU.cs" />
+    <Compile Include="Sandbox\Internal\VarEmbedList.cs" />
+    <Compile Include="Sandbox\Internal\VarGeneric.cs" />
+    <Compile Include="Sandbox\Internal\VarGenericList.cs" />
+    <Compile Include="Sandbox\Internal\VarObjectDictionaryC.cs" />
+    <Compile Include="Sandbox\Internal\VarObjectDictionaryU.cs" />
+    <Compile Include="Sandbox\Internal\VarUnmanaged.cs" />
+    <Compile Include="Sandbox\Internal\VarUnmanagedList.cs" />
+    <Compile Include="Sandbox\Internal\VarUnmanagedNullable.cs" />
+    <Compile Include="Sandbox\Internal\WaterLevel.cs" />
+    <Compile Include="Sandbox\IPhysicsJoint.cs" />
+    <Compile Include="Sandbox\IUse.cs" />
+    <Compile Include="Sandbox\JointMotion.cs" />
+    <Compile Include="Sandbox\Joints\ConicalJoint.cs" />
+    <Compile Include="Sandbox\Joints\ConicalJointBuilder.cs" />
+    <Compile Include="Sandbox\Joints\GenericJoint.cs" />
+    <Compile Include="Sandbox\Joints\GenericJointBuilder.cs" />
+    <Compile Include="Sandbox\Joints\PrismaticJoint.cs" />
+    <Compile Include="Sandbox\Joints\PrismaticJointBuilder.cs" />
+    <Compile Include="Sandbox\Joints\RevoluteJoint.cs" />
+    <Compile Include="Sandbox\Joints\RevoluteJointBuilder.cs" />
+    <Compile Include="Sandbox\Joints\SphericalJoint.cs" />
+    <Compile Include="Sandbox\Joints\SphericalJointBuilder.cs" />
+    <Compile Include="Sandbox\Joints\SpringJoint.cs" />
+    <Compile Include="Sandbox\Joints\SpringJointBuilder.cs" />
+    <Compile Include="Sandbox\Joints\WeldJoint.cs" />
+    <Compile Include="Sandbox\Joints\WeldJointBuilder.cs" />
+    <Compile Include="Sandbox\KeyModifiers.cs" />
+    <Compile Include="Sandbox\Library.cs" />
+    <Compile Include="Sandbox\LibraryClass.cs" />
+    <Compile Include="Sandbox\LifeState.cs" />
+    <Compile Include="Sandbox\Light.cs" />
+    <Compile Include="Sandbox\LightQuery.cs" />
+    <Compile Include="Sandbox\LightType.cs" />
+    <Compile Include="Sandbox\Lobby.cs" />
+    <Compile Include="Sandbox\Local.cs" />
+    <Compile Include="Sandbox\MaterialPostProcess.cs" />
+    <Compile Include="Sandbox\MimicBot.cs" />
+    <Compile Include="Sandbox\ModelEntity.cs" />
+    <Compile Include="Sandbox\Mouse.cs" />
+    <Compile Include="Sandbox\MoveType.cs" />
+    <Compile Include="Sandbox\NavAreaAttribute.cs" />
+    <Compile Include="Sandbox\NavBlockerType.cs" />
+    <Compile Include="Sandbox\NavMesh.cs" />
+    <Compile Include="Sandbox\NavNode.cs" />
+    <Compile Include="Sandbox\NavNodeType.cs" />
+    <Compile Include="Sandbox\NavTraverseType.cs" />
+    <Compile Include="Sandbox\NetRead.cs" />
+    <Compile Include="Sandbox\NetworkAssetList.cs" />
+    <Compile Include="Sandbox\NetworkComponent.cs" />
+    <Compile Include="Sandbox\Networked.cs" />
+    <Compile Include="Sandbox\Networking.cs" />
+    <Compile Include="Sandbox\NetworkTable.cs" />
+    <Compile Include="Sandbox\NetWrite.cs" />
+    <Compile Include="Sandbox\NullChecks.cs" />
+    <Compile Include="Sandbox\OrthoLightEntity.cs" />
+    <Compile Include="Sandbox\PanelSceneObject.cs" />
+    <Compile Include="Sandbox\ParticleAttachment.cs" />
+    <Compile Include="Sandbox\Particles.cs" />
+    <Compile Include="Sandbox\Physics.cs" />
+    <Compile Include="Sandbox\PhysicsBody.cs" />
+    <Compile Include="Sandbox\PhysicsBodyType.cs" />
+    <Compile Include="Sandbox\PhysicsGroup.cs" />
+    <Compile Include="Sandbox\PhysicsJoint.cs" />
+    <Compile Include="Sandbox\PhysicsJointMotorMode.cs" />
+    <Compile Include="Sandbox\PhysicsJointType.cs" />
+    <Compile Include="Sandbox\PhysicsMotionType.cs" />
+    <Compile Include="Sandbox\PhysicsShape.cs" />
+    <Compile Include="Sandbox\PhysicsShapeType.cs" />
+    <Compile Include="Sandbox\PhysicsWorld.cs" />
+    <Compile Include="Sandbox\PlayerCommand.cs" />
+    <Compile Include="Sandbox\PointLightEntity.cs" />
+    <Compile Include="Sandbox\PostProcessRTScope.cs" />
+    <Compile Include="Sandbox\PostProcessSystem.cs" />
+    <Compile Include="Sandbox\Precache.cs" />
+    <Compile Include="Sandbox\Prediction.cs" />
+    <Compile Include="Sandbox\PvsConfig.cs" />
+    <Compile Include="Sandbox\ReflectionCache.cs" />
+    <Compile Include="Sandbox\Render.cs" />
+    <Compile Include="Sandbox\RenderEntity.cs" />
+    <Compile Include="Sandbox\RenderingManager.cs" />
+    <Compile Include="Sandbox\RpcHistory.cs" />
+    <Compile Include="Sandbox\SceneMonitorObject.cs" />
+    <Compile Include="Sandbox\SceneObject.cs" />
+    <Compile Include="Sandbox\SceneParticleObject.cs" />
+    <Compile Include="Sandbox\SceneWorld.cs" />
+    <Compile Include="Sandbox\Schedule.cs" />
+    <Compile Include="Sandbox\Screen.cs" />
+    <Compile Include="Sandbox\SerializeObjectType.cs" />
+    <Compile Include="Sandbox\ServerInfo.cs" />
+    <Compile Include="Sandbox\SkyboxObject.cs" />
+    <Compile Include="Sandbox\SolidType.cs" />
+    <Compile Include="Sandbox\Sound.cs" />
+    <Compile Include="Sandbox\SoundEvent.cs" />
+    <Compile Include="Sandbox\SoundStream.cs" />
+    <Compile Include="Sandbox\SpeechRecognition.cs" />
+    <Compile Include="Sandbox\SpotLight.cs" />
+    <Compile Include="Sandbox\SpotLightCone.cs" />
+    <Compile Include="Sandbox\SpotLightEntity.cs" />
+    <Compile Include="Sandbox\StandardInteractionLayers_t.cs" />
+    <Compile Include="Sandbox\StandardPostProcess.cs" />
+    <Compile Include="Sandbox\Streamer.cs" />
+    <Compile Include="Sandbox\StringPool.cs" />
+    <Compile Include="Sandbox\StringTable.cs" />
+    <Compile Include="Sandbox\StringTables.cs" />
+    <Compile Include="Sandbox\SunLight.cs" />
+    <Compile Include="Sandbox\Surface.cs" />
+    <Compile Include="Sandbox\TagList.cs" />
+    <Compile Include="Sandbox\TaskGroup.cs" />
+    <Compile Include="Sandbox\TaskSource.cs" />
+    <Compile Include="Sandbox\TextManager.cs" />
+    <Compile Include="Sandbox\TextureLoader\KeyGlyphLoader.cs" />
+    <Compile Include="Sandbox\Time.cs" />
+    <Compile Include="Sandbox\TimeSince.cs" />
+    <Compile Include="Sandbox\TimeUntil.cs" />
+    <Compile Include="Sandbox\To.cs" />
+    <Compile Include="Sandbox\Trace.cs" />
+    <Compile Include="Sandbox\TraceResult.cs" />
+    <Compile Include="Sandbox\TrackedDeviceType.cs" />
+    <Compile Include="Sandbox\UISystem.cs" />
+    <Compile Include="Sandbox\UI\Align.cs" />
+    <Compile Include="Sandbox\UI\BackgroundRepeat.cs" />
+    <Compile Include="Sandbox\UI\BaseStyles.cs" />
+    <Compile Include="Sandbox\UI\BaseTextBlock.cs" />
+    <Compile Include="Sandbox\UI\BorderImageFill.cs" />
+    <Compile Include="Sandbox\UI\BorderImageRepeat.cs" />
+    <Compile Include="Sandbox\UI\Box.cs" />
+    <Compile Include="Sandbox\UI\ButtonEvent.cs" />
+    <Compile Include="Sandbox\UI\Clipboard.cs" />
+    <Compile Include="Sandbox\UI\ColorInterpolation.cs" />
+    <Compile Include="Sandbox\UI\Construct\ImageConstructor.cs" />
+    <Compile Include="Sandbox\UI\Construct\PanelCreator.cs" />
+    <Compile Include="Sandbox\UI\Construct\SceneConstructor.cs" />
+    <Compile Include="Sandbox\UI\DataSource\ArraySource.cs" />
+    <Compile Include="Sandbox\UI\DataSource\BaseDataSource.cs" />
+    <Compile Include="Sandbox\UI\DataSource\BindClassMethod.cs" />
+    <Compile Include="Sandbox\UI\DataSource\BindMethod.cs" />
+    <Compile Include="Sandbox\UI\DataSource\ObjectProperty.cs" />
+    <Compile Include="Sandbox\UI\DataSource\Property.cs" />
+    <Compile Include="Sandbox\UI\DisplayMode.cs" />
+    <Compile Include="Sandbox\UI\FlexDirection.cs" />
+    <Compile Include="Sandbox\UI\FontManager.cs" />
+    <Compile Include="Sandbox\UI\FontStyle.cs" />
+    <Compile Include="Sandbox\UI\Image.cs" />
+    <Compile Include="Sandbox\UI\ImageRendering.cs" />
+    <Compile Include="Sandbox\UI\Input.cs" />
+    <Compile Include="Sandbox\UI\InputData.cs" />
+    <Compile Include="Sandbox\UI\InputEventQueue.cs" />
+    <Compile Include="Sandbox\UI\InputFocus.cs" />
+    <Compile Include="Sandbox\UI\Justify.cs" />
+    <Compile Include="Sandbox\UI\LayoutCascade.cs" />
+    <Compile Include="Sandbox\UI\Materials.cs" />
+    <Compile Include="Sandbox\UI\MousePanelEvent.cs" />
+    <Compile Include="Sandbox\UI\OverflowMode.cs" />
+    <Compile Include="Sandbox\UI\Panel.cs" />
+    <Compile Include="Sandbox\UI\PanelAction.cs" />
+    <Compile Include="Sandbox\UI\PanelEvent.cs" />
+    <Compile Include="Sandbox\UI\PanelEventAttribute.cs" />
+    <Compile Include="Sandbox\UI\PanelEventSpecial.cs" />
+    <Compile Include="Sandbox\UI\PanelLayer.cs" />
+    <Compile Include="Sandbox\UI\PanelRenderer.cs" />
+    <Compile Include="Sandbox\UI\PanelStyle.cs" />
+    <Compile Include="Sandbox\UI\PanelTransform.cs" />
+    <Compile Include="Sandbox\UI\PositionMode.cs" />
+    <Compile Include="Sandbox\UI\PseudoClass.cs" />
+    <Compile Include="Sandbox\UI\RenderState.cs" />
+    <Compile Include="Sandbox\UI\RootPanel.cs" />
+    <Compile Include="Sandbox\UI\Scene.cs" />
+    <Compile Include="Sandbox\UI\ScenePanel.cs" />
+    <Compile Include="Sandbox\UI\SceneTextures.cs" />
+    <Compile Include="Sandbox\UI\Selection.cs" />
+    <Compile Include="Sandbox\UI\SelectionEvent.cs" />
+    <Compile Include="Sandbox\UI\Shadow.cs" />
+    <Compile Include="Sandbox\UI\ShadowList.cs" />
+    <Compile Include="Sandbox\UI\SkiaCompat.cs" />
+    <Compile Include="Sandbox\UI\SkiaTextBlock.cs" />
+    <Compile Include="Sandbox\UI\StyleBlock.cs" />
+    <Compile Include="Sandbox\UI\StyleOrderer.cs" />
+    <Compile Include="Sandbox\UI\StyleParser.cs" />
+    <Compile Include="Sandbox\UI\Styles.cs" />
+    <Compile Include="Sandbox\UI\StyleSelector.cs" />
+    <Compile Include="Sandbox\UI\StyleSheet.cs" />
+    <Compile Include="Sandbox\UI\StyleSheetCollection.cs" />
+    <Compile Include="Sandbox\UI\Template.cs" />
+    <Compile Include="Sandbox\UI\TemplatePanel.cs" />
+    <Compile Include="Sandbox\UI\TemplateParser.cs" />
+    <Compile Include="Sandbox\UI\TextAlign.cs" />
+    <Compile Include="Sandbox\UI\TextDecoration.cs" />
+    <Compile Include="Sandbox\UI\TextDecorationStyle.cs" />
+    <Compile Include="Sandbox\UI\TextSkipInk.cs" />
+    <Compile Include="Sandbox\UI\TextTransform.cs" />
+    <Compile Include="Sandbox\UI\TransitionDesc.cs" />
+    <Compile Include="Sandbox\UI\TransitionList.cs" />
+    <Compile Include="Sandbox\UI\Transitions.cs" />
+    <Compile Include="Sandbox\UI\UseTemplateAttribute.cs" />
+    <Compile Include="Sandbox\UI\VROverlayInput.cs" />
+    <Compile Include="Sandbox\UI\WorldInput.cs" />
+    <Compile Include="Sandbox\UI\WorldInputInternal.cs" />
+    <Compile Include="Sandbox\UI\Wrap.cs" />
+    <Compile Include="Sandbox\UI\YogaEx.cs" />
+    <Compile Include="Sandbox\UI\YogaWrapper.cs" />
+    <Compile Include="Sandbox\Vector3Extensions.cs" />
+    <Compile Include="Sandbox\VertexBufferExtension.cs" />
+    <Compile Include="Sandbox\Voice.cs" />
+    <Compile Include="Sandbox\VR.cs" />
+    <Compile Include="Sandbox\VROverlay.cs" />
+    <Compile Include="Sandbox\VROverlayPanel.cs" />
+    <Compile Include="Sandbox\VRTrackedDevice.cs" />
+    <Compile Include="Sandbox\WebSocket.cs" />
+    <Compile Include="Sandbox\WorldEntity.cs" />
+    <Compile Include="ServerGlobal.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

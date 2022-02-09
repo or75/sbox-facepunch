@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D7AAC753-515B-4A82-B1A4-6A5688ADBBA9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Sandbox.Client</RootNamespace>
+    <AssemblyName>Sandbox.Client</AssemblyName>
+    <TargetFrameworkVersion>v6.0</TargetFrameworkVersion>
+    <TargetFrameworkIdentifier>.NETCoreApp</TargetFrameworkIdentifier>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Sandbox.Engine">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Event">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Event.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Game">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Game.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.Reflection">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Sandbox.System">
+      <HintPath>E:\SteamGames\SBox\bin\managed\Sandbox.System.dll</HintPath>
+    </Reference>
+    <Reference Include="SkiaSharp">
+      <HintPath>E:\SteamGames\SBox\bin\managed\SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Collections">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Linq">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Memory">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Runtime.InteropServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Json">
+      <HintPath>C:\Program Files\dotnet\shared\Microsoft.NETCore.App\6.0.2\System.Text.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblyInitialize.cs" />
+    <Compile Include="Microsoft\CodeAnalysis\EmbeddedAttribute.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sandbox\ClientDll.cs" />
+    <Compile Include="Sandbox\DownloadedAssets.cs" />
+    <Compile Include="Sandbox\FileRecv.cs" />
+    <Compile Include="Sandbox\NetworkClient.cs" />
+    <Compile Include="System\Runtime\CompilerServices\IsUnmanagedAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableAttribute.cs" />
+    <Compile Include="System\Runtime\CompilerServices\NullableContextAttribute.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

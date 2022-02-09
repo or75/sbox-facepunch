@@ -1,0 +1,23 @@
+﻿using System;
+
+namespace NativeEngine
+{
+	// Token: 0x02000271 RID: 625
+	internal enum TextureUsage
+	{
+		// Token: 0x0400118B RID: 4491
+		TEXTURE_USAGE_INVALID = -1,
+		// Token: 0x0400118C RID: 4492
+		TEXTURE_USAGE_DEFAULT,
+		// Token: 0x0400118D RID: 4493
+		TEXTURE_USAGE_STATIC,
+		// Token: 0x0400118E RID: 4494
+		TEXTURE_USAGE_SEMISTATIC,
+		// Token: 0x0400118F RID: 4495
+		TEXTURE_USAGE_DYNAMIC,
+		// Token: 0x04001190 RID: 4496
+		TEXTURE_USAGE_GPU_ONLY,
+		// Token: 0x04001191 RID: 4497
+		TEXTURE_USAGE_COUNT
+	}
+}
