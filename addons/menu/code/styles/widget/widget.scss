@@ -1,0 +1,136 @@
+
+
+.widget
+{
+	position: absolute;
+	left: 100px;
+	top: 100px;
+	min-height: 10px;
+	min-width: 10px;
+	pointer-events: all;
+	font-family: Roboto;
+	flex-direction: column;
+	pointer-events: none;
+	border-radius: 5px;
+
+	> .header
+	{
+		display: none;
+	}
+
+	.row
+	{
+		flex-grow: 1;
+		flex-direction: row;
+	}
+
+	.column
+	{
+		flex-direction: column;
+		flex-grow: 1;
+		flex-shrink: 0;
+		padding: 5px;
+		min-width: 80px;
+	}
+
+	.value
+	{
+		color: #0f0;
+		font-size: 15px;
+	}
+
+	.box
+	{
+		min-width: 100px;
+		align-items: flex-end;
+		padding: 5px 10px;
+
+
+		.value
+		{
+			flex-grow: 0.5;
+			text-align: right;
+			color: #82ce82;
+			font-family: Monospace;
+			text-shadow: 2px 2px 0px black;
+			font-weight: 500;
+		}
+
+		.unit
+		{
+			min-width: 30px;
+			text-align: left;
+			color: #306c30;
+			font-family: Poppins;
+			font-weight: bold;
+			font-size: 10px;
+			text-shadow: 2px 2px 0px black;
+		}
+	}
+
+	&.hidden
+	{
+		display: none;
+	}
+}
+
+.developermode .widget
+{
+	pointer-events: all;
+	cursor: move;
+	background-color: rgba( #000, 0.97 );
+}
+
+.widget .chart
+{
+	flex-direction: row;
+	align-items: flex-end;
+	mix-blend-mode: lighten;
+	pointer-events: none;
+	padding: 10px;
+
+	.bar
+	{
+		flex-grow: 1;
+		background-color: #306c30aa;
+		margin-right: 1px;
+		pointer-events: none;
+
+		&.poor
+		{
+			background-color: #5d6c30aa;
+		}
+
+		&.bad
+		{
+			background-color: #93782caa;
+		}
+
+		&.shit
+		{
+			background-color: red;
+		}
+	}
+}
+
+.performance-widget
+{
+	height: 64px;
+	width: 96px;
+	padding: 10px 0;
+	.box
+	{
+		flex-grow: 1;
+	}
+}
+
+.performancechart-widget
+{
+	height: 64px;
+	width: 256px;
+
+	.chart
+	{
+		flex-grow: 1;
+	}
+}

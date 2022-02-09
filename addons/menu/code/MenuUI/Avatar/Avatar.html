@@ -1,0 +1,45 @@
+
+<root class="avatar-editor fill-screen">
+
+	<div class="sidebar">
+		<div class="sidebar-inner">
+			<div class="section" @ref="Categories">
+				<text class="section-header">Editing Appearance</text>
+			</div>
+
+			<div class="spacer">
+
+				<text @ref="DebugText" style="color: white;"></text>
+
+			</div>
+
+			<div class="section">
+				<button class="is-primary apply-button" onclick="SaveChanges()">Save Changes</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="create-game sidebar is-secondary">
+
+		<div class="sidebar-inner">
+			<div class="section">
+				<text class="section-header" @text="SectionTitle"></text>
+			</div>
+
+			<VirtualScrollPanel item-height="113" item-width="113" auto-columns="1" class="clothing" @ref="Options"> 
+
+			</VirtualScrollPanel>
+
+		</div>
+
+	</div>
+
+	<div class="canvas grow">
+		<ModelViewer @ref="ModelViewer">
+			<model src="models/avatareditorscene.vmdl" position="0 0 0"></model>
+			<light position="-100 100 150" radius="2000" falloff="0.1" color="0 200 300"></light>
+			<light position="70 -30 170" radius="2000" falloff="0.2"></light>
+		</ModelViewer> 
+	</div>
+
+</root>

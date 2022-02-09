@@ -1,0 +1,75 @@
+
+
+<div>
+	<navigator class="gamescreen navigator-body" @ref="Navigator">
+
+		<div class="sidebar is-vertical">
+			<div class="sidebar-inner">
+
+				<div class="section">
+
+					<div class="game-logo" @ref="GameLogo"></div>
+				
+					<div class="button org-button borderless" @ref="Org"></div>
+
+					<div class="rows">
+						<button @ref="FavouritesButton" class="favourite-button borderless" icon="favorite" @text="Package.Favourited"></button>
+						<div class="spacer"></div>
+						<button @ref="ThumbsUpButton" class="borderless thumb-button" icon="thumb_up" @text="Package.VotesUp" onclick="Rate( true )"></button>
+						<button @ref="ThumbsDownButton" class="borderless thumb-button" icon="thumb_down" @text="Package.VotesDown" onclick="Rate( false )"></button>
+					</div>
+
+				</div> 
+
+				<div class="section">
+					<text class="section-header">Player Counts</text>
+					<div class="rows">
+						<div class="player-counts">
+							<text @text="Package.UsersNow"></text>
+							<text>Now</text>
+						</div>					
+
+						<div class="player-counts">
+							<text @text="Package.UsersMonth"></text>
+							<text>30 Days</text>
+						</div>
+
+						<div class="player-counts">
+							<text @text="Package.UsersTotal"></text>
+							<text>Total</text>
+						</div>
+					</div>
+				</div>
+
+				<div @ref="RankingsPanel"></div>	
+
+				<div class="section">
+					<text class="section-header">Tags</text>
+					<div @ref="TagCanvas" class="tag-canvas"></div>
+				</div>			
+			
+				<div class="section">
+					<text class="section-header">Information</text>
+
+					<div @ref="InformationCanvas" class="information-canvas"></div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="canvas grow columns">
+
+			<div class="toolbar">
+				<navlink icon="home" href="~/home">Details</navlink>
+				<navlink icon="map" class="if-has-maps" href="~/maps">Maps</navlink>
+				<navlink icon="leaderboard" class="if-has-leaderboards" href="~/leaderboard">Leaderboard</navlink> 
+				<div class="spacer"></div>
+				<navlink icon="settings_applications" class="needs-edit" href="~/edit">Setup</navlink>
+			</div>
+
+			<div slot="navigator-canvas" class="grow"></div>
+		</div>
+		
+
+	</navigator>
+</div>

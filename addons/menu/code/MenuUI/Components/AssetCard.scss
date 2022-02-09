@@ -1,0 +1,70 @@
+
+AssetCard
+{
+	flex-grow: 1;
+	flex-direction: column;
+	cursor: pointer;
+	opacity: 1;
+	transition: transform 0.2s ease-out, opacity 0.2s linear;
+
+	&:intro
+	{
+		transform: scale( 0.9 );
+		opacity: 0;
+	}
+
+	.icon
+	{
+		background-position: center;
+		background-size: cover;
+		flex-grow: 1;
+		border-radius: 10px;
+		background-repeat: no-repeat;
+	}
+
+	.title
+	{
+		color: white;
+		font-size: 18px;
+		height: 23px;
+		margin-top: 8px;
+		padding-left: 10px;
+		font-family: Poppins;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+
+	.org
+	{
+		height: 20px;
+		opacity: 0.3;
+		color: white;
+		font-size: 11px;
+		padding-left: 10px;
+		font-family: Roboto;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+
+	.users-now
+	{
+		position: absolute;
+		top: 5px;
+		right: -4px;
+		color: white;
+		font-family: Poppins;
+		background-color: red;
+		border-radius: 5px 0 0 5px;
+		padding: 5px 10px;
+		box-shadow: -1px 2px 20px rgba( black, 0.7 );
+	}
+
+	&:hover
+	{
+		.icon
+		{
+			border: 3px solid #0094ffaa;
+			box-shadow: 0px 0px 30px #0094ff22;
+		}
+	}
+}

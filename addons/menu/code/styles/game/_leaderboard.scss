@@ -1,0 +1,42 @@
+.leaderboard
+{
+	.leaderboard-row
+	{
+		align-items: center;
+		white-space: nowrap;
+
+		> :first-child
+		{
+			width: 80px;
+			text-align: right;
+			margin-right: 20px;
+		}
+
+		.avatar
+		{
+			width: 25px;
+			height: 25px;
+			background-position: center;
+			background-size: cover;
+		}
+
+		.label
+		{
+			color: white;
+			padding: 5px 10px;
+			font-size: 16px;
+		}
+	}
+}
+
+
+.leaderboard .leaderboard-row.is-me
+{
+	background-color: $primary;
+}
+
+
+.leaderboard .leaderboard-row.is-friend
+{
+	background-color: rgba( $primary, 0.2 );
+}

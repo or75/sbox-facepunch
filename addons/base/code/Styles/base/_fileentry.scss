@@ -1,0 +1,23 @@
+.fileentry
+{
+	display: flex;
+
+	> .textentry
+	{
+		margin: 0px;
+		flex-grow: 1;
+		height: 100%;
+	}
+
+	> button
+	{
+		border-radius: 0;
+		min-height: 0;
+		flex-shrink: 0;
+
+		> .iconpanel
+		{
+			font-size: 15px;
+		}
+	}
+}

@@ -1,0 +1,154 @@
+HEADER
+{
+	DevShader = false;
+	CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+	Description = "Modern Multiblend Shader";
+	Version = 1;
+}
+
+//=========================================================================================================================
+
+MODES
+{
+	VrForward();
+
+	Depth( "vr_depth_only.vfx" ); 
+
+	ToolsVis( S_MODE_TOOLS_VIS );
+	ToolsWireframe( "vr_tools_wireframe.vfx" );
+	ToolsShadingComplexity( "vr_tools_shading_complexity.vfx" );
+
+	Reflection( "high_quality_reflections.vfx" );
+}
+
+//=========================================================================================================================
+
+FEATURES
+{
+    #include "common/features.hlsl"
+
+    // 5 layers puts too much pressure into registers, I'm keeping it to 4 but modders can experiment with it
+    Feature( F_MULTIBLEND, 0..3 ( 0="1 Layers", 1="2 Layers", 2="3 Layers", 3="4 Layers", 4="5 Layers" ), "Number Of Blendable Layers" );
+	Feature( F_USE_TINT_MASKS_IN_VERTEX_PAINT, 0..1, "Use Tint Masks In Vertex Paint" );
+	
+	Feature( F_HIGH_QUALITY_REFLECTIONS, 0..1, "Rendering" );
+}
+
+//=========================================================================================================================
+
+COMMON
+{
+	#define ENABLE_BINDLESS_RUNTIME
+	#define S_GGX_SHADING 1
+	#define S_SPECULAR 1
+	#define S_METALNESS_TEXTURE 0
+	#define S_SPECULAR_CUBE_MAP 1
+	#define S_TRANSLUCENT 0
+	#define S_ALPHA_TEST 0
+	#define BLEND_MODE_ALREADY_SET
+	#define VS_INPUT_HAS_TANGENT_BASIS 1
+	#define PS_INPUT_HAS_TANGENT_BASIS 1
+
+	#include "common/shared.hlsl"
+}
+
+
+//=========================================================================================================================
+
+struct VertexInput
+{	
+	float4 vColorBlendValues : TEXCOORD4 < Semantic( VertexPaintBlendParams ); >;
+	float4 vColorPaintValues : TEXCOORD5 < Semantic( VertexPaintTintColor ); >;
+	#include "common/vertexinput.hlsl"
+};
+
+//=========================================================================================================================
+
+struct PixelInput
+{
+	float4 vBlendValues		 : TEXCOORD14;
+	float4 vPaintValues		 : TEXCOORD15;
+	#include "common/pixelinput.hlsl"
+};
+
+//=========================================================================================================================
+
+VS
+{
+	#include "common/vertex.hlsl"
+
+	BoolAttribute( VertexPaintUI2Layer, F_MULTIBLEND == 1 );
+	BoolAttribute( VertexPaintUI3Layer, F_MULTIBLEND == 2 );
+	BoolAttribute( VertexPaintUI4Layer, F_MULTIBLEND == 3 );
+	BoolAttribute( VertexPaintUI5Layer, F_MULTIBLEND == 4 );
+	BoolAttribute( VertexPaintUIPickColor, true );
+
+	BoolAttribute( UsesHighQualityReflections, ( F_HIGH_QUALITY_REFLECTIONS > 0 ) );
+
+	//
+	// Main
+	//
+	PS_INPUT MainVs( INSTANCED_SHADER_PARAMS( VS_INPUT i ) )
+	{
+		PS_INPUT o = VS_SharedStandardProcessing( i );
+
+		o.vBlendValues = i.vColorBlendValues;
+        o.vPaintValues = i.vColorPaintValues;
+
+		return VS_CommonProcessing_Post( o );
+	}
+}
+
+//=========================================================================================================================
+
+PS
+{
+	//
+	// Combos
+	//
+	StaticCombo( S_MULTIBLEND, F_MULTIBLEND, Sys( PC ) );
+    StaticCombo( S_USE_TINT_MASKS_IN_VERTEX_PAINT, F_USE_TINT_MASKS_IN_VERTEX_PAINT, Sys( PC ) );
+
+	StaticCombo( S_HIGH_QUALITY_REFLECTIONS, F_HIGH_QUALITY_REFLECTIONS, Sys( PC ) ); // Indicate that Shader supports high quality reflections
+
+	//
+	// Includes
+	//
+    #include "common/pixel.hlsl"
+    #include "common/pixel.blend.hlsl"
+
+	RenderState( BlendEnable,  false );
+	RenderState( SrcBlend, ONE );
+	RenderState( DstBlend, ZERO );
+
+	//
+	// Main
+	//
+	PixelOutput MainPs( PixelInput i )
+	{
+		//
+		// Set up materials
+		//
+		float2 vUV = i.vTextureCoords.xy;
+
+		Material material = ToMaterialMultiblend( vUV, i );
+        
+		//
+		// Vertex Painting
+		//
+		#if( S_USE_TINT_MASKS_IN_VERTEX_PAINT )
+		{
+			material.Albedo = lerp( material.Albedo, material.Albedo * i.vPaintValues, material.TintMask );
+		}
+		#else
+		{
+			material.Albedo = material.Albedo * i.vPaintValues;
+		}
+		#endif
+		
+        //
+		// Write to final combiner
+		//
+		return FinalizePixelMaterial( i, material );
+	}
+}

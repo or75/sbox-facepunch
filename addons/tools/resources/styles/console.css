@@ -1,0 +1,113 @@
+ConsoleWidget 
+{
+	background-color: rgb(20, 21, 22);
+}
+
+ConsoleWidget #Output
+{
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+	background-color: #171819;
+	padding: 0px;
+	margin-bottom: 4px;
+}
+
+ConsoleWidget QPushButton
+{
+	qproperty-iconSize: 17px;
+}
+
+ConsoleWidget QPushButton, ConsoleWidget QLineEdit
+{
+	background-color: #1c1d1e;
+	height: 25px;
+	padding: 1px;
+	margin: 0px;
+	min-height: 30px;
+	border-radius: 0px;
+}
+
+ConsoleWidget QPushButton:hover, ConsoleWidget QLineEdit:hover
+{
+	background-color: #2c2d2e;
+}
+
+ConsoleWidget QLineEdit
+{
+	padding-left: 10px;
+}
+
+ConsoleWidget QLineEdit:focus
+{
+	background-color: rgb(70, 81, 95);
+	color: white;
+}
+
+ConsoleWidget #Output, ConsoleWidget QLineEdit
+{
+	font-size: 11px;
+	font-family: "Roboto Mono";
+	font-weight: 500;
+}
+
+QComboBox 
+{
+    border: 1px solid #222;
+    border-radius: 3px;
+
+    min-width: 6em;
+
+	background: #444;
+	color: #bbb;
+	min-height: 22px;
+
+	background-color: QLinearGradient( x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #505052, stop: 0.2 #404043, stop: 0.8 #404043, stop: 1.0 #3a3a3d );
+}
+
+QComboBox::drop-down 
+{
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 22px;
+
+    border-left-width: 1px;
+    border-left-color: #333;
+    border-left-style: solid; /* just a single line */
+    border-top-right-radius: 3px; /* same radius as the QComboBox */
+    border-bottom-right-radius: 3px;
+}
+
+QComboBox::down-arrow 
+{
+	image: url( "toolimages://image/tree-open.png");
+}
+
+QComboBox QAbstractItemView
+{
+    border: 1px solid #222;
+	background-color: #444;
+    selection-background-color: #3C6CB4;
+	spacing: 8px;
+}
+
+QComboBox QAbstractItemView::item, QComboBox
+{
+    padding: 0px 8px;
+	min-height: 22px;
+	margin: 0px;
+	image-position:top;
+}
+
+QComboBox QAbstractItemView::item:selected
+{
+	background-color: rgb(57, 107, 182);	
+	color: white;
+}
+
+QComboBox QAbstractItemView::icon
+{
+	background-color: red;
+	padding: 10px;
+	left: -3px;
+}

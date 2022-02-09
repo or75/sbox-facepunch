@@ -1,0 +1,39 @@
+
+<div class="gamesettingsummary form is-vertical">
+
+	<field>
+		<label>Title</label>
+		<control>
+			<textentry @value="Lobby.Title"></textentry>
+		</control>
+	</field>
+
+	<field>
+		<label>Max Players</label>
+		<control>
+			<SliderEntry @value="Lobby.MaxMembers" @max="Game.Config.MaxPlayers" @min="Game.Config.MinPlayers"></SliderEntry> 
+		</control>
+	</field>
+
+	<field>
+		<label>Joinable</label>
+		<control>
+			<select @value="Lobby.IsJoinable"></select>
+		</control>
+	</field>
+
+	<field>
+		<label>Visibility</label>
+		<control>
+			<select @value="Lobby.Access"></select>
+		</control>
+	</field>
+
+	<field>
+		<label>Map</label>
+		<control>
+			<MapButton @GamePackage="Game" @value="Lobby.Map"></MapButton>
+		</control>
+	</field>
+	
+</div>

@@ -1,0 +1,71 @@
+
+<link rel="stylesheet" href="DevCamSettings.scss">
+
+<div class="dof-settings">
+	<text class="title">Depth Of Field</text>
+
+	<div class="dof-row">
+		<checkbox @checked="DofEnabled">Depth Of Field</checkbox>
+	</div>
+
+	<div class="dof-row">
+		<checkbox @checked="DofCoC">Blur Circle Of Confusion</checkbox>
+	</div>
+
+	<div class="dof-row">
+		<checkbox @checked="DofEdgeBleed">Edge bleeding</checkbox>
+	</div>
+
+	<div class="dof-row">
+		<div class="dof-label">
+			<text>Quality</text>
+		</div>
+		<div class="dof-value">
+			<SliderEntry min="0" max="2" step="1" @value="DofQuality"></SliderEntry>
+		</div>
+	</div>
+
+	<div class="dof-row">
+		<div class="dof-label">
+			<text>Radius</text>
+		</div>
+		<div class="dof-value">
+			<SliderEntry min="0.0" max="16.0" step="0.001" @value="DofRadius"></SliderEntry>
+		</div>
+	</div>
+
+	<div class="dof-row">
+		<div class="dof-label">
+			<text>F-Stop</text>
+		</div>
+		<div class="dof-value">
+			<SliderEntry min="0.0" max="16.0" step="0.001" @value="DofFStop"></SliderEntry>
+		</div>
+	</div>
+
+	<div class="dof-row">
+		<div class="dof-label">
+			<text>Focal Length</text>
+		</div>
+		<div class="dof-value">
+			<SliderEntry min="1.0" max="300.0" step="0.01" @value="DofFocalLength"></SliderEntry>
+		</div>
+	</div>
+
+	<div class="dof-row">
+		<div class="dof-label">
+			<div class="splitter">
+				<div class="left">
+					<text>Focal Point</text>
+				</div>
+				<div class="right">
+					<button icon="colorize" @ref="SaveButton" onclick="PickFocalPoint()"></button>
+				</div>
+			</div>
+		</div>
+		<div class="dof-value">
+			<SliderEntry min="0" max="10000" step="1" @value="DofFocalPoint"></SliderEntry>
+		</div>
+	</div>
+
+</div>

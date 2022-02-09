@@ -1,0 +1,20 @@
+
+
+.scissored
+{
+	border: 2px solid red;
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	margin: 10px;
+}
+
+.content
+{
+	background-color: green;
+	width: 200px;
+	height: 200px;
+	background-image: url( /ui/tests/background.png );
+	background-size: cover;
+	background-position: center center;
+}

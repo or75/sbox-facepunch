@@ -1,0 +1,213 @@
+@import "_stacktrace.scss";
+
+.propertysheet
+{
+	flex-grow: 1;
+	flex-direction: column;
+	font-family: Roboto;
+
+	.form
+	{
+		flex-grow: 1;
+		overflow: scroll;
+
+		.field-header
+		{
+			> .iconpanel
+			{
+				font-size: 20px;
+				margin-right: 10px;
+				color: $blue;
+			}
+
+			> .label
+			{
+				font-size: 13px;
+				font-weight: bolder;
+			}
+
+			background-color: rgba( $control, 0.5 );
+			padding: 10px;
+			align-items: center;
+			flex-shrink: 0;
+		}
+
+		 .field
+		{
+			padding: 0;
+			flex-shrink: 0;
+			background-color: $control;
+			margin-bottom: 0px;
+			padding-bottom: 3px;
+			padding-top: 3px;
+			padding-right: 8px;
+			border-radius: 0;
+			font-size: 11px;
+			border-bottom: 1px solid rgba( black, 0.3 );
+			border-right: 1px solid rgba( black, 0.3 );
+			border-top: 1px solid rgba( $control-light, 0.2 );
+			border-left: 1px solid rgba( $control-light, 0.1 );
+
+			.disabled
+			{
+				opacity: 0.5;
+				pointer-events: none;
+			}
+
+			> .label
+			{
+				width: 130px;
+				flex-shrink: 0;
+				padding: 0;
+				justify-content: flex-start;
+				align-items: flex-start;
+				margin-right: 10px;
+				margin-left: 10px;
+				padding-top: 6px;
+				font-size: 11px;
+				color: #fff;
+				font-weight: bold;
+				white-space: nowrap;
+				overflow: hidden;
+			}
+
+			> .control
+			{
+				flex-shrink: 1;
+				flex-grow: 1;
+				padding: 0px;
+
+				> textentry
+				{
+					background-color: $control-dark;
+					border: 1px solid #050505;
+					border-radius: 2px;
+					align-items: center;
+					
+					min-height: 0;
+					margin: 0px;
+					color: $control-text;
+					font-weight: normal;
+
+					.content-label, .placeholder
+					{
+						padding: 0px 5px;
+					}
+
+					&:hover
+					{
+						border: 1px solid $control-highlight;
+						background-color: $control-dark;
+					}
+
+					&:focus
+					{
+						border: 1px solid $control-highlight;
+						background-color: $control-dark;
+					}
+				}
+
+				> .textentry, .button
+				{
+					height: 22px;
+				}
+
+				dropdown, .button
+				{
+					background: linear-gradient( to top, $control-light, $control);
+					border: 1px solid #050505;
+					border-radius: 3px;
+					padding: 4px 8px;
+					margin: 0px;
+					color: #fff;
+					box-shadow: 1px 1px 10px rgba( black, 0.4 );
+					font-weight: normal;
+
+					.dropdown_indicator
+					{
+						font-size: 17px;
+						right: 4px;
+						top: 0px;
+						bottom: 0px;
+						align-items: center;
+					}
+
+					&:hover
+					{
+						background-color: $control-light;
+						border: 1px solid #888;
+					}
+
+					&:focus
+					{
+						border: 1px solid transparent;
+					}
+				}
+
+				.colorproperty
+				{
+					flex-grow: 1;
+					padding: 0;
+					align-items: center;
+
+					> .textentry
+					{
+						flex-grow: 1;
+						align-items: center;
+					}
+
+					> .colorsquare
+					{
+						left: 0;
+						border-radius: 100px;
+					}
+				}
+
+				.checkbox
+				{
+					align-items: center;
+					flex-grow: 1;
+
+					> .checkmark
+					{
+						padding: 1px;
+						font-size: 13px;
+						border: 1px solid #111;
+						background-color: $control-dark;
+						border-radius: 4px;
+						text-align: center;
+						justify-content: center;
+						align-items: center;
+						color: transparent;
+						min-height: 16px;
+						margin-right: 10px;
+						pointer-events: none;
+						font-weight: bold;
+					}
+
+					&.checked
+					{
+						> .checkmark
+						{
+							color: $blue;
+							background-color: $control-dark;
+						}
+					}
+
+					.dropdown_indicator
+					{
+						font-size: 17px;
+						right: 4px;
+						top: 0px;
+						bottom: 0px;
+						align-items: center;
+					}
+
+					&:hover
+					{
+					}
+				}
+			}
+		}
+	}
+}

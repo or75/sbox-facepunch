@@ -1,0 +1,44 @@
+
+
+.avatar-editor
+{
+	> .canvas
+	{
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		top: 0;
+		display: flex;
+		flex-direction: column;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+
+		ModelViewer
+		{
+			flex-grow: 1;
+			background-color: #888;
+		}
+	}
+}
+
+
+.clothing
+{
+	display: flex;
+	flex-grow: 1;
+	overflow: scroll;
+	flex-direction: column;
+
+	.cell
+	{
+		padding: 5px;
+
+		.button
+		{
+			width: 100px;
+			height: 100px;
+		}
+	}
+}

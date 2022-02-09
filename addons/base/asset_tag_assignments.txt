@@ -1,0 +1,6901 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	assets = 
+	[
+		{
+			asset = "config/clothing.asset.jpg"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "config/decal.asset.jpg"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "config/sound.asset.jpg"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "config/surface.asset.jpg"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "debug/debugempty.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/panorama_world_panel_default.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/panorama_world_panel_hint_ui.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/panorama_world_panel_lit_default.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/panorama_world_panel_lit_no_backface.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/panorama_world_panel_lit_no_depth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/panorama_world_panel_lit_opaque.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/panorama_world_panel_no_backface.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/panorama_world_panel_no_depth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/panorama_world_panel_opaque.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/point_worldtext_default.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/point_worldtext_fullbright.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/avi/renderavi.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/helper/reflectivity_90b.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/helper/testgrid.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "dev/helper/testgrid_morph.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/vgui/materials/renderui.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "dev/vgui/materials/renderui_stencilmask.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/error.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/dev/autocompile_dummy.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/dev/cornell_box.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/dev/lighting_test_scenes.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/dev/postprocess_base.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/dev/preview_flat.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/dev/preview_phys_zoo.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/editor/toolscene_default.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/editor/toolscene_lighting_basic_interior.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/editor/toolscene_lighting_basic_interior_factory.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/editor/toolscene_lighting_basic_overcast.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/editor/toolscene_lighting_basic_sunny.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/editor/toolscene_lighting_basic_sunset.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/editor/toolscene_lighting_dark.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/editor/toolscene_lighting_studio.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_basic_interior.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_basic_interior_factory.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_basic_overcast.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_basic_sunny.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_basic_sunset.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_dark.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_default.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_night.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_studio.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_sunny_01.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_sunny_02.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_sunny_03.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_sunset.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/prefabs/environments/environment_workshop.vmap"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "maps/templates/basic_setup.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/templates/empty_box.vmap"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "maps/test/scale.vmap"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "maps/tilesets/bollard_01a_tileset.vmap"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "maps/tilesets/catwalk_01a_tileset.vmap"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "maps/tilesets/ceiling_office_01a_tileset.vmap"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "maps/tilesets/ladder_dev_tileset_01a.vmap"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "maps/tilesets/low_wood_fence_01a_tileset.vmap"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "maps/tilesets/metal_beam_01a_tileset.vmap"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "maps/tilesets/metal_fence_panel_01a_tileset.vmap"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "maps/tilesets/metal_railing_01a_tileset.vmap"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "materials/black_matte.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/console_background.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/console_background_vr.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/error.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/loading_background.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/loading_background_vr.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/startup_background.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools_postprocess_volume.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/architecture/tiles/brick_wall_large01a.vmat"
+			tag_ids = 
+			[
+				"wip",
+			]
+		},
+		{
+			asset = "materials/cable/cable_base_001.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/cable/cable_set_substation.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/cable/cable_set_vertcolor.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/cable/rope.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/cable/rope_shadowdepth.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/cables/cable_metal_wire_a_cable.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/concrete/damage/concrete_damage_edgecaps.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/concrete/damage/concrete_damage_edgefins.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/concrete/damage/concrete_damage_face.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/debug/debugempty.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/decals/blood-impact.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/blood-impact2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/blood1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/bloodstain_001.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/bullethole.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal-impact.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/molotovscorch.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/scorch1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/wood-impact.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/wood-impact2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/cardboard/cardboard1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/cardboard/cardboard2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/flesh/flesh1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/flesh/flesh1_green.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/flesh/flesh1_yellow.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/flesh/flesh2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/flesh/flesh2_green.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/flesh/flesh2_yellow.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal1_flipped_grazing.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal1_grazing.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal1_thin.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal2_grazing.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal2_thin.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal3.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal3_thin.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal4.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/metal/metal4_thin.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/plaster/plaster1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/plaster/plaster2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/rubber/rubber1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/rubber/rubber2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/rubber/rubber3.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decals/rubber/rubber4.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decaltests/dirt_rocks_decal.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/decaltests/prison_card_grunge_01.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/decaltests/runtime_decal_material.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/default/vertex_color.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/default/white.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/deferred_fog/fog_apply.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_fog/ground_fog_accumulate.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_lights/envmaplight.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_lights/pointlight.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_lights/spotlight.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_lights/spotlight_shadowed.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_lights/spotlight_volumeshadowed.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_lights/ssao_med.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_lights/ssao_med_alpha_blend.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_lights/ssao_strong.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/deferred_lights/sunlight.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/basement_tarp.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/basement_wires.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/bicubicfilter_alphablended.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/bicubicfilter_invalphablended.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/black_cheap.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/black_grid_8.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/black_nonsolid.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/black_unlit.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/black_unlit_no_fog.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/black_vr.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/bloom.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/blur.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/bright_10.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/bright_100.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/color_purple.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/combine_colorcorrection_lut_cs.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/convolve_environment_map.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/cs_mipgen.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/cs_surface_interactions.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/cs_surface_interactions_npcs.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/cs_volumetric_fog.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_cloth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_ghost_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_nav.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_nav_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_nav_wireframe.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_physics.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_physics_noedges.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_physics_seethrough.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_physics_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_physics_translucent_seethrough.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_physics_wireframe.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_show_texture.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_solid.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_sunshadow_vis.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_ui.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_ui_alphatexture.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_wireframe.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debug_wireframe_2d.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/debugoverlay_wireframe.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/default_sky.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/deferredfogtonemapsrgb.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/deferredshading.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/deferredupsampleindirect.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/dev_grating.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_hotspot_layout01.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_measuredoor01.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_measuredoor01_vr.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_measuredoor_112.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_measuregeneric01.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_measuregeneric01b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_measurewall_112.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_measurewall_128x112.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_measurewall_96x112.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough00.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough10.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough100.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough20.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough30.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough40.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough50.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough60.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough70.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough80.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_metal_rough90.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough00.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough10.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough100.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough20.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough30.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough40.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough50.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough60.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough70.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough80.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/dev_nonmetal_rough90.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/downsample.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/downsample_depth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/fake_sky.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/dev/fake_sky_cold.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/dev/fake_sky_warm.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/dev/gaussian_bloom_blur.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/gaussian_bloom_blur_cs.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/generalfilter.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/generalfilter_additive.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/generalfilter_alphablended.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/generalfilter_premultipliedalphablend.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/generalfilter_vertextinted_alphablended.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/generate_decal_normals.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/glowproperty.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/gray_25.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/gray_50.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/gray_75.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/gray_grid_4.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/gray_grid_8.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/green.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/handpose_helper.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/hdrpostprocessing.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/houmat_template.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/impostor_cubemap_depth_clear.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/mirrortest.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/morphcomposite.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/msaa_resolve.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/msaa_resolve_cs.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/noillum_primary_green.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/normal_test.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/occluder_visualization.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/occluderdepthoverlay.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/occlusionproxy.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/occlusionproxy_countdraw.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/occlusionproxy_debugdraw.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/paintpostprocessing.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/player_hand_bubble.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/player_head_bubble.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/post_process.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/primary_black.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_blue.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_cyan_emissive.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_green.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_green_additive.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_red.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_red_additive.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_white.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_white_emissive.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_white_emissive_trans.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_white_trans.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_white_vertexcolor.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_white_vertexcolor_trans.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/primary_yellow_additive.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/red.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/red_vr.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_10.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_10b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_20.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_20b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_30.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_30_2sided.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_30_vr.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_30b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_40.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_40b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_50.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_50b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_60.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_60b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_70.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_70b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_70b_vr.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_80.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_80b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_90.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/reflectivity_90b.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/rendermicrobenchmark1.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/rendermicrobenchmark2.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/retina_burn_capture.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/roomwalls_white.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/scenetest_poolfloor.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/screenspacereflectionblur.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/screenspacereflections.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/sculpting_phong1.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/sfm_volumetrics_frustum.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/skin3_phong1.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/sky_camera.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/sky_helper.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/spheretest.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/spritecard.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/spritecard_lighten.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/spritecard_mod2x.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/spritecard_nonzbuffered.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/spritecard_nonzbuffered_mod2x.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/spritecard_revzbuffered.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/spritecard_revzbuffered_mod2x.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/ssao_blur.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/ssao_convert_depth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/ssao_downsample_depth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/ssao_scalable_ao.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/static_overlay_test.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/target_circle.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/teleport_path.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/tonemap_and_gamma_correct.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/tonemap_query.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/tools_2d_generic.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/visualize_depth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/visualize_quad_overdraw.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/volumetric_fog_apply.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/volumetric_fog_create_density.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/volumetric_fog_integrate.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/vr_func_combine_monitor.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/vr_func_monitor.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/vr_func_monitor_clean.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/vr_perf_hud.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/vr_quality_vis.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/vr_stencil.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/vr_warp.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/yellow_vr.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/dev/hs/reflectivity_hs_10.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/hs/reflectivity_hs_20.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/hs/reflectivity_hs_30.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/hs/reflectivity_hs_40.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/hs/reflectivity_hs_50.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/hs/reflectivity_hs_60.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/hs/reflectivity_hs_70.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/hs/reflectivity_hs_80.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/hs/reflectivity_hs_90.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/dev/vrad3/lightmap_rasterize.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ai_attached_item_manager.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ai_goal_follow.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ai_goal_lead.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ai_goal_police.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ai_goal_standoff.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ai_relationship.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ai_sound.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/air_node.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/air_node_hint.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/aiscripted_schedule.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ambient_generic.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/areafootprint_border.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/assault_point.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/assault_rally.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/black_grid_8_doublesided.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/editor/bullseye.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/choreo_manager.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/choreo_scene.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/climb_node.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/color_correction.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/commentary_auto.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/cordon.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/dotted.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/enemyfinder.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ent_logic.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_cubemap.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_cubemap_fog.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_cubemap_model.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_dof_controller.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_explosion.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_fade.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_fire.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_firesource.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_fog_controller.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_gradient_fog.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_instructor_hint.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_microphone.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_particles.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_physexplosion.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_shake.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_shooter.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_sky.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_sky_atmosphere.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_soundscape.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_spark.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_tonemap_controller.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/env_wind.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/filter_class.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/filter_multiple.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/filter_name.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/filter_team.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/filter_type.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/fog_controller.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/fog_volume.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/fog_volume_controller.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/game_end.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/game_event_listener.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/game_text.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ghost_actor.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ghost_speaker.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/gibshooter.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/gizmoaxis.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/gizmorotatehandle.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/gizmoscalehandle.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/gizmotranslatehandle.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/grid_guide.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/editor/ground_node.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/ground_node_hint.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/hand_pose_active.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/hand_pose_default.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/hand_pose_inactive.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/haptic_relay.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/iconhelper_border.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_cull_triangles.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_game_event_proxy.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_gamemode.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_landmark.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_lighting.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_notepad.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_procedural_spawn_manager.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_procedural_spawn_subgroup.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_procedural_spawn_target.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_procedural_spawn_template.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_procedural_spawn_volume_distance_constraint.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_procedural_spawn_volume_tag_constraint.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_target.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_teleport_magnet.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_visibility_box.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/info_world_layer.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/light.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/light_env.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/light_importance_volume.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/lightmap_resolution.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/lightmapgrid.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_achievement.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_auto.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_autosave.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_branch.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_case.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_compare.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_counter.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_door_barricade.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_hands_up.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_multicompare.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_player_volume_tracker.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_random_outputs.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_relay.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_script.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/logic_timer.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/math_counter.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/multi_manager.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/multisource.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/node_hint.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/npc_maker.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/obsolete.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/phys_ballsocket.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/player_teleport.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/point_commentary_node.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/point_grabbable.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/point_template.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/point_text.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_bias_linetoplayer.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_constraint_subgroup_distance.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_constraint_target_facing_player.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_constraint_target_far_from_class.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_constraint_target_in_volume.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_constraint_target_near_entity.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_constraint_target_volume_distance.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_constraint_volume_volume_distance.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_var_entity.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/procspawn_var_volume.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/save_photogrammetry_anchor.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/scripted_sentence.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/shadow_control.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/snd_event.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/snd_opvar_set.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/tanktrain_ai.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/tanktrain_aitarget.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/trigger_relay.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/visibility_hint.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/editor/waterlodcontrol.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/effects/aerial_perspective_extinction.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/aerial_perspective_inscattering.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/aoproxy_splat.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/black.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/bloater_liquid_projected.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/bloater_liquid_projected_selfillum.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/blood_core.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/blood_drop.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/blood_gore.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/blood_puff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/bz_splat_01.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/bz_splat_02.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/cloud_alpha.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/ember_swirling001.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fade_to_black.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fire_cloud1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fire_cloud2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fire_embers1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fire_embers2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fire_embers3.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fleck_ash1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fleck_ash2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fleck_ash3.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fleck_glass1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fleck_glass2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fleck_tile1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/fleck_tile2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/gradient_circle.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/gradient_circle_additive.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/gradient_circle_overlay.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/gradient_half_circle.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/laser1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/light_glow_bright_green.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/light_glow_bright_green_non_additive.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/light_glow_bright_pink.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/light_glow_brighter_green.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/light_glow_red.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/light_glow_yellow.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/liquid_mod_projected.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/liquid_projected_selfillum.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/liquid_projected_selfillum_glow.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/liquid_projected_selfillum_glow_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/muzzleflash1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/muzzleflash1_noz.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/muzzleflash2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/muzzleflash2_noz.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/muzzleflash3.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/muzzleflash3_noz.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/muzzleflash4.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/muzzleflash4_noz.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/slime1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/spark.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/splash1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/splash2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/splash3.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/splash4.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/splashwake1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/sun_space_01.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/tesla_glow_noz.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/effects/unlit_additive_001.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/effects/unlit_nofog01.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/effects/vomit_liquid_projected.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/grass/grasstile.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/axis_helper.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/camera.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/cone_helper.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/cordon_helper.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/info_target_mesh.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/omni.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/ortho.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/overlay_helper.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/player_start.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/player_start_tint.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/point_aimat.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/models/editor/proxy_helper.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/models/editor/scripted_sequence.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/spot.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/spot_cone.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/sun.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/editor/unused/orange.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/models/solids/black.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/panorama/panorama.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/panorama/panorama_cs.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/panorama/panorama_fancyquad.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/panorama/panorama_fancyquad_cs.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particle/base_projected.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/bullet_hole_glow.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/cable_combinecable_01.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/cable_combinecable_02.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/cable_combinecable_02_static.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/cable_metal_01.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/cable_rope_01.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_scan_darken_skin_override.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_scan_darken_skin_override_2.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_scan_skin_override.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_scan_skin_vortessence_override.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_scan_swim_skin_override.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_skin_override.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_skin_override_scan.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_skin_override_scan_dark.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_skin_override_scane.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/gravity_glove_skin_vort_override.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/hologram_generic.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/hologram_generic_hole.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/hologram_generic_horizontal_lines.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/hologram_generic_simple.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/hologram_hack_try_sphere.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/hologram_hand.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/item_interpentrate_skin_1.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/item_interpentrate_skin_2.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/particles/lightbeams.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/model_liquid.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/model_liquid_brown_alpha.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/model_liquid_colored.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/model_liquid_colored_alpha.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/model_liquid_tintable.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/model_liquid_yellow_alpha.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/model_liquid_yellow_brown_alpha.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/particle_noisesphere.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/particle_smokegrenade.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/particle_smokegrenade1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/ring_projected.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/smokestack.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/vault_ghost.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/cable/cable001.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/cable/generic_shiny_cable.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/cables/antlion_spit_cable.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/cables/barnacle_tongue_material.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/cables/xen_tentacle_1.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/cables/xen_tentacle_2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/bean_explosion.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blob_antlion_goop.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blob_vort_energy.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blobulator_simple.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/bz_vomit_blob.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/bz_vomit_blob_2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/caustic_foam.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/caustic_foam2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/caustic_foam3.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/caustic_foam4.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/combine_shield_mounted_gun_plasma.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/combine_shield_plasma.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/hacking_sphere_fail_plasma.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/hacking_sphere_inner_node.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/liquid_spit_geo.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/plasma_generic.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/purple_gore_plasma.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/rapid_fire_plasma.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/rapid_fire_plasma_energized.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/rapid_fire_vort_energy.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/spore_plasma.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/blood_pool_01.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/blood_pool_02.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_0_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_10_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_11_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_12_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_13_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_14_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_15_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_16_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_17_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_18_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_19_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_1_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_20_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_21_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_22_0.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_22_0_triplanar.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_22_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_22_22_monochrome.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_22_22_monochrome_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_22_22_monochrome_emissive.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_22_22_monochrome_shiny_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_23_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_24_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_25_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_26_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_26_22_monochrome_mod_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_26_22_monochrome_shiny_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_27_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_28_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_29_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_29_22_monochrome_mod_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_29_22_monochrome_shiny_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_2_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_2_22_nospec.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_3_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_4_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_5_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_5_22_monochrome_liquid_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_5_22_monochrome_mod_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_5_22_monochrome_shiny_cutoff.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_5_22_monochrome_shiny_cutoff2.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_6_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_7_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_8_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/particles/fluids/blood_decals/fluid_spray_b_decals_9_22.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "materials/physics/flat_basic.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/physics/water.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/physics/wireframe_basic.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/physics/wireframe_hidden.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/postprocess/grain_lut_1.jpg"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/postprocess/passthrough.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/postprocess/standard_dof.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/postprocess/standard_pass1.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/postprocess/standard_pass2.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/postprocess/standard_pass3.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/rendertargetops/bilateral_blur_horz.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/rendertargetops/bilateral_blur_vert.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/rendertargetops/copydepth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/rendertargetops/reconstruct_normals.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/sbox_test/floor.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/sky/atmosphere_sky.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_dark.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_default.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_interior_basic.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_interior_basic_2.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_interior_studio_basic.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_default.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_night_basic.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_overcast.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_sunny.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_sunny02.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_sunny03.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_sunny_basic.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_sunset.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_sunset_2.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/light_test_sky_sunset_light.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/sky_model.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/skybox/skybox_workshop.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "materials/sprites/glow.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/sprites/light_glow02_add_noz.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/sun/overlay.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/climb.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/climb_versus.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/copy_texture_with_gamma.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/copy_to_backbuffer.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/draw_points_sizefromcode.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/encode_environment_map.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/fill_vertex_color.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/fill_vertex_color_nocull.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/fill_vertex_color_noz.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/fogvolume.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/grid_overlay.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/handle_circle.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_circle_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_cross.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_cross_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_diamond.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_diamond_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_edged_circle.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_edged_circle_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_edged_diamond.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_edged_diamond_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_generic.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_generic_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_ring.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_ring_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_square.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_square_ring.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_square_ring_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/handle_square_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/hlmv_ground.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/light_probe.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/modeldoc_default_mesh.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/preview_plane_mat.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/selection_outline.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/selection_overlay.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/selection_overlay_nocull.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/selection_stencil_copy.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/sfm_accumulation.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/sfm_hsl_grain.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/sfm_screen_texture_with_depth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/sfm_texture_plane.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_bent_normals.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_collision_geometry.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_collision_geometry_depthtest.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_collision_geometry_wire.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_collision_geometry_wire_nodepth.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_hitboxes.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_normals.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_skeleton.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_tangent_space.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/show_wireframe.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/skyvisblocker.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/static_overlay_base.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/static_overlay_helper.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/tools_func_occluder.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/tools_imageplane.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/tools_navarea.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/tools_spawn_volume.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsblack.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsblock_los.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsblockbullets.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsblocklight.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsblocksound.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsclip.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolscontrolclip.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsfog.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsinvisible.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsinvisibleladder.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolslightmapres.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolslightvolumeboundary.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsnavattribute.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsnavclip.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsnodraw.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsnodraw_bounce.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsnodraw_grate.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsnodraw_metal.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsnodraw_wood.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsnpcclip.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsoccluder.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsotherclip.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsplayerclip.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsprecipitation.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsskip.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsskybox.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolssolidblocklight.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolsteleportclip.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolstrigger.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/toolswhite.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/ui_material_preview_on_model.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/vertex_color_nocull.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/vertex_color_solid.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/vertex_color_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/vertex_color_translucent_noz.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/visblocker.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/tools/wireframe_dashed_noz.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/wireframe_vertex_color.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/wireframe_vertex_color_translucent.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/tools/wrongway.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/ui/backdropfilter.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/ui/blur.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/ui/cssbox.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/ui/cssshadow.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/ui/filter.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/ui/text.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vfxtest/cstest.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vfxtest/vis_cstest.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vgui/white.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vgui/white_additive.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vgui/white_alpha_only_no_stencil.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vgui/white_no_stencil.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vgui/hud/800corner1.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vgui/hud/800corner2.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vgui/hud/800corner3.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/vgui/hud/800corner4.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "materials/water/dev_water_00.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/water/water_pond_a.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "materials/water/water_temp.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/arrow.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/light_arrow.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/maya_testcube_100.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/room.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/cloth/cloth.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/dev/error.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/dev/gordon_at_desk.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/dev/materialforerrormodel.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/dev/mirror_normal_test.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/dev/playerstart_tint.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/dev/sphere.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/dev/new_model/new_model.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/dev/new_model/materials/new_model.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "models/editor/air_node.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/air_node_hint.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/arrow.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/axis_helper.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/axis_helper_thick.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/camera.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/climb_node.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/cone_helper.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/cordon_helper.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/env_cubemap.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/ground_node.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/ground_node_hint.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/info_target.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/iv_helper.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/node_hint.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/omni.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/ortho.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/overlay_helper.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/playerstart.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/proxy_helper.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/scripted_sequence.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/sky_camera.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/sky_helper.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/skybox_reference.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/spot.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/spot_cone.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/editor/sun.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/hammer/env_sea.vmdl"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "models/hands/alyx_hand_left.vmdl"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "models/hands/alyx_hand_left_conform.vmdl"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "models/hands/alyx_hand_right.vmdl"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "models/hands/alyx_hand_right_conform.vmdl"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "models/hands/vr_glove_scaffold.vmat"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "models/props/beam_railing_a/metal_beam_tileset_side_128.vmdl"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "models/props/beam_railing_a/metal_beam_tileset_top_128.vmdl"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "models/props/beam_railing_a/railing_connector_tileset_a.vmdl"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "models/props/beam_railing_a/railing_pillar_tileset_a.vmdl"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "models/props/beam_railing_a/railing_tileset_mid_a_64.vmdl"
+			tag_ids = 
+			[
+				"tileset",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gib_1.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gib_2.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gib_3.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs10.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs11.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs12.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs13.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs14.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs15.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs16.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs17.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs4.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs5.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs6.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs7.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs8.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/benches/old_bench_gibs9.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/cola_can/cola_can_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/concrete_barrier/concrete_barrier_gib1.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/concrete_barrier/concrete_barrier_gib2.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/concrete_barrier/concrete_barrier_gib3.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/concrete_barrier/concrete_barrier_gib4.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/concrete_barrier/concrete_barrier_gib5.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/concrete_barrier/concrete_barrier_gib6.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/concrete_barrier/concrete_barrier_gib7.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/concrete_barrier/concrete_barrier_gib8.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/gas_cylinder_fat/metal_gib_1.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/gas_cylinder_fat/metal_gib_2.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/gas_cylinder_fat/metal_gib_3.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/gas_cylinder_fat/metal_gib_4.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/gas_cylinder_tall/gas_cylinder_fat_gibs.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/gas_cylinder_tall/gas_cylinder_tall_gib_1.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/gas_cylinder_tall/gas_cylinder_tall_gibs.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/industrial_strip_light/industrial_strip_light_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/iron_fence/iron_fence_128_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/iron_fence/iron_fence_32_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/iron_fence/iron_fence_64_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/iron_fence/iron_fence_fence_post_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/lit_bollard/lit_bollard_top_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/low_wood_fence/low_wood_fence_beam_1_gib1.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/low_wood_fence/low_wood_fence_beam_1_gib2.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/low_wood_fence/low_wood_fence_support_1_gib1.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/low_wood_fence/low_wood_fence_support_1_gib2.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/metal_fences/metal_fence_gates/metal_fences_gate_right_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/parking_barrier/parking_barrier_gib1.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/parking_barrier/parking_barrier_gib2.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/parking_barrier/parking_barrier_gib3.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/parking_barrier/parking_barrier_gib4.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/parking_barrier/parking_barrier_gib5.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/parking_barrier/parking_barrier_gib6.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/parking_bollard/parking_bollard_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/railing/railing_gib.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib01.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib02.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib03.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib04.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib05.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib06.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib07.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib08.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib09.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib10.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib11.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib12.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/sbox_props/watermelon/watermelon_gib13.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/vr/auto_chap_model.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/vr/autochap_hand.vmat"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/vr/helper_safearea.vmdl"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "models/walls/elements/brick_wall_broken_a.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/walls/elements/brick_wall_broken_base_a.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/walls/elements/brick_wall_debris_big_a.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/walls/elements/brick_wall_debris_big_b.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/walls/elements/brick_wall_debris_medium_a.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/walls/elements/brick_wall_debris_small_a.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/walls/elements/brick_wall_debris_small_b.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "models/walls/elements/brick_wall_debris_small_c.vmdl"
+			tag_ids = 
+			[
+				"debris",
+			]
+		},
+		{
+			asset = "particles/beams/default_beam.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/default_break_particles.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_attachpoint_effect.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_cables_preview.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_cables_preview_material.vmat"
+			tag_ids = 
+			[
+				"fx_assets",
+			]
+		},
+		{
+			asset = "particles/dev/dev_cables_snapshot.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_hitboxes_effect.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_preview_sequence_alpha_effect.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_preview_sequence_color_effect.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_preview_sequence_effect.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_snapshot_preview_rope.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_snapshot_preview_sprites_skinned.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_snapshot_preview_trails.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_snapshot_preview_trails_skinned.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/dev/dev_texture_effect.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/entity/player_teleport_sparks.vpcf"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "particles/entity/rope_segment.vpcf"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "particles/error/error.vpcf"
+			tag_ids = 
+			[
+				"editor",
+			]
+		},
+		{
+			asset = "particles/testsystems/feathertest.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/testsystems/test_cross_product.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "particles/testsystems/test_endcap_freeze.vpcf"
+			tag_ids = 
+			[
+				"tools",
+			]
+		},
+		{
+			asset = "textures/hdr/autumn_park_2k.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "textures/hdr/interior_autoshop_01_2k.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "textures/hdr/interior_room_2k.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "textures/hdr/kloppenheim_03.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "textures/hdr/studio_small_04_2k.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "textures/hdr/sunflowers_2k.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+		{
+			asset = "textures/hdr/wooden_lounge_2k.vmat"
+			tag_ids = 
+			[
+				"skybox",
+			]
+		},
+	]
+}

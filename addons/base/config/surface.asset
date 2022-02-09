@@ -1,0 +1,43 @@
+//
+// Sandbox.Surface+ImpactEffectData
+//
+@struct = Sandbox_Surface_ImpactEffectData
+[
+	regular(array:resource:vpcf) : "Regular" :  : "Spawn one of these particles on impact."
+	bullet(array:resource:vpcf) : "Bullet" :  : "Spawn one of these particles when hit by a bullet."
+	bulletdecal(array:string) { editor = "AssetBrowse(decal)" } : "Bullet Decal" :  : "Use one of these as the bullet impact decal."
+]
+
+//
+// Sandbox.Surface+SoundData
+//
+@struct = Sandbox_Surface_SoundData
+[
+	footleft(sound) : "Foot Left" :  : ""
+	footright(sound) : "Foot Right" :  : ""
+	footlaunch(sound) : "Foot Launch" :  : ""
+	footland(sound) : "Foot Land" :  : ""
+	bullet(sound) : "Bullet" :  : ""
+	smoothscrape(sound) : "Smooth Scrape" :  : ""
+	roughscrape(sound) : "Rough Scrape" :  : ""
+	impacthard(sound) : "Impact Hard" :  : ""
+	impactsoft(sound) : "Impact Soft" :  : ""
+]
+
+//
+// Sandbox.Surface
+//
+@BaseClass = surface : "A physics surface. This is applied to each PhysicsShape and controls its physical properties and physics related sounds."
+[
+	basesurface(string) { editor = "AssetBrowse(surface)" } : "Base Surface" :  : "Fallback surface for empty fields on this surface."
+	description(string) : "Description" :  : "A concise description explaining what this surface property should be used for."
+	friction(float) { group = "Physics" min = 0 max = 1 } : "Friction" : "0.8" : ""
+	elasticity(float) { group = "Physics" min = 0 max = 1 } : "Elasticity" : "0.25" : ""
+	density(float) { group = "Physics" min = 0 max = 4000 } : "Density" : "2000" : ""
+	thickness(float) { group = "Physics" min = 0 max = 100 } : "Thickness" : "-1" : ""
+	dampening(float) { group = "Physics" min = 0 max = 100 } : "Dampening" : "0" : ""
+	bouncethreshold(float) { group = "Physics" min = 0 max = 100 } : "Bounce Threshold" : "40" : ""
+	impacteffects(struct:Sandbox_Surface_ImpactEffectData) : "Impact Effects" :  : ""
+	sounds(struct:Sandbox_Surface_SoundData) : "Sounds" :  : ""
+]
+

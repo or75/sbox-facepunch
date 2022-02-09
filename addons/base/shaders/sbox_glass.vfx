@@ -1,0 +1,255 @@
+HEADER
+{
+    CompileTargets = ( IS_SM_50 && ( PC ) );
+    Description = "Fancy Glass for sbox";
+    Version = 1;
+}
+
+MODES
+{
+    VrForward();
+    ToolsVis( S_MODE_TOOLS_VIS );
+    Depth( "vr_depth_only.vfx" );
+    ProjectionDepth( "vr_depth_only.vfx" );
+}
+
+FEATURES
+{
+    #include "vr_common_features.fxc"
+    Feature( F_GLASS_NORMAL_MAP, 0..1, "Glass Normal Map" );
+    Feature( F_GLASS_NOISE_REFRACT, 0..1, "Glass Noise Refraction" );
+    Feature( F_GLASS_BLUR, 0..1, "Glass Blur" );
+    Feature( F_GLASS_DIRT, 0..1, "Glass Dirt Maps" );
+}
+
+COMMON
+{
+    #include "system.fxc"
+    #include "vr_common.fxc"
+
+    #define F_FOG 1
+    #define F_LIT_FOG 1
+    #define F_FOG_GRADIENT 1
+
+    #define S_TRANSLUCENT 1
+    #define S_SPECULAR 1
+    #define S_SPECULAR_CUBE_MAP 1
+    #define BLEND_MODE_ALREADY_SET
+}
+
+struct VS_INPUT
+{
+    #include "vr_shared_standard_vs_input.fxc"
+};
+
+struct PS_INPUT
+{
+    #include "vr_shared_standard_ps_input.fxc"
+};
+
+VS
+{
+    #include "vr_shared_standard_vs_code.fxc"
+
+    DynamicCombo( D_MULTIVIEW_INSTANCING, 0..1, Sys( PC ) );
+
+    PS_INPUT MainVs( INSTANCED_SHADER_PARAMS( VS_INPUT i ) )
+    {
+        PS_INPUT o = VS_SharedStandardProcessing( i );
+        o.vVertexColor.rgb = lerp( float3( 1.0, 1.0, 1.0 ), o.vVertexColor.rgb, g_flModelTintAmount );
+        return o;
+    }
+}
+
+PS
+{
+    #include "vr_shared_standard_ps_code.fxc"
+
+    // Glass Color Settings
+    float4 g_vInnerColor < Default4( 0.36f, 0.56f, 0.74f, 1.0F ); UiType( Color ); UiGroup( "Glass,10/Color,10/1" ); >;
+    float4 g_vOuterColor < Default4( 0.85f, 0.86f, 0.97f, 1.0f ); UiType( Color ); UiGroup( "Glass,10/Color,10/2" ); >;
+    CreateInputTexture2D( TextureRoughness,        Linear, 8, "",                 "_rough",  "Glass,10/Color,10/3", Default( 0.1f ) );
+    CreateInputTexture2D( TextureMetalness,        Linear, 8, "",                 "_metal",  "Glass,10/Color,10/4", Default( 0.0f ) );
+
+    // Glass color fresnel
+    float g_flColorExponent< Default( 5.0f ); Range(0.0f, 16.0f); UiGroup( "Glass,10/Color Exponent,10/1" ); >;
+    float g_flColorReflectance< Default( 0.1f ); Range(0.0f, 2.0f); UiGroup( "Glass,10/Color Exponent,10/2" ); >;
+
+    // Refraction settings
+    float g_flRefractScale< Default( 7.0f ); Range(-32.0f, 32.0f); UiGroup( "Glass,10/Refraction,10/1" ); >;
+    float g_flExponent< Default( 4.0f ); Range(0.0f, 16.0f); UiGroup( "Glass,10/Refraction,10/2" ); >;
+    float g_flReflectance< Default( 0.0f ); Range(0.0f, 2.0f); UiGroup( "Glass,10/Refraction,10/3" ); >;
+    float g_flInnerRefraction< Default( 0.36f ); Range(0.0f, 2.0f); UiGroup( "Glass,10/Refraction,10/4" ); >;
+    float g_flOuterRefraction< Default( 2.0f ); Range(0.0f, 2.0f); UiGroup( "Glass,10/Refraction,10/5" ); >;
+    float g_flEmissionBoost< Default( 1.0f ); Range( 0.0f, 2.0f ); UiGroup( "Glass,10/Refraction,10/6" ); >;
+    float g_flGlassZoom< Default( 0.5f ); Range( 0.3f, 0.7f ); UiGroup( "Glass,10/Refraction,10/7" ); >;
+
+    float g_flOpaqueness < Default( 0.0 ); Range( 0.0, 1.0 ); UiGroup( "Translucent" ); >;
+
+    StaticCombo( S_GLASS_BLUR, F_GLASS_BLUR, Sys( PC ) );
+    #if (S_GLASS_BLUR)
+        float g_flBlurAmount< Default( 10.0f ); Range( 0.0f, 32.0f ); UiGroup( "Glass,10/Refraction,10/8" ); >;
+    #endif
+
+    // Automatically populate FrameBufferCopyTexture during the translucent pass
+    BoolAttribute( bWantsFBCopyTexture, true );
+    CreateTexture2D( g_tFrameBufferCopyTexture ) < Attribute( "FrameBufferCopyTexture" ); SrgbRead( false ); Filter( MIN_MAG_MIP_LINEAR ); >;
+
+    // Merge our roughness and metalness into a single texture
+    CreateTexture2D( g_tRm )    < Channel( R,    Box( TextureRoughness ), Linear ); Channel( G, Box( TextureMetalness ), Linear ); OutputFormat( BC7 ); SrgbRead( false ); >;
+    
+    // Normal Map
+    StaticCombo( S_GLASS_NORMAL_MAP, F_GLASS_NORMAL_MAP, Sys( PC ) );
+    #if (S_GLASS_NORMAL_MAP)
+        CreateInputTexture2D( TextureNormal,           Linear, 8, "NormalizeNormals", "_normal", "Glass,10/Color,10/5", Default3( 0.5, 0.5, 1.0 ) );
+        CreateTexture2DWithoutSampler( g_tNormal ) < Channel( RGBA, Box( TextureNormal ), Linear ); OutputFormat( BC7 ); SrgbRead( false ); >;
+        float g_flNormalMapScale< Default( 1.0f ); Range(0.0f, 16.0f); UiGroup( "Glass,10/Refraction,10/6" ); >;
+    #endif
+
+    // Noise refract
+    StaticCombo( S_GLASS_NOISE_REFRACT, F_GLASS_NOISE_REFRACT, Sys( PC ) );
+    #if (S_GLASS_NOISE_REFRACT)
+        CreateInputTexture2D( TextureRefractNormal,           Linear, 8, "NormalizeNormals", "_normalrefract", "Glass,10/Color,10/6", Default2( 0.5, 0.5 ) );
+        CreateTexture2DWithoutSampler( g_tNormalRefract ) < Channel( RGBA, Box( TextureRefractNormal ), Linear ); OutputFormat( BC7 ); SrgbRead( false ); >;
+        float g_flNormalMapRefractScale< Default( 1.0f ); Range(0.0f, 16.0f); UiGroup( "Glass,10/Refraction,10/7" ); >;
+    #endif
+
+    StaticCombo( S_GLASS_DIRT, F_GLASS_DIRT, Sys( PC ) );
+    #if (S_GLASS_DIRT)
+        CreateInputTexture2D( TextureDirtColor,            Srgb,   8, "",                 "_color",  "Glass,10/Glass Dirt,10/1", Default3( 1.0, 1.0, 1.0 ) );
+        CreateInputTexture2D( TextureDirtNormal,           Linear, 8, "NormalizeNormals", "_normal", "Glass,10/Glass Dirt,10/2", Default3( 0.5, 0.5, 1.0 ) );
+        CreateInputTexture2D( TextureDirtRoughness,        Linear, 8, "",                 "_rough",  "Glass,10/Glass Dirt,10/3", Default( 0.5 ) );
+        CreateInputTexture2D( TextureDirtMetalness,        Linear, 8, "",                 "_metal",  "Glass,10/Glass Dirt,10/4", Default( 1.0 ) );
+        CreateInputTexture2D( TextureDirtAmbientOcclusion, Linear, 8, "",                 "_ao",     "Glass,10/Glass Dirt,10/5", Default( 1.0 ) );
+        CreateInputTexture2D( TextureDirtTranslucency,      Linear, 8, "",                "_trans",  "Glass,10/Glass Dirt,10/6", Default3( 1.0, 1.0, 1.0 ) );
+
+        CreateTexture2DWithoutSampler( g_tDirtColor )  < Channel( RGB, AlphaWeighted( TextureDirtColor, TextureDirtTranslucency ), Srgb ); Channel( A, Box( TextureDirtTranslucency ), Linear ); OutputFormat( BC7 ); SrgbRead( true ); >;
+        CreateTexture2DWithoutSampler( g_tDirtNormal ) < Channel( RGBA, Box( TextureDirtNormal ), Linear ); OutputFormat( BC7 ); SrgbRead( false ); >;
+        CreateTexture2DWithoutSampler( g_tDirtRma )    < Channel( R,    Box( TextureDirtRoughness ), Linear ); Channel( G, Box( TextureDirtMetalness ), Linear ); Channel( B, Box( TextureDirtAmbientOcclusion ), Linear ); OutputFormat( BC7 ); SrgbRead( false ); >;
+    #endif
+
+    float4 g_vViewport < Source( Viewport ); >;
+
+    // Convert pixel space coordinates to screen space coordinates
+    float2 PsToSs( float4 vPositionSs )
+    {
+        float2 vPositionPs = g_flGlassZoom * ( vPositionSs.xy - g_vViewport.xy ) - float2( 0.5f, 0.5f );
+        vPositionPs.y *= -1.0;
+        return vPositionPs;
+    }
+
+    float3 GaussianBlur(float3 color, float2 uv, float2 size)
+    {
+        float Pi = 6.28318530718; // Pi*2
+        float Directions = 16.0; // BLUR DIRECTIONS (Default 16.0 - More is better but slower)
+        float Quality = 4.0; // BLUR QUALITY (Default 4.0 - More is better but slower)
+        float taps = 1;
+
+        // Blur calculations
+        [unroll]
+        for( float d=0.0; d<Pi; d+=Pi/Directions)
+        {
+            [unroll]
+            for(float j=1.0/Quality; j<=1.0; j+=1.0/Quality)
+            {
+                taps += 1;
+                color += Tex2D( g_tFrameBufferCopyTexture, uv + float2( cos(d), sin(d) ) * size * j ).rgb;    
+            }
+        }
+        
+        // Output to screen
+        color /= taps;
+
+        return color;
+    }
+
+    PS_OUTPUT MainPs( PS_INPUT i )
+    {
+        FinalCombinerInput_t finalCombinerInput = PS_SharedStandardProcessing( i );
+        
+        float fTransparency = Tex2DS( g_tColor, g_sAniso, i.vTextureCoords.xy ).a;
+        float2 vMetalRough = Tex2D( g_tRm, i.vTextureCoords.xy ).rg;
+        
+        float2 vPositionUv = CalculateViewportUv( i.vPositionSs.xy ).xy;
+
+        // Create a ray to our mesh
+        float3 vPositionWs = i.vPositionWithOffsetWs.xyz;
+        float3 vPositionToCameraDirWs = CalculatePositionToCameraDirWs( vPositionWs );
+
+        // Pick the correct IOR based on fresnel
+        float fRefractionFresnel = CalculateNormalizedFresnel( g_flReflectance, g_flExponent, vPositionWs, normalize( i.vNormalWs.xyz ) );
+        float flRefraction = lerp( g_flInnerRefraction, g_flOuterRefraction, fRefractionFresnel );
+
+        // Refraction
+        #if (S_GLASS_NORMAL_MAP)
+            float3 vRefractionNormal = normalize( i.vNormalWs.xyz + ( g_flNormalMapScale * Tex2DS( g_tNormal, g_sAniso, i.vTextureCoords.xy ).rgb ) );
+        #else
+            float3 vRefractionNormal = normalize( i.vNormalWs.xyz );
+        #endif
+
+        float3 vRefraction = refract(vPositionToCameraDirWs, vRefractionNormal, flRefraction - 1.0f );
+
+        // Get our refracted position
+        float2 vChangeInViewport = saturate(g_vViewportOffset.xy / g_vViewportSize.xy);
+
+        float3 vRefractionPos = vPositionWs + vRefraction * g_flRefractScale;
+
+        // Convert our world space refracted position back into screen space
+        float4 vPositionPs = Position3WsToPs( vRefractionPos );
+        vPositionPs.xyz /= vPositionPs.w;
+        float2 vPositionSs = PsToSs( vPositionPs );
+
+        #if (S_GLASS_NOISE_REFRACT)
+            vPositionSs.xy += (Tex2DS( g_tNormalRefract, g_sAniso, i.vTextureCoords.xy ).rg * 2.0f - 1.0f) * g_flNormalMapRefractScale;
+        #endif
+        
+        // Pick the correct glass color based on a secondary fresnel
+        float fColorFresnel = CalculateNormalizedFresnel( g_flColorReflectance, g_flColorExponent, vPositionWs, normalize( i.vNormalWs.xyz ) );
+        float3 vGlassColor = lerp( g_vInnerColor.rgb, g_vOuterColor.rgb, fColorFresnel );
+
+        // Set our rough and metal
+        finalCombinerInput.vRoughness = vMetalRough.rg;
+
+        // Multiply blending mode our color and our refracted screen uvs
+
+        #if (S_MODE_TOOLS_VIS)
+            float3 vFbColor = 1.0f - float3(0.1f, 0.1f, 0.1f);
+        #else
+            float3 vFbColor = Tex2D( g_tFrameBufferCopyTexture, vPositionSs.xy ).rgb;
+            #if (S_GLASS_BLUR)
+                vFbColor.rgb = GaussianBlur( vFbColor.rgb, vPositionSs.xy, g_flBlurAmount / g_vViewport.zw );
+            #endif
+        #endif
+
+        vFbColor.rgb = lerp(vFbColor.rgb, float3(1, 1, 1), g_flOpaqueness) * i.vVertexColor.rgb;
+
+        vGlassColor.rgb *= vFbColor.rgb;
+
+        // If we're wrapping over our framebuffer, lets darken our glass color
+        if((vPositionPs.x > 1.0f || vPositionPs.x < -1.0f || vPositionPs.y > 1.0f || vPositionPs.y < -1.0f) && g_flOpaqueness < 1.0f)
+        {
+            float2 vId = floor(vPositionPs.xy);
+            float fWrapCount = abs(vId.x) + abs(vId.y);
+
+            // Shift into the outer color
+            vGlassColor.rgb *= g_vOuterColor.rgb * saturate(fWrapCount / 8.0f);
+        }
+
+        #if (S_GLASS_DIRT)
+            float4 flDirtColor = Tex2DS( g_tDirtColor, g_sAniso, i.vTextureCoords.xy ).rgba;
+            float3 vRma = Tex2DS( g_tDirtRma, g_sAniso, i.vTextureCoords.xy ).rgb;
+            float flDirtTransparency = flDirtColor.a;
+            vGlassColor = lerp( vGlassColor, flDirtColor.rgb, flDirtTransparency );
+            finalCombinerInput.vNormalWs = lerp( finalCombinerInput.vNormalWs, Tex2DS( g_tDirtNormal, g_sAniso, i.vTextureCoords.xy ).rgb, flDirtTransparency );
+            finalCombinerInput.vRoughness = lerp( finalCombinerInput.vRoughness, vRma.rg, flDirtTransparency );
+            finalCombinerInput.flAmbientOcclusion = lerp( finalCombinerInput.flAmbientOcclusion, vRma.b, flDirtTransparency );
+        #endif
+
+        finalCombinerInput.vDiffuseColor = vGlassColor;
+        finalCombinerInput.vEmissive = vGlassColor * g_flEmissionBoost;
+
+        PS_OUTPUT o = PS_FinalCombiner( finalCombinerInput );
+        o.vColor.rgb = lerp(Tex2D( g_tFrameBufferCopyTexture, vPositionUv.xy ).rgb, o.vColor, fTransparency * g_flOpacityScale);
+        return o;
+    }
+}

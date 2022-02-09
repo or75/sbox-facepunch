@@ -1,0 +1,70 @@
+.button-lobby
+{
+	color: white;
+	font-size: 14px;
+	align-items: center;
+	cursor: pointer;
+	padding: 0px;
+	flex-grow: 1;
+	transition: padding 0.3s ease-out;
+
+	> .icon
+	{
+		margin-right: 10px;
+		font-size: 20px;
+		width: 32px;
+		height: 32px;
+		background-size: cover;
+		background-position: center;
+	}
+
+	.label
+	{
+		font-weight: bold;
+		white-space: nowrap;
+		overflow: hidden;
+		margin-right: 20px;
+	}
+
+	.detail
+	{
+		font-size: 11px;
+		opacity: 0.4;
+		font-family: Roboto;
+		white-space: nowrap;
+		overflow: hidden;
+	}
+
+	.player-count
+	{
+		opacity: 0.6;
+		flex-shrink: 0;
+		font-size: 12px;
+	}
+
+	&.is-waiting
+	{
+		.detail
+		{
+			color: $secondary;
+			opacity: 0.8;
+		}
+	}
+
+	&:hover
+	{
+		background-color: $primary;
+		border-radius: 5px;
+		padding: 0px 10px;
+		transition: padding 0.1s ease;
+	}
+}
+
+
+virtualscrollpanel.section
+{
+	> .cell
+	{
+		width: 100%;
+	}
+}

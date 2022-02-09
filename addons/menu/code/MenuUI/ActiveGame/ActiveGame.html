@@ -1,0 +1,55 @@
+
+
+<div class="gamescreen has-sidebar">
+
+	<div class="sidebar">
+		<div class="sidebar-inner">
+
+			<div class="section">
+				<text class="section-header">Current Game</text>
+				<groupbox>
+				<text class="section-header" @text="GamePackage.Title"></text>
+				<text class="section-text" @text="GamePackage.Summary"></text>
+				</groupbox>
+			</div>
+
+							
+			<div class="section">
+				<text class="section-header">Current Map</text>
+				<groupbox>
+					<text class="section-header" @text="MapPackage.Title"></text>
+					<text class="section-text" @text="MapPackage.Summary"></text>
+				</groupbox>
+			</div>
+			
+
+			<div class="spacer"></div>
+
+			<div class="section">
+
+				<navlink icon="people_alt">Player List</navlink>
+
+				<hr />
+
+				<navlink class="is-danger" icon="cancel" onclick.console="disconnect">Leave Game</navlink>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="sidebar is-secondary">
+		<div class="sidebar-inner">
+
+			<div class="section">
+				<text class="section-header">Player List</text>
+				<div @ref="PlayerListCanvas"></div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="canvas">
+
+	</div>
+
+</div>

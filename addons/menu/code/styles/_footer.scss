@@ -1,0 +1,116 @@
+
+.mainmenu > navigator > .footer
+{
+	position: absolute;
+	left: 0px;
+	right: 0px;
+	bottom: 0px;
+	height: 90px;
+	z-index: 2;
+	justify-content: center;
+	backdrop-filter: blur( 20px );
+	background-image: linear-gradient( to right, rgba( $background, 0.1 ), rgba( $background, 1 ), rgba( $background, 0.1 ) );
+	border-top: 1px solid rgba( $primary, 0.02 );
+}
+
+	.mainmenu > navigator > .footer LobbyIcon
+	{
+		background-position: center;
+		background-size: cover;
+		width: 60px;
+		height: 60px;
+		margin: 10px;
+		pointer-events: all;
+		transition: all 0.5s bounce-out;
+		border-radius: 5px;
+		justify-content: center;
+		background-image-tint: $background;
+		border: 2px solid transparent;
+
+		&:intro
+		{
+			width: 0px;
+			height: 0px;
+		}
+
+		&:outro
+		{
+			width: 0px;
+			height: 0px;
+			transition: all 1s ease-in;
+			opacity: 0;
+		}
+
+		&:hover:not( .active )
+		{
+			background-image-tint: #fff;
+		}
+
+		.player_count
+		{
+			font-size: 10px;
+			font-weight: 800;
+			position: absolute;
+			bottom: -8px;
+			right: -8px;
+			padding: 3px 7px;
+			border-radius: 3px;
+			text-align: center;
+			justify-content: center;
+			align-items: center;
+			background-color: mix( $primary, $background, 50% );
+			color: mix( $primary, white, 60% );
+			opacity: 1;
+			min-height: auto;
+
+			.iconpanel
+			{
+				color: $primary;
+				font-size: 12px;
+				padding: 0;
+				margin: 0;
+				margin-right: 2px;
+			}
+		}
+
+		&.no-players
+		{
+			.player_count
+			{
+				display: none;
+			}
+		}
+
+		&.active
+		{
+			transition: all 0.1s ease-out;
+			opacity: 1;
+			background-image-tint: #fff;
+			border: 2px solid rgba( $primary, 0.7 );
+			width: 90px;
+			height: 90px;
+			margin-bottom: 60px;
+
+			.player_count
+			{
+				opacity: 1;
+				background-color: $primary;
+				color: $primary-fg;
+
+				.iconpanel
+				{
+					color: mix( $primary, lighten( $primary, 3 ), 0.5 );
+				}
+			}
+		}
+	}
+
+LobbyBar
+{
+	flex-direction: row;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 10px 50px;
+	padding-bottom: 10px;
+	border-radius: 10px 10px 0 0;
+}

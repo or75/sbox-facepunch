@@ -1,0 +1,649 @@
+HEADER
+{
+	Description = "Fancy Water for sbox";
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+MODES
+{
+	VrForward();
+	ToolsVis( S_MODE_TOOLS_VIS );
+	ToolsWireframe( "vr_tools_wireframe.vfx" );
+	ToolsShadingComplexity( "vr_tools_shading_complexity.vfx" );
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+FEATURES
+{
+	#include "common/features.hlsl"
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+COMMON
+{
+	#include "common/shared.hlsl"
+
+	#define VS_INPUT_HAS_TANGENT_BASIS 1
+	#define PS_INPUT_HAS_TANGENT_BASIS 1
+
+	#define DEPTH_STATE_ALREADY_SET
+	#define COLOR_WRITE_ALREADY_SET
+	#define BLEND_MODE_ALREADY_SET
+
+	// Combos
+	DynamicCombo( D_UNDERWATER, 0..1, Sys( ALL ) );
+
+	#define S_CAUSTICS 0
+	#define S_FOG_CAUSTICS 0
+	#define S_CHROMATIC_CAUSTICS 0
+
+	DynamicCombo( D_RIPPLES, 0..1, Sys( ALL ) ); 	// Real time ripple splash simulation
+	
+	DynamicCombo( D_REFRACTION, 0..1, Sys( ALL ) ); // 0 - no refraction, flat fog, 1 - refraction
+	DynamicCombo( D_REFLECTION, 0..1, Sys( ALL ) ); // 0 - cubemap reflection, 1 - real time reflection, disabled in VR
+
+	#define S_FOG_QUALITY 1 // 0.Cheap Fog 1.High Quality Fog
+	#define S_FOG_SHADOWS 1
+	#define S_FOG_MIXED_SHADOWS 1
+
+	// #define D_INTERSECTING_VIEW 1 // If we are actively intersecting view or underwater
+	// #define F_RENDER_BACKFACES D_INTERSECTING_VIEW && !D_UNDERWATER
+
+
+	// Configuration
+	#define WATER_COLLISION_FADE_UNITS 20
+	#define DISTANCE_BASED_TESS 1
+	#define NO_TESSELATION D_UNDERWATER
+
+	float g_fPhase < Default( 6.0 ); Range( 0.0, 16.0 ); UiGroup( "Water" ); >;
+    float g_fSpeed < Default( 2.0 ); Range( 0.0, 16.0 ); UiGroup( "Water" ); >;
+    float g_fWeight < Default( 1.0 ); Range( 0.01, 16.0 ); UiGroup( "Water" ); >;
+    float g_fScale < Default( 1.0 ); Range( 0.0, 16.0 ); UiGroup( "Water" ); >;
+	float g_fAmplitude< Default( 1.0 ); Range( 0.0, 16.0 ); UiGroup( "Water" ); >;
+
+	// Fog parameters
+	float3 g_vWaterFogColor <  UiType( Color ); Default3( 0.25, 0.3, 0.0 ); /* Thames Green™️ */ UiGroup( "Fog" );>;
+	float2 g_vWaterFogDistanceFalloff < Default2( 250.f, 0.1f ); Range2( 10.0f, 0.01f, 5000.0f, 1.0f ); UiGroup( "Fog" ); >;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+struct VertexInput
+{
+	#include "common/vertexinput.hlsl"
+};
+
+struct HullInput
+{
+    #include "common/pixelinput.hlsl"
+};
+
+struct HullOutput
+{
+    #include "common/pixelinput.hlsl"
+};
+
+struct HullPatchConstants
+{
+	float Edge[3] : SV_TessFactor;
+	float Inside : SV_InsideTessFactor;
+};
+
+struct DomainInput
+{
+	#include "common/pixelinput.hlsl"
+};
+
+struct PixelInput
+{
+	#include "common/pixelinput.hlsl"
+	FrontFace_t face : SV_IsFrontFace;
+};
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+VS
+{
+	#include "common/vertex.hlsl"
+
+	PixelInput MainVs( INSTANCED_SHADER_PARAMS( VertexInput i ) )
+    {
+        PixelInput o = VS_SharedStandardProcessing( i );
+		// SHOULD no-op the operation needed for calculating PS position.
+		// We calculate this in the geometry shader so we can ignore it
+		// and don't bother with the matrix calculation
+		o.vPositionPs = float4(0, 0, 0, 0);
+        return o;
+    }
+}
+
+HS
+{
+	#include "common/hull.hlsl"
+	#include "water.tesselation.hlsl"
+}
+
+DS
+{
+	#include "water.shared.hlsl"
+	#include "water.tesselation.hlsl"
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+PS
+{
+	#include "common/pixel.hlsl"
+
+	#include "water.pixel.hlsl"
+
+	RenderState( BlendEnable,  false );
+	RenderState( SrcBlend, ONE );
+	RenderState( DstBlend, ZERO );
+	//RenderState( FillMode, WIREFRAME );
+
+	//RenderState( CullMode, F_RENDER_BACKFACES ? NONE : DEFAULT );
+	
+	float4 g_vViewport < Source( Viewport ); >;
+
+	CreateTexture2D( g_tReflectionTex )          < Attribute( "ReflectionTexture" );      SrgbRead( true );   AddressU( CLAMP ); AddressV( CLAMP ); >;
+	CreateTexture2D( g_tFrameBufferCopyTexture ) < Attribute( "FrameBufferCopyTexture" ); SrgbRead( false );  AddressU( CLAMP ); AddressV( CLAMP ); Filter( MIN_MAG_MIP_LINEAR ); >;
+	CreateTexture2D( g_tDepthBufferCopyTexture ) < Attribute( "DepthBufferCopyTexture" ); SrgbRead( false );  AddressU( CLAMP ); AddressV( CLAMP ); Filter( POINT ); >;
+
+	// No depth write on fog
+	RenderState( DepthEnable, D_UNDERWATER ? false : true );
+	RenderState( DepthWriteEnable, D_UNDERWATER ? false : true );
+
+
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	struct FogParams_t
+	{
+		float fFogDistance;
+		float fFogFalloff;
+		float3 vFogColor;
+	};
+
+
+	FogParams_t SetupFog()
+	{
+		FogParams_t o;
+		//o.fFogDistance = g_fFogDistance;
+		//o.vFogColor = g_vFogColor;
+		
+		o.vFogColor = g_vWaterFogColor * 0.1f;
+		
+		o.fFogDistance = g_vWaterFogDistanceFalloff.x;
+		o.fFogFalloff = g_vWaterFogDistanceFalloff.y;
+
+		return o;
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	/*
+	struct CausticsParams_t
+	{
+		float fCausticsStrength;
+		float fCausticsScale;
+		float fCausticsSpeed;
+		float fCausticsPhase;
+		float fCausticsAmplitude;
+	};
+
+	CausticsParams_t SetupCaustics()
+	{
+		CausticsParams_t o;
+		o.fCausticsStrength = g_fCausticsStrength;
+		o.fCausticsScale = g_fCausticsScale;
+		o.fCausticsSpeed = g_fCausticsSpeed;
+		o.fCausticsPhase = g_fCausticsPhase;
+		o.fCausticsAmplitude = g_fCausticsAmplitude;
+
+		return o;
+	}*/
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+	float3 FetchSimpleReflection( float3 vPosWs, float3 vNormalWs )
+	{
+		//Todo: fetch clustered cubemap, meanwhile sample global cubemap
+		return SampleEnvironmentMapLevel( -vNormalWs, 0.0f, 0, 0 );
+	}
+
+	float3 FetchReflection( float2 vScreenUV, float3 N, float3 vPosWs )
+	{
+		const float fReflectionScale = distance( g_vCameraPositionWs, vPosWs ) * 0.5f;
+
+		float3 V = CalculatePositionToCameraDirWs( vPosWs );
+
+		float3 VR = reflect( V, float3(0,0,1) ); // Correct view vector with the reflection
+		float3 vReflectionVector = reflect( VR, N ) ;
+
+		float3 vReflectionWs = vPosWs + normalize(vReflectionVector) * fReflectionScale;
+
+        float4 vPositionPs = Position3WsToPs( vReflectionWs );
+        vPositionPs.xyz /= vPositionPs.w;
+        float2 vPositionSs = PsToSs( vPositionPs );
+
+		//
+		// Use simple reflection if material wants so
+		//
+		#if ( D_REFLECTION == 0 )
+			return FetchSimpleReflection( vReflectionWs, vReflectionVector );
+		#endif
+
+		return Tex2DBicubic( PassToArgTexture2D( g_tReflectionTex ), vPositionSs, TextureDimensions2D( g_tReflectionTex, 0 ) ).rgb;
+	}
+
+	float FetchDepth( PixelInput i, float2 vPositionUv )
+	{
+		// Return dummy depth if we don't have refraction enabled
+		#if ( D_REFRACTION == 0 )
+			return distance( g_vCameraPositionWs, i.vPositionWithOffsetWs.xyz );
+		#endif
+
+		return Tex2D( g_tDepthBufferCopyTexture, vPositionUv );
+	}
+	
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	float3 FetchRefraction( float2 vScreenUV, float2 vScreenUVRefract, float3 V, float3 vPosWs, inout float3 vPosRefractionWs, float fDepth, inout float fDepthRefract )
+	{
+		//
+		// Disable refraction if material wants so
+		//
+		#if ( D_REFRACTION == 0 )
+			return float3(0, 0, 0);
+		#endif
+
+		//
+		//Filter depth
+		//
+		{
+			bool bRefractionMask = vPosRefractionWs.z > vPosWs.z;
+
+			if( bRefractionMask )
+			{
+				// Realign depth buffer if we are using a amsk
+				fDepthRefract = fDepth;
+				vPosRefractionWs = CalculateWorldSpacePositionMultiview( 0, V, fDepth );
+
+				return Tex2D( g_tFrameBufferCopyTexture, vScreenUV ).rgb;
+			}
+			else
+				return Tex2D( g_tFrameBufferCopyTexture, vScreenUVRefract ).rgb;
+		}
+		
+		// Maskless depth fetch otherwise
+		return Tex2D( g_tFrameBufferCopyTexture, vScreenUVRefract ).rgb;
+	}
+
+	//
+	// Calculate the amount of subsurface scattered light that is refracted off the water surface
+	//
+	float3 AddLightScatter( float3 L, float3 V )
+	{
+		// Negative values are used to indicate that the light is behind the camera
+		const float flDensity = -0.6;
+		float flLightScattering = HenyeyGreenstein( dot( L, V ), flDensity );
+		return flLightScattering * g_vSunLightColor.xyz;
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//
+	// Sample direct lighting from the sun on a given point
+	//
+	float SampleLightDirect( float3 vPosWs)
+	{
+		// if CSM
+		//{
+			//vSample = ComputeSunShadowScalar( vSampleWs );
+		//}
+		
+		//If not CSM
+		{
+			int4 vLightIndices; 																	// Unused
+			float4 vLightScalars; 																	// 3D lightmap for direct light
+			SampleLightProbeVolumeIndexedDirectLighting( vLightIndices, vLightScalars, vPosWs ); 	// Sample it
+
+			#if S_FOG_MIXED_SHADOWS
+				float fMixedShadows = MixedShadows( vPosWs - g_vHighPrecisionLightingOffsetWs.xyz );
+			#else 
+				float fMixedShadows = 1.0f;
+			#endif
+
+			// I am not 100% sure alpha channel is used for sun in every case for the global sunlight
+			return vLightScalars.a * fMixedShadows;
+		}
+		
+	}
+	
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//
+	// Custom specular term
+	//
+	float3 AddSpecular( float3 vPosWs, float3 vColor, float3 N, float3 V, float3 L, PixelInput i )
+	{
+		float3 H = normalize( L.xyz + V.xyz );
+
+		float flNDotL = ClampToPositive( dot( N.xyz, L.xyz ) );
+		float flNdotV = ClampToPositive( dot( N.xyz, V.xyz ) );
+		float flNdotH = dot( H.xyz, N.xyz );
+		float flSpecularTerm = ComputeGGXBRDF( 0.01, flNDotL, flNdotV, flNdotH, i.vPositionSs.xy ).x;
+
+		flSpecularTerm *= flNDotL;
+		flSpecularTerm *= SampleLightDirect( vPosWs ); // Shadow
+		flSpecularTerm *= vColor;
+
+		return flSpecularTerm;
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	//
+	// Calculates fog color
+	//
+	float4 AddFog( float3 vRay, float3 vPosRefractionWs, float3 vPosWs, float2 vPositionSs )
+	{
+		// Fog test
+		float3 vFog = 0;
+		
+		FogParams_t fogParameters = SetupFog();
+
+		//
+		// Simple fog if we have no refraction or if we explicitly want cheap fog
+		//
+		#if ( D_REFRACTION == 0 || S_FOG_QUALITY == 0 )
+			return float4( fogParameters.vFogColor, 1 );
+		#endif
+
+		const float fRayTestDistance = 1.0f / 4.0f;
+
+		//Don't trace beyond zfar
+		[flatten]
+		if( distance( vPosWs, vPosRefractionWs ) > fogParameters.fFogDistance * 1.0 )
+			vPosRefractionWs = vPosWs - ( normalize(vRay) * fogParameters.fFogDistance * 1.0 );
+
+		float fRayDistance = distance( vPosWs, vPosRefractionWs );
+		
+		float fShadow = 0.0f;
+		float3 fCaustics = 0.0f;
+
+		//
+		// Trace through fog volume and get the fog color
+		//
+		float flNoise = Tex2DLoad( g_tBlueNoise, int3( vPositionSs.xy % TextureDimensions2D( g_tBlueNoise, 0 ).xy, 0 ) ).g;
+		float3 vStepStride = ( (vPosWs - vPosRefractionWs) * fRayTestDistance ) * flNoise; 
+		for(float i = 0.0; i < 1.0; i += fRayTestDistance)
+		{
+			float3 vSampleWs = lerp( vPosWs, vPosRefractionWs, i ) + vStepStride;
+			float3 vSample = SampleLightProbeVolume( vSampleWs, -vRay );
+			
+			#if S_FOG_SHADOWS == 1
+				fShadow += SampleLightDirect( vSampleWs );
+			#else
+				fShadow = 1.0f;
+			#endif
+			
+			#if S_FOG_CAUSTICS == 1
+				//Caustic rays
+				float3 vCausticOffsetWs = ( g_vSunLightDir * (fRayDistance * i) ); //Not correct but plausible enough
+				float3 vCausticsNormal = normalize( WaterNormal( vSampleWs + vCausticOffsetWs, 0.1 , 2.2, 10, 0.0f ) );
+				float3 vCausticsNormal2 = normalize( WaterNormal( vSampleWs + vCausticOffsetWs, 0.1 , 2.2, 10, 0.5f ) );
+				fCaustics += distance( vCausticsNormal, vCausticsNormal2 ) * fRayTestDistance * 2.0f;
+			#endif
+
+			vFog += vSample * fogParameters.vFogColor * fRayTestDistance;
+		}
+
+		//
+		// Sunlight scattering
+		//
+		float3 vSunScatter= AddLightScatter( g_vSunLightDir, vRay) 
+				* fShadow 						// Sun fog shadow
+				* ( 1.0 + fCaustics )			// Caustics
+				* fogParameters.vFogColor 		// Fog scatter color
+				;
+
+		//
+		// Setup fog scalar and set as exponential fog
+		//
+		float fFogScalar = pow( saturate( distance( vPosWs, vPosRefractionWs ) / fogParameters.fFogDistance ), fogParameters.fFogFalloff );
+
+		return float4( vFog + vSunScatter, fFogScalar );
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//
+	// Calculates surface caustics, more expensive than it should be
+	//
+	float3 AddCaustics( float3 vPosTopWs, float3 vPosBottomWs, float fChromaticScale = 0.25f)
+	{
+		#if !S_CAUSTICS
+			return 1.0f;
+		#endif
+		//Todo: Dot product with normal
+
+		float3 vCausticsNormal = normalize( WaterNormal( vPosBottomWs, 0.1 , 2.2, 20, 0.0f ) );
+		float3 vCausticsNormal2 = normalize( WaterNormal( vPosBottomWs, 0.1 , 2.2, 20, 0.5f ) );
+
+		float fVerticalDistance = saturate( abs(  vPosBottomWs.z - vPosTopWs.z ) * 0.01 );
+
+		#if S_CHROMATIC_CAUSTICS
+			//Chromatic shit
+			float3 vCausticsNormal3 = normalize( WaterNormal( vPosBottomWs, 0.1 , 2.2, 20, 0.5f + ( fChromaticScale * ( fVerticalDistance ) ) ) );
+
+			return 1.0 + float3( 
+				distance( vCausticsNormal, vCausticsNormal3 ),
+				distance( vCausticsNormal, vCausticsNormal2 ),
+				distance( vCausticsNormal, vCausticsNormal2 )
+			) * fVerticalDistance * 5;
+		#else
+			return 1.0 + distance( vCausticsNormal, vCausticsNormal2 ) * fVerticalDistance;
+		#endif
+		
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//
+	// Crappy foam, revisit when we have world SDFs
+	//
+	float AddFoam( float3 vPos, float3 vNormal, float fDistance, float fAmount = 5.0f )
+	{
+		float3 vFoamNormal = normalize( WaterNormal( vPos, 0.1 , 2.2, ITERATIONS_NORMAL, 1.0f ) );
+		float fFoam = distance( vNormal, vFoamNormal );
+
+		float fFilter = pow( GetWaves( vPos.xy * 0.1 , 10, (-g_flTime) * 0.9 ) / g_fScale, fAmount);
+
+		// Edge filter, todo: SDF?
+		//fFilter = max( saturate( ( (10*fAmount)/fDistance) - 0.5 ), fFilter );
+
+		return lerp( 0, fFoam, fFilter );
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//
+	// Calculates the refracted angle in world space using the water index of refraction
+	//
+	float3 GetRefractionRay( float3 vViewRay, float3 vNormal )
+	{
+		const float fIndexOfRefraction = 1.0f;
+		return normalize( refract( vViewRay, vNormal, fIndexOfRefraction ) );
+	}
+
+	//
+	// Transforms the refracted ray from world space to UV space
+	//
+	float2 GetRefractionUVFromRay( float3 vPosWs, float3 vRefractionRay, float fRayDistance )
+	{
+		float flRefractScale = sqrt( fRayDistance );
+
+		flRefractScale = min( flRefractScale, 128.0f );
+
+		float3 vRefractionPos = vPosWs + vRefractionRay * flRefractScale;
+
+		// Convert our world space refracted position back into screen space
+        float4 vPositionRefractPs = Position3WsToPs( vRefractionPos );
+        vPositionRefractPs.xyz /= vPositionRefractPs.w;
+        float2 vPositionRefractSs = PsToSs( vPositionRefractPs );
+		
+		vPositionRefractSs.x = 1.0 - vPositionRefractSs.x;
+		return vPositionRefractSs;
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+	PS_OUTPUT MainOverwater( PixelInput i )
+	{
+
+		PS_OUTPUT o;
+		
+		float2 vPositionUv = CalculateViewportUv( i.vPositionSs );
+
+		float3 vViewRayWs = CalculatePositionToCameraDirWs( i.vPositionWithOffsetWs );
+		float3 vPosWs = i.vPositionWithOffsetWs.xyz;
+
+		float3 vNormal = normalize( WaterNormal( i.vPositionWithOffsetWs.xy, 1.0f , 2.2) );
+		
+		float fDepthSample = FetchDepth( i, vPositionUv );
+		
+		float3 vRefractionRayWs = GetRefractionRay( vViewRayWs, vNormal ); 
+
+		float3 vPosRefractionWs = CalculateWorldSpacePositionMultiview( 0, vViewRayWs, fDepthSample );
+
+		float fRayDistance = distance( vPosWs, vPosRefractionWs );
+
+		float2 vRefractionUv = GetRefractionUVFromRay( vPosRefractionWs, vRefractionRayWs, fRayDistance );
+
+		float fDepthSampleRefraction = FetchDepth( i, vRefractionUv );
+		
+		//Properly realign the refraction ray
+		vPosRefractionWs = CalculateWorldSpacePositionMultiview( 0, vViewRayWs, fDepthSampleRefraction ); 
+		
+		//
+		// Do reflection and refraction
+		//
+		float3 vReflection = FetchReflection( vPositionUv, vNormal, vPosWs );
+		float3 vRefraction = FetchRefraction( vPositionUv, vRefractionUv, vViewRayWs, vPosWs, vPosRefractionWs, fDepthSample, fDepthSampleRefraction );
+
+		//
+		// Add fog to refraction
+		//
+		{
+			float4 vFog = AddFog( vRefractionRayWs * float3(1,1,-1), vPosRefractionWs, vPosWs, i.vPositionSs ); 
+			vRefraction = lerp( vRefraction, vFog.rgb, vFog.a );
+		}
+
+		//
+		// Add optional caustics
+		//
+		vRefraction *= AddCaustics( vPosWs, vPosRefractionWs );
+
+		//
+		// Lerp between reflection and refraction with fresnel
+		//
+		float flNdotV = max( 0.01, dot( vViewRayWs.xyz, vNormal ) );
+		float3 vColor = lerp( vRefraction, vReflection, EnvBRDFApprox( 0.04, 0.03f, flNdotV ).x );
+
+		//
+		//Collision foam
+		//
+		//float fFoam = AddFoam( vPosWs, vNormal, fRayDistance );
+		//vColor = lerp(  vColor, 1.0, fFoam );
+
+		//Distance fade for seamless entry
+		{
+			
+			float fCameraDistance = 100000.0; // temp
+			float fSeamlessEntry = saturate( distance( vPosWs, vPosRefractionWs ) / WATER_COLLISION_FADE_UNITS );
+			
+			vColor = lerp( vRefraction, vColor, fSeamlessEntry ); 
+		}
+		
+		//
+		// Specular GGX
+		//
+		{
+			vColor += AddSpecular( vPosWs, g_vSunLightColor, vNormal, vViewRayWs, g_vSunLightDir, i);
+		}
+
+		o.vColor = float4( vColor, 1 );
+		return o;
+	}
+
+	PS_OUTPUT MainUnderwater( PixelInput i )
+	{
+
+		PS_OUTPUT o;
+
+		float2 vPositionUv = CalculateViewportUv( i.vPositionSs );
+		float3 vViewRayWs = CalculatePositionToCameraDirWs( i.vPositionWithOffsetWs );
+		float fDepthSample = FetchDepth( i, vPositionUv );
+		float3 vPosWs = CalculateWorldSpacePositionMultiview( 0, vViewRayWs, fDepthSample );
+
+		//
+		// Test for overwater view, don't draw overwater parts of mesh if geometry has a higher Z than what we test fog with
+		//
+		clip ( vPosWs.z > g_fWaterHeight + 10.0f );
+
+		float3 vColor = Tex2D( g_tFrameBufferCopyTexture, vPositionUv ).rgb; // We probably don't need framebuffer copy here
+
+		// See which is shorter
+		if( distance( i.vPositionWithOffsetWs.xyz, g_vCameraPositionWs ) < distance( vPosWs, g_vCameraPositionWs ) )
+			vPosWs = i.vPositionWithOffsetWs.xyz;
+
+		//
+		// Fetch fog
+		//
+		float4 vFog = AddFog( vViewRayWs, vPosWs, g_vCameraPositionWs, i.vPositionSs ); 
+
+		//
+		// Composite fog
+		//		
+		vColor = lerp( vColor, vFog.rgb, vFog.a );
+
+		o.vColor = float4( vColor, 1 );
+		return o;
+	}
+
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	//
+	// Shader entry point
+	//
+	PS_OUTPUT MainPs( PixelInput i )
+	{
+		#if D_UNDERWATER
+			return MainUnderwater( i );
+		#endif
+
+		//
+		// If view is intersecting water, we can have both front and back facing triangles
+		//
+		#if ( S_INTERSECTING_VIEW)
+		{
+			if( IsFrontFace( i.face ) )
+				return MainOverwater( i );
+			else
+				return MainUnderwater( i );
+		}
+		#endif
+
+		//
+		// Normal view
+		//
+		return MainOverwater( i );
+
+	}
+}
+
+//=========================================================================================================================
+
+
+

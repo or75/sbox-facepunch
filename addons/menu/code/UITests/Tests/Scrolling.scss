@@ -1,0 +1,35 @@
+
+
+.rows
+{
+
+}
+
+.scrollable
+{
+	width: 100px;
+	height: 100px;
+	background-color: #00ff90;
+	overflow: scroll;
+	flex-direction: column;
+	margin: 10px;
+
+	&.with-padding
+	{
+		padding: 10px;
+	}
+
+	&.with-margin
+	{
+		.canvas
+		{
+			margin: 10px;
+		}
+	}
+}
+
+.canvas
+{
+	background-color: #fff;
+	flex-shrink: 1;
+}

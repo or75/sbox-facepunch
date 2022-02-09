@@ -1,0 +1,352 @@
+HEADER
+{
+	DevShader = true;
+	CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+	Version = 1;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+MODES
+{
+	Default();
+	VrForward();
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+FEATURES
+{
+	
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+COMMON
+{
+	#include "ui/common.hlsl"
+}
+  
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+VS
+{
+	#include "ui/vertex.hlsl"  
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+PS
+{
+	#include "ui/pixel.hlsl"
+
+	DynamicCombo( D_BACKGROUND_IMAGE, 0..1, Sys( PC ) );
+	DynamicCombo( D_BACKGROUND_REPEAT, 0..4, Sys( PC ) ); // Repeat = 0, RepeatX = 1, RepeatY = 2, NoRepeat = 3,  Wrap = 4
+	DynamicCombo( D_TEXTURE_FILTERING, 0..3, Sys( PC ) ); // Anisotropic = 0, Bilinear = 1, Trilinear = 2, Point = 3
+
+	DynamicCombo( D_BORDER, 0..1, Sys( PC ) );
+	DynamicCombo( D_BORDER_IMAGE, 0..2, Sys( PC ) ); // [ 1 - Stretch, 2 - Round ]
+	DynamicCombo( D_BORDER_IMAGE_FILL, 0..1, Sys( PC ) );
+	DynamicCombo( D_SRGB_IMAGE, 0..1, Sys( PC ) );
+
+
+	float4 CornerRadius < Attribute( "BorderRadius" ); >;
+
+	float4 BorderWidth < UiGroup( "Border" ); >;	
+	float4 BorderImageSlice < UiGroup( "Border" ); >;
+	float4 BorderColorL < UiType( Color ); Default4( 0.0, 0.0, 0.0, 1.0 ); UiGroup( "Border,10/Colors,10/1" ); >;
+	float4 BorderColorT < UiType( Color ); Default4( 0.0, 0.0, 0.0, 1.0 ); UiGroup( "Border,10/Colors,10/2" ); >;
+	float4 BorderColorR < UiType( Color ); Default4( 0.0, 0.0, 0.0, 1.0 ); UiGroup( "Border,10/Colors,10/3" ); >;
+	float4 BorderColorB < UiType( Color ); Default4( 0.0, 0.0, 0.0, 1.0 ); UiGroup( "Border,10/Colors,10/4" ); >;
+
+	float4 BgPos < Default4( 0.0, 0.0, 500.0, 100.0 ); Attribute( "BgPos" ); >;
+	float4 BgTint < Default4( 1.0, 1.0, 1.0, 1.0 ); Attribute( "BgTint" ); >;
+	
+	float BgAngle < Default( 0.0 ); Attribute( "BgAngle" ); >;
+	
+	
+	CreateTexture2D( g_tBorderImage ) 	< Attribute( "BorderImageTexture" ); SrgbRead( true ); AddressU( CLAMP ); AddressV( CLAMP ); >;
+	
+	#if D_TEXTURE_FILTERING == 0
+		CreateTexture2D( g_tColor ) 		< Attribute( "Texture" ); SrgbRead( true ); AddressU( CLAMP ); AddressV( CLAMP ); Filter( ANISOTROPIC ); >;
+	#elif D_TEXTURE_FILTERING == 1
+		CreateTexture2D( g_tColor ) 		< Attribute( "Texture" ); SrgbRead( true ); AddressU( CLAMP ); AddressV( CLAMP ); Filter( BILINEAR ); >;
+	#elif D_TEXTURE_FILTERING == 2
+		CreateTexture2D( g_tColor ) 		< Attribute( "Texture" ); SrgbRead( true ); AddressU( CLAMP ); AddressV( CLAMP ); Filter( TRILINEAR ); >;
+	#else
+		CreateTexture2D( g_tColor ) 		< Attribute( "Texture" ); SrgbRead( true ); AddressU( CLAMP ); AddressV( CLAMP ); Filter( POINT ); >;
+	#endif
+
+	float4 g_vInvTextureDim < Source( InvTextureDim ); SourceArg( g_tColor ); >;
+	float4 g_vViewport < Source( Viewport ); >;
+
+	// Render State -------------------------------------------------------------------------------------------------------------------------------------------
+	RenderState( SrgbWriteEnable0, true );
+
+	// Always alpha blend
+	RenderState( BlendEnable, true );
+	RenderState( SrcBlend, SRC_ALPHA );
+	RenderState( DstBlend, INV_SRC_ALPHA );
+
+	// Always write rgba
+	RenderState( ColorWriteEnable0, RGBA );
+	RenderState( FillMode, SOLID );
+
+	// Never cull
+	RenderState( CullMode, NONE );
+
+	// No depth
+	RenderState( DepthWriteEnable, false );
+
+	
+
+	#define SUBPIXEL_AA_MAGIC 0.5
+
+	float GetDistanceFromEdge( float2 pos, float2 size, float4 cornerRadius )
+	{
+		float minCorner = min(size.x, size.y);
+
+		//Based off https://iquilezles.org/www/articles/distfunctions2d/distfunctions2d.htm
+
+		float4 r = min( cornerRadius * 2.0 , minCorner );
+		r.xy = (pos.x>0.0)?r.xy : r.zw;
+		r.x  = (pos.y>0.0)?r.x  : r.y;
+		float2 q = abs(pos)-(size)+r.x;
+		return -0.5 + min(max(q.x,q.y),0.0) + length(max(q,0.0)) - r.x;
+	}
+
+	
+
+	float2 RotateTexCoord( float2 vTexCoord, float angle, float2 offset = 0.5 )
+	{
+		angle *= M_PI * 2;
+		float2x2 m = float2x2( cos(angle), -sin(angle), sin(angle), cos(angle) );
+		return mul( m, vTexCoord - offset ) + offset ;
+	}
+
+	float4 CalcBorderColor( float4 ruv )
+	{
+		float4 c = 	( BorderColorL * ruv.x ) +
+					( BorderColorT * ruv.y ) +
+					( BorderColorR * ruv.z ) +
+					( BorderColorB * ruv.a );
+		return c; 
+	}
+
+	float CalcBorderWidth( float4 ruv ) 
+	{ 
+		float w = 	( BorderWidth.x * ruv.x ) +
+					( BorderWidth.y * ruv.y ) +
+					( BorderWidth.z * ruv.z ) +
+					( BorderWidth.a * ruv.a );
+		return w * 2.0;
+	}
+
+	float2 DistanceNormal( float2 p, float2 c )
+	{
+		const float eps = 1;
+		const float2 h = float2(eps,0);
+		return normalize( float3( GetDistanceFromEdge(p-h.xy, c, CornerRadius) - GetDistanceFromEdge(p+h.xy, c, CornerRadius),
+								GetDistanceFromEdge(p-h.yx, c, CornerRadius) - GetDistanceFromEdge(p+h.yx, c, CornerRadius),
+								2.0*h.x
+			) ).xy;
+	}
+
+	float4 AddBorder( float2 texCoord, float2 pos, float distanceFromCenter )
+	{
+		float2 vTransPos = texCoord * BoxSize;
+
+		//Scale - Fixme: this is messing transitions
+		float2 fScale = 1.0 / ( 1.0 - ( float2( BorderWidth.z + BorderWidth.x , BorderWidth.y + BorderWidth.w ) / BoxSize) );
+		vTransPos = ( vTransPos - ( BoxSize * 0.5 ) ) * ( fScale ) + ( BoxSize * 0.5 );	
+		
+		//Offset
+		vTransPos += float2( -BorderWidth.x + BorderWidth.z, -BorderWidth.y + BorderWidth.a ) * (fScale * 0.5);
+
+		float2 vOffsetPos = ( BoxSize ) * ( ( vTransPos / BoxSize) * 2.0 - 1.0);
+		
+		float2 vNormal = DistanceNormal( vOffsetPos, BoxSize );
+
+		float fDistance = GetDistanceFromEdge( vOffsetPos, BoxSize, CornerRadius );
+		fDistance += 1.5;
+
+
+		float4 vBorderL = BorderColorL;
+		float4 vBorderT = BorderColorT;
+		float4 vBorderR = BorderColorR;
+		float4 vBorderB = BorderColorB;
+
+		vBorderL.a = max( vNormal.x, 0 ) * fDistance / ( BorderWidth.x );
+		vBorderT.a = max( vNormal.y, 0 ) * fDistance / ( BorderWidth.y );
+		vBorderR.a = max(-vNormal.x, 0 ) * fDistance / ( BorderWidth.z );
+		vBorderB.a = max(-vNormal.y, 0 ) * fDistance / ( BorderWidth.w );
+		
+		float4 vBorderColor = -100;
+		float fBorderAlpha = 0;
+		
+		if( BorderWidth.x > 0.0f && vBorderL.a > vBorderColor.a ) { vBorderColor = vBorderL; fBorderAlpha = BorderColorL.a; }
+		if( BorderWidth.y > 0.0f && vBorderT.a > vBorderColor.a ) { vBorderColor = vBorderT; fBorderAlpha = BorderColorT.a; }
+		if( BorderWidth.z > 0.0f && vBorderR.a > vBorderColor.a ) { vBorderColor = vBorderR; fBorderAlpha = BorderColorR.a; }
+		if( BorderWidth.a > 0.0f && vBorderB.a > vBorderColor.a ) { vBorderColor = vBorderB; fBorderAlpha = BorderColorB.a; }
+
+		float fAntialiasAmount = max( 1.0f / SUBPIXEL_AA_MAGIC, 2.0f / SUBPIXEL_AA_MAGIC * abs( distanceFromCenter / ( min(BoxSize.x, BoxSize.y) ) ) );
+		vBorderColor.a = saturate( smoothstep( 0, fAntialiasAmount, fDistance ) )  * fBorderAlpha;
+
+		return vBorderColor;
+	}
+
+	float4 AlphaBlend( float4 src, float4 dest )
+	{
+	float4 result;
+	result.a = src.a + (1 - src.a) * dest.a;
+	result.rgb = (1 / result.a) * (src.a * src.rgb + (1 - src.a) * dest.a * dest.rgb);
+	return result;
+	}
+
+	float4 AddImageBorder( float2 texCoord )
+	{
+		const float4 BorderImageWidth = BorderWidth; //Pixel width of the border, Left, Top, Right, Down
+
+		const float2 vBorderImageSize = TextureDimensions2D( g_tBorderImage, 0 );
+		const float4 vBorderPixelSize = BorderImageSlice; // Left, Top, Right, Down
+		const float4 vBorderPixelRatio = vBorderPixelSize / float4(vBorderImageSize.x,vBorderImageSize.y,vBorderImageSize.x,vBorderImageSize.y);
+
+		const float2 vBoxTexCoord = texCoord * BoxSize; //Texcoord mapped to pixel size
+		
+		float2 uv = 0.0;
+
+		// If we aren't filling the middle, make it transparent
+		#if !D_BORDER_IMAGE_FILL
+			if( vBoxTexCoord.x > BorderImageWidth.x &&
+				vBoxTexCoord.x < BoxSize.x - BorderImageWidth.z &&
+				vBoxTexCoord.y > BorderImageWidth.y &&
+				vBoxTexCoord.y < BoxSize.y - BorderImageWidth.w )
+				return 0;
+		#endif
+
+		//If PixelSize > ImageSize/2, it doesn't draw the side borders
+		if( vBorderPixelSize.x < vBorderImageSize.x * 0.5)
+		{
+			#if D_BORDER_IMAGE == 1
+				float2 vMiddleSize = 1.0 - (vBorderPixelRatio.xy + vBorderPixelRatio.zw);
+				float2 vRepeatAmount = floor( ( BoxSize * vMiddleSize ) / BorderImageWidth.xy );
+				// Horizontal Middle Repeat
+				uv.x = ( vBoxTexCoord.x - BorderImageWidth.x ) / ( BoxSize.x - ( BorderImageWidth.x + BorderImageWidth.z ) ) * vRepeatAmount.x;
+				uv.x = fmod( uv.x, vMiddleSize.x );
+				uv.x += vBorderPixelRatio.x; //Get the offset of the middle one
+
+				//Vertical Middle Repeat
+				uv.y = ( vBoxTexCoord.y - BorderImageWidth.y ) / ( BoxSize.y - ( BorderImageWidth.y + BorderImageWidth.z ) ) * vRepeatAmount.y;
+				uv.y = fmod( uv.y, vMiddleSize.y );
+				uv.y += vBorderPixelRatio.y; //Get the offset of the middle one
+			#else
+				// Horizontal Middle, stretch 
+				uv.x = ( vBoxTexCoord.x - BorderImageWidth.x ) / ( BoxSize.x - ( BorderImageWidth.x + BorderImageWidth.z ) );
+				uv.x *= 1.0 - (vBorderPixelRatio.x + vBorderPixelRatio.z); //Get the size of the middle one
+				uv.x += vBorderPixelRatio.x; //Get the offset of the middle one
+
+				//Vertical Middle, stretch
+				uv.y = ( vBoxTexCoord.y - BorderImageWidth.y ) / ( BoxSize.y - ( BorderImageWidth.y + BorderImageWidth.w ) );
+				uv.y *= 1.0 - (vBorderPixelRatio.y + vBorderPixelRatio.w); //Get the size of the middle one
+				uv.y += vBorderPixelRatio.y; //Get the offset of the middle one
+			#endif
+		}
+		
+		//Horizontal Left
+		if( vBoxTexCoord.x < BorderImageWidth.x )
+			uv.x = (vBoxTexCoord.x / BorderImageWidth.x) * vBorderPixelRatio.x; 
+
+		// Horizontal Right
+		else if( vBoxTexCoord.x > BoxSize.x - BorderImageWidth.z )
+			uv.x = ( ( (vBoxTexCoord.x - ( BoxSize.x - BorderImageWidth.z) ) / BorderImageWidth.z) * vBorderPixelRatio.z ) + ( 1.0 - vBorderPixelRatio.z );
+
+		// Vertical Top
+		if( vBoxTexCoord.y < BorderImageWidth.y )
+			uv.y = (vBoxTexCoord.y / BorderImageWidth.y) * vBorderPixelRatio;
+		
+		// Vertical Bottom
+		else if( vBoxTexCoord.y > BoxSize.y - BorderImageWidth.w )
+			uv.y = ( ( (vBoxTexCoord.y - ( BoxSize.y - BorderImageWidth.w) ) / BorderImageWidth.w) * vBorderPixelRatio.w ) + ( 1.0 - vBorderPixelRatio.w );
+
+		return Tex2DLevel( g_tBorderImage, uv, 0.0 );
+	}
+
+	PS_OUTPUT MainPs( PS_INPUT i )
+	{
+		PS_OUTPUT o;
+
+		float2 bgSize = BgPos.zw;
+		float4 bgTint = BgTint.rgba;
+		bgTint.rgb = SrgbGammaToLinear(bgTint.rgb);
+
+		float borderRadius = 0;
+		float2 pos = ( BoxSize ) * (i.vTexCoord.xy * 2.0 - 1.0);  
+
+		float dist = GetDistanceFromEdge( pos, BoxSize, CornerRadius );
+		
+		float4 vBox = i.vColor.rgba;
+		float4 vBoxBorder;
+
+		UI_CommonProcessing_Pre( i );
+
+		#if D_BORDER_IMAGE
+			vBoxBorder = AddImageBorder( i.vTexCoord.xy );
+		#else
+			#if D_BORDER
+				vBoxBorder = AddBorder( i.vTexCoord.xy, pos, dist );
+				vBoxBorder.xyz = SrgbGammaToLinear( vBoxBorder.xyz ); 
+			#else
+				vBoxBorder = 0;
+			#endif
+		#endif
+  
+		// this makes the corner radius borders uneven and weird
+	//	dist -= D_BORDER_IMAGE ? 1.0 + SUBPIXEL_AA_MAGIC : 1.0; // Add one pixel to fill to specified size
+		
+		#if D_BACKGROUND_IMAGE
+			const float2 vImageSize = TextureDimensions2D( g_tColor, 0 );
+			float2 vOffset = BgPos.xy / bgSize;
+			
+			float2 vUV = -vOffset + ( ( i.vTexCoord.xy ) * ( BoxSize / bgSize ) );
+
+			vUV = RotateTexCoord( vUV, BgAngle );
+
+			float4 vImage;
+
+			#if D_BACKGROUND_REPEAT != 4
+				vImage = Tex2DLevel( g_tColor, fmod( vUV, 1.0f ), 0.0f ) * bgTint;
+
+				#if D_BACKGROUND_REPEAT != 0
+					#if D_BACKGROUND_REPEAT != 1
+						//Clamp U
+						if( vUV.x < 0 || vUV.x > 1 )
+							vImage = 0;
+					#endif
+
+					#if D_BACKGROUND_REPEAT != 2
+						//Clamp V
+						if( vUV.y < 0 || vUV.y > 1 )
+							vImage = 0;
+					#endif
+				#endif
+			#else
+				vImage = Tex2DLevel( g_tColor, vUV, 0.0f ) * bgTint;
+			#endif
+
+		#if D_SRGB_IMAGE
+			vImage.xyz = SrgbGammaToLinear( vImage.xyz ); 
+		#endif
+
+			vBox.rgb = lerp( vBox.rgb, vImage.rgb, saturate( vImage.a + ( 1 - vBox.a ) ) );
+			vBox.a = max( vBox.a, vImage.a );
+		#endif
+		
+		o.vColor = vBox;
+
+		#if D_BORDER_IMAGE || D_BORDER
+
+			o.vColor = AlphaBlend( vBoxBorder, o.vColor );
+			
+		#endif
+
+		// corner curves
+		o.vColor.a *= saturate( -dist - 0.5 ); 
+
+		return UI_CommonProcessing_Post( i, o );
+	}
+}

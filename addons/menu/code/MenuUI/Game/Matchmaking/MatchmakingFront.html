@@ -1,0 +1,16 @@
+
+<div class="sidebar-inner">
+	
+	<div class="toolbar">
+		<button class="section-header active" icon="group">Active Games</button>
+		<div class="spacer"></div>
+		<button class="is-action tight" icon="refresh" onclick="RefreshList()"></button>
+	</div>
+
+	<virtualscrollpanel class="section grow scroll" item-height="50" @ref="LobbyCanvas"> </virtualscrollpanel>  
+	
+	<div class="section">
+		<button icon="add_circle" class="is-primary is-large" onclick.event="onplaygame">New Game</button> 
+	</div>
+
+</div>

@@ -1,0 +1,39 @@
+
+<div class="sidebar-inner">
+
+	<div class="grow">
+	<tabcontrol>
+
+		<tab slot="tab" tabtext="Members" tabicon="emoji_people" class="columns grow">
+
+			<split direction="vertical" min-left="0.3" min-right="0.3" default-left="0.2" cookie="lobbychatsplit">
+
+				<div slot="left" class="section grow">
+					<text class="section-header" @text="MemberListText"></text>
+					<div class="playerlist" @ref="PlayerList"></div>
+				</div>
+
+				<div slot="right" class="section grow">
+					<text class="section-header">Lobby Chat</text>
+					<LobbyChat @ref="LobbyChat"></LobbyChat>
+				</div>
+			</split>
+
+		</tab>
+
+		<div slot="tab" tabtext="Settings" tabicon="settings" class="columns grow">
+			<GameLobbySettings class="section" @Game="Package" @Lobby="Lobby" />
+		</div>
+
+	</tabcontrol>
+	</div>
+
+	<div class="section">
+		<div class="row">
+			<button icon="logout" class="is-danger is-large" onclick="LeaveLobby()"></button> 
+			<button icon="play_arrow" class="is-primary is-large grow" onclick="OnStartGame()" @ref="StartGame">Start Game</button> 
+			<button icon="fast_forward" class="is-primary is-large needs-tools" onclick="OnStartGame()" @ref="ForceStartGame"></button> 
+		</div>
+	</div>
+
+</div>

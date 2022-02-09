@@ -1,0 +1,31 @@
+
+<root class="settings">
+
+	<div class="sidebar">
+		<div class="sidebar-inner">
+			<div class="section">
+				<text class="section-header">Settings</text>
+				<navlink icon="tv" href="/settings/video">Video</navlink>
+				<navlink icon="mouse" href="/settings/input">Input</navlink>
+				<navlink icon="music_note" href="/settings/audio">Sound</navlink>
+				<!--
+				<navlink icon="sports_esports" href="/settings/gameplay">Gameplay</navlink>
+				<navlink icon="handyman" href="/settings/developer">Developers</navlink>
+				-->
+			</div>
+
+			<div class="spacer">
+
+				<text @ref="DebugText" style="color: white;"></text>
+
+			</div>
+
+			<div class="section">
+				<button class="is-primary apply-button" onclick="ApplySettings()">Apply Changes</button> 
+			</div>
+		</div>
+	</div>
+
+	<div class="canvas" @ref="NavigatorCanvas"></div>
+
+</root>

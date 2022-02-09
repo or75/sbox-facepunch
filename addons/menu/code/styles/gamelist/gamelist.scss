@@ -1,0 +1,193 @@
+
+@import "_lobbychat.scss";
+@import "_gamelobby.scss";
+
+.gamelist
+{
+	flex-direction: column;
+	flex-grow: 1;
+	width: 100%;
+
+	.game_header
+	{
+		margin-top: $header-height;
+		z-index: 1;
+		width: 100%;
+	}
+
+	.game_canvas
+	{
+		padding-left: 30px;
+		padding-right: 30px;
+		flex-wrap: wrap;
+		margin-bottom: 0px;
+		overflow: scroll;
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: flex-start;
+		width: 100%;
+	}
+
+	.game_list
+	{
+		padding-bottom: 90px;
+		flex-wrap: wrap;
+		margin-bottom: 0px;
+		flex-direction: row;
+		align-items: flex-start;
+		justify-content: flex-start;
+		transition: all 0.1s ease-out;
+		width: 100%;
+	}
+
+	&.loading
+	{
+		.game_list
+		{
+			transition: all 0.1s ease-out;
+			opacity: 0.0;
+			pointer-events: none;
+		}
+	}
+
+
+	.empty
+	{
+		flex-grow: 1;
+		width: 100000px;
+		padding: 100px;
+		text-align: center;
+		font-size: 20px;
+		color: white;
+		font-family: Poppins;
+	}
+
+	.category
+	{
+		align-items: center;
+		cursor: pointer;
+		transition: all 0.1s ease-out;
+		background-color: rgba( $primary, 0);
+		flex-shrink: 0;
+		font-size: 14px;
+		opacity: 0.6;
+
+		.icon
+		{
+			font-size: 22px;
+			margin-right: 10px;
+			opacity: 0.2;
+		}
+
+		.title
+		{
+			padding: 4px 0px;
+			flex-grow: 1;
+			font-weight: 500;
+		}
+
+		.count
+		{
+			padding: 3px 6px;
+			font-size: 10px;
+			background-color: $primary;
+			border-radius: 5px;
+		}
+
+		&:hover
+		{
+			opacity: 1;
+			background-color: rgba( $primary, 0.1 );
+			padding: 2px 8px;
+		}
+
+		&.active
+		{
+			background-color: $primary;
+			padding: 5px 5px;
+			border-radius: 5px;
+			opacity: 1;
+
+			.icon
+			{
+				background-color: white;
+				padding: 5px;
+				opacity: 1;
+				color: $primary;
+				border-radius: 5px;
+			}
+
+			.title
+			{
+				font-weight: bold;
+			}
+
+			.count
+			{
+				background-color: $primary-fg;
+				color: $primary;
+			}
+		}
+	}
+
+	.buttongroup .category
+	{
+		flex-grow: 1;
+		background-color: $background;
+		padding: 10px 10px;
+		justify-content: center;
+		margin-right: 1px;
+
+		&:hover
+		{
+			padding: 10px 10px;
+		}
+
+		.icon
+		{
+			font-size: 30px;
+		}
+
+		.count
+		{
+			font-size: 13px;
+			background-color: transparent;
+		}
+
+		&.active
+		{
+			padding: 10px 10px;
+			background-color: $primary;
+			border-radius: 0px;
+
+			.icon
+			{
+				background-color: transparent;
+				padding: 0px;
+				opacity: 1;
+				color: white;
+			}
+
+			.count
+			{
+				color: white;
+				font-weight: bold;
+			}
+		}
+
+		.title
+		{
+			font-size: 10px;
+		}
+
+		&:first-child
+		{
+			border-radius: 10px 0 0 10px;
+		}
+
+		&:last-child
+		{
+			border-radius: 0px 10px 10px 0px;
+		}
+	}
+}

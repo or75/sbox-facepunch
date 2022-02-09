@@ -1,0 +1,31 @@
+
+
+<div class="columns">
+
+	<div class="section">
+		<text class="section-header">Leaderboards</text> 
+
+		<div class="columns" @ref="Leaderboard"></div>
+	</div>
+
+	<div class="section">
+
+		<div class="rows">
+			<div class="player-counts">
+				<text @text="Data.Wins"></text>
+				<text>Won</text>
+			</div>					
+
+			<div class="player-counts">
+				<text @text="Data.Losses"></text>
+				<text>Lost</text>
+			</div>
+
+			<div class="player-counts">
+				<text @text="Data.Draws"></text>
+				<text>Drawn</text>
+			</div>
+		</div>
+	</div>
+
+</div>

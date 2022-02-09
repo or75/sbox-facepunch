@@ -1,0 +1,258 @@
+// Copyright (c) Valve Corporation, All rights reserved. ======================================================================================================
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+HEADER
+{
+	DevShader = true;
+	CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+	Description = "Used to lightcookie atlas";
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+MODES
+{
+	Default();
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+FEATURES
+{
+	Feature( F_STENCIL_MASKING, 0..1 );
+	Feature( F_ALPHA_TEXTURE, 0..1 );
+	Feature( F_ADDITIVE, 0..1 );
+	Feature( F_ALPHA_ONLY, 0..1 );
+	FeatureRule( Allow1( F_ALPHA_TEXTURE, F_ADDITIVE ), "Alpha Texture and Additive are not compatible" );
+	FeatureRule( Allow1( F_ADDITIVE, F_ALPHA_ONLY ) ), "Additive and Alpha Only are not compatible" );
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+COMMON
+{
+	// !!! DO NOT INCLUDE ANY OTHER FILES IN THIS SHADER !!!
+	#include "system.fxc"
+	// !!! DO NOT INCLUDE ANY OTHER FILES IN THIS SHADER !!!
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+struct VS_INPUT
+{
+	float2 vPositionSs			: POSITION < Semantic( PosXyz ); >;
+	float4 vColor				: COLOR0 < Semantic( Color ); >;
+	float2 vTexCoord			: TEXCOORD0 < Semantic( LowPrecisionUv ); >;
+	#if ( D_MULTIVIEW_INSTANCING )
+		uint nInstanceID : SV_InstanceID < Semantic( None ); >;
+	#endif
+};
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+struct GS_INPUT
+{
+	float4 vColor				: COLOR0;
+	float2 vTexCoord			: TEXCOORD0;
+
+	// VS and GS only
+	#if ( PROGRAM != VFX_PROGRAM_PS )
+		float4 vPositionPs	: SV_Position;
+	#endif
+
+	#if ( D_MULTIVIEW_INSTANCING )
+		float vClip0 : SV_ClipDistance0;
+	#endif
+};
+
+
+struct PS_INPUT
+{
+	float4 vColor				: COLOR0;
+	float2 vTexCoord			: TEXCOORD0;
+
+	// VS and GS only
+	#if ( PROGRAM != VFX_PROGRAM_PS )
+		float4 vPositionPs	: SV_Position;
+	#endif
+
+	#if ( D_MULTIVIEW_INSTANCING )
+		float vClip0 : SV_ClipDistance0;
+	#endif
+
+	uint nSlice : SV_RenderTargetArrayIndex;
+	//Add anything else you need for your triangle
+};
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+VS
+{
+	// Includes -----------------------------------------------------------------------------------------------------------------------------------------------
+	#include "math_general.fxc"
+	#include "vr_common.fxc"
+	#define IS_SPRITECARD 1 // So GetViewSubviewAndAdjustInstanceId() doesn't cause compile error
+	#include "vr_lighting.fxc"
+
+	// Combos -------------------------------------------------------------------------------------------------------------------------------------------------
+	DynamicCombo( D_MULTIVIEW_INSTANCING, 0..1, Sys( PC ) );
+	// Constants ----------------------------------------------------------------------------------------------------------------------------------------------
+	float4 g_vViewport < Source( Viewport ); >;
+
+	BoolAttribute( ui, true );
+ 	BoolAttribute( ScreenSpaceVertices, true );
+
+	// Main ---------------------------------------------------------------------------------------------------------------------------------------------------
+	GS_INPUT MainVs( VS_INPUT i )
+	{
+		GS_INPUT o;
+
+		//
+		// Multiview instancing
+		//
+		uint nView = uint( 0 );
+		uint nSubview = uint( 0 );
+		float4 vViewport = g_vViewport;
+		float2 vPositionSs = i.vPositionSs;
+
+		#if ( D_MULTIVIEW_INSTANCING )
+		{
+			GetViewAndSubview( i.nInstanceID, nView, nSubview );
+			vViewport.xz *= 0.5;
+		}
+		#endif
+
+		o.vPositionPs.xy = 2.0 * ( vPositionSs.xy - vViewport.xy ) / ( vViewport.zw ) - float2( 1.0, 1.0 );
+		o.vPositionPs.y *= -1.0;
+		o.vPositionPs.z = 1.0;
+		o.vPositionPs.w = 1.0;
+
+		
+		#if ( D_MULTIVIEW_INSTANCING )
+			// For multiview we need to apply the per-eye view transform, so go from Ps -> Ws and then use
+			// the multiview camera to go from Ws -> Ps.
+			{
+				float4 vPositionWs = mul( g_matProjectionToWorld, o.vPositionPs );
+				o.vPositionPs = Position4WsToPsMultiview( nView, float4( vPositionWs ) );
+
+				// Always set z/w to 1.0 to avoid any z-fighting, we don't actually need these transformed by multiview.
+				o.vPositionPs.z = 1.0;
+				o.vPositionPs.w = 1.0;
+			}
+		#endif
+
+		o.vColor.rgb = SrgbGammaToLinear( i.vColor.rgb );
+		o.vColor.a = i.vColor.a;
+
+		o.vTexCoord.xy = i.vTexCoord.xy;
+
+		//
+		// Multiview instancing
+		//
+		#if ( D_MULTIVIEW_INSTANCING )
+		{
+			VrMultiviewInstancingSetPositionClipCullOutputs( nView, nSubview, o.vPositionPs, o.vClip0 );
+		}
+		#endif
+		return o;
+	}
+}
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+GS
+{
+	#include "system.fxc"
+
+
+	[maxvertexcount(3)]
+	void MainGs(triangle GS_INPUT input[3], inout TriangleStream<PS_INPUT> outStream)
+	{
+		PS_INPUT o;
+		[unroll(3)]
+		for (int i = 0; i < 3; ++i)
+		{
+			o.vColor = input[i].vColor;
+			o.vTexCoord = input[i].vTexCoord;
+			o.vPositionPs = input[i].vPositionPs;
+			
+			#if ( D_MULTIVIEW_INSTANCING )
+				o.vClip = input[i].vClip;
+			#endif
+			
+			o.nSlice = 5;
+
+			outStream.Append(o);
+		}
+	}
+}
+
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+PS
+{
+	#include "common.fxc"
+	// Combos -------------------------------------------------------------------------------------------------------------------------------------------------
+	StaticCombo( S_STENCIL_MASKING, F_STENCIL_MASKING, Sys( ALL ) );
+	StaticCombo( S_ALPHA_TEXTURE, F_ALPHA_TEXTURE, Sys( ALL ) );
+	StaticCombo( S_ALPHA_ONLY, F_ALPHA_ONLY, Sys( ALL ) );
+
+	// Texture Samplers ---------------------------------------------------------------------------------------------------------------------------------------
+	CreateInputTexture2D( Texture, Srgb, 8, "", "", "Color", Default3( 1.0, 1.0, 1.0 ) );
+	CreateTexture2DInRegister( g_tColor, 0 ) < Channel( RGBA, None( Texture ), Srgb ); OutputFormat( DXT5 ); SrgbRead( true ); >;
+	TextureAttribute( RepresentativeTexture, g_tColor );
+
+	// Render State -------------------------------------------------------------------------------------------------------------------------------------------
+	//RenderState( SrgbWriteEnable0, true );
+
+	// Always alpha blend
+	RenderState( BlendEnable, true );
+	RenderState( SrcBlend, F_ADDITIVE ? ONE : SRC_ALPHA );
+	RenderState( DstBlend, F_ADDITIVE ? ONE : INV_SRC_ALPHA );
+
+	// Always write rgba
+	RenderState( ColorWriteEnable0, F_ALPHA_ONLY ? A : RGBA );
+	RenderState( FillMode, SOLID );
+
+	// Never cull
+	RenderState( CullMode, NONE );
+
+	// No depth
+	RenderState( DepthEnable, false );
+	RenderState( DepthWriteEnable, false );
+
+	#if ( S_STENCIL_MASKING )
+		// Stencil is used to cause panels to occlude each other
+		RenderState( StencilEnable, true );
+		RenderState( StencilFailOp, KEEP );
+		RenderState( StencilDepthFailOp, KEEP );
+		RenderState( StencilPassOp, REPLACE );
+		RenderState( StencilFunc, GREATER_EQUAL );
+		RenderState( BackStencilFailOp, KEEP );
+		RenderState( BackStencilDepthFailOp, KEEP );
+		RenderState( BackStencilPassOp, REPLACE );
+		RenderState( BackStencilFunc, GREATER_EQUAL );
+		RenderState( StencilReadMask, 0xFF );
+		RenderState( StencilWriteMask, 0xFF );
+		RenderState( StencilRef, VGuiStencilRef );
+	#endif
+
+	// Main ---------------------------------------------------------------------------------------------------------------------------------------------------
+	struct PS_OUTPUT
+	{
+		float4 vColor : SV_Target0;
+	};
+
+	PS_OUTPUT MainPs( PS_INPUT i )
+	{
+		PS_OUTPUT o;
+
+		i.nSlice = 5;
+
+		float4 vColor = Tex2D( g_tColor, i.vTexCoord.xy );
+
+		vColor = float4( i.vTexCoord.xy,0,1);
+		#if ( S_ALPHA_TEXTURE )
+		{
+			vColor.rgb = float3( 1.0, 1.0, 1.0 );
+		}
+		#endif
+
+		o.vColor = i.vColor.rgba * vColor.rgba;
+		return o;
+	}
+}

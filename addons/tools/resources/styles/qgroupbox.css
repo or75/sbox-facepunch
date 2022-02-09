@@ -1,0 +1,18 @@
+/*
+QGroupBox 
+{
+    border: 1px solid #555;
+    border-radius: 7px;
+    padding: 10px 5px;
+    padding-top: 15px;
+    font-size: 11px;
+}
+
+QGroupBox::title 
+{
+    color: #999;
+    margin: 10px;
+    left: 20px;
+    top: -12px;
+}
+*/

@@ -1,0 +1,200 @@
+HEADER
+{
+    CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+    Description = "Standard post processing shader, Pass 1";
+    DevShader = true;
+}
+
+MODES
+{
+    Default();
+    VrForward();
+}
+
+FEATURES
+{
+}
+
+COMMON
+{
+    #include "postprocess/shared.hlsl"
+}
+
+struct VertexInput
+{
+    float3 vPositionOs : POSITION < Semantic( PosXyz ); >;
+    float2 vTexCoord : TEXCOORD0 < Semantic( LowPrecisionUv ); >;
+};
+
+struct PixelInput
+{
+    float2 vTexCoord : TEXCOORD0;
+
+	// VS only
+	#if ( PROGRAM == VFX_PROGRAM_VS )
+		float4 vPositionPs		: SV_Position;
+	#endif
+
+	// PS only
+	#if ( ( PROGRAM == VFX_PROGRAM_PS ) )
+		float4 vPositionSs		: SV_ScreenPosition;
+	#endif
+};
+
+VS
+{
+    PixelInput MainVs( VertexInput i )
+    {
+        PixelInput o;
+        
+        o.vPositionPs = float4(i.vPositionOs.xy, 0.0f, 1.0f);
+        o.vTexCoord = i.vTexCoord;
+        return o;
+    }
+}
+
+PS
+{
+    #include "postprocess/common.hlsl"
+    #include "postprocess/functions.hlsl"
+    #include "postprocess/falloff.hlsl"
+    #include "common/proceedural.hlsl"
+
+    RenderState( DepthWriteEnable, false );
+    RenderState( DepthEnable, false );
+
+    CreateTexture2D( g_tColorBuffer ) < Attribute( "ColorBuffer" );  	SrgbRead( true ); Filter( MIN_MAG_LINEAR_MIP_POINT ); AddressU( MIRROR ); AddressV( MIRROR ); >;
+    CreateTexture2D( g_tDepthBuffer ) < Attribute( "DepthBuffer" ); 	SrgbRead( false ); Filter( MIN_MAG_MIP_POINT ); AddressU( CLAMP ); AddressV( CLAMP ); >;
+    SamplerState g_sBilinearWrap < Filter( BILINEAR ); AddressU( WRAP ); AddressV( WRAP ); >;
+
+    float flCameraFOV< Attribute("CameraFOV"); Default(0); >;
+
+    struct PixelOutput
+    {
+        float4 vColor : SV_Target0;
+    };
+
+
+    DynamicCombo( D_PIXELATE, 0..1, Sys( PC ) );
+    DynamicCombo( D_LENS_DISTORTION, 0..1, Sys( PC ) );
+    DynamicCombo( D_PANINI_PROJECTION, 0..1, Sys( PC ) );
+    DynamicCombo( D_CHROMATIC_ABERRATION, 0..1, Sys( PC ) );
+    DynamicCombo( D_MOTION_BLUR, 0..1, Sys( PC ) );
+    DynamicCombo( D_SHARPEN, 0..1, Sys( PC ) );
+
+    //#if D_PIXELATE
+        float2 vPixelatePixelCount< Attribute("standard.pixelate.pixel_count"); Default2(256.0f, 256.0f); >;
+        float flPixelateFalloffModifier< Attribute("standard.pixelate.falloff"); Default(0.0f); >;
+    //#endif
+    
+    //#if D_PANINI_PROJECTION
+        float flPaniniAmount< Attribute("standard.paniniprojection.amount"); Default(0.5f); >;
+        float flPaniniCrop< Attribute("standard.paniniprojection.crop"); Default(1.0f); >;
+    //#endif
+
+    //#if D_LENS_DISTORTION
+        float flLensDistortionK1< Attribute("standard.lensdistortion.k1"); Default(0.0f); Range(-1.0f, 1.0f); >;
+        float flLensDistortionK2< Attribute("standard.lensdistortion.k2"); Default(0.0f); Range(-1.0f, 1.0f); >;
+    //#endif
+
+    //#if D_CHROMATIC_ABERRATION
+        float3 vChromaticAberationAmount< Attribute("standard.chromaticaberration.amount"); Default3(0.0f, 0.0f, 0.0f); >;
+        float flChromaticAberationFalloffModifier< Attribute("standard.chromaticaberration.falloff"); Default(0.0f); >; 
+    //#endif
+
+    //#if D_MOTION_BLUR
+        float flMotionBlurScale< Attribute("standard.motionblur.scale"); Default(0.05f); >;
+        int sMotionBlurSamples< Attribute("standard.motionblur.samples"); Default(16); >;
+        float flMotionBlurFalloffModifier< Attribute("standard.motionblur.falloff"); Default(0.0f); >; 
+    //#endif
+
+    //#if D_SHARPEN
+        float flSharpenStrength< Attribute("standard.sharpen.strength"); Default(0.0f); >;
+        float flSharpenFalloffModifier< Attribute("standard.sharpen.falloff"); Default(0.0f); >; 
+    //#endif
+	
+    float3 FetchSceneColor( float2 vScreenUv, float flDistance )
+    {
+        #if D_CHROMATIC_ABERRATION
+            return ChromaticAberration( g_tColorBuffer, g_tColorBuffer_sampler, vScreenUv, MapFalloff( flChromaticAberationFalloffModifier, flDistance, float3(0,0,0), vChromaticAberationAmount ) );
+        #else
+            return Tex2D( g_tColorBuffer, vScreenUv.xy ).rgb;
+        #endif
+    }
+
+    float flViewModelFarPlane< Attribute("viewModelNearPlane"); Default(0.1f); >;
+
+    float3 MotionBlurEx( float2 vTexCoords, float flDistance )
+    {
+        float2 vVelocityVector = GetVelocityVector( vTexCoords, Tex2DLevel( g_tDepthBuffer, vTexCoords, 0.0 ).r, flViewModelFarPlane );
+        
+        float flBlurScale = MapFalloff( flMotionBlurFalloffModifier, flDistance, 0.0f, flMotionBlurScale );
+
+        float3 vColor = FetchSceneColor( vTexCoords, flDistance );
+        vTexCoords += vVelocityVector * flBlurScale;
+        [loop]
+        for(int i = 1; i < sMotionBlurSamples; i++, vTexCoords += (vVelocityVector * flBlurScale))
+        {
+            vColor += FetchSceneColor( vTexCoords, flDistance );
+        }
+        return vColor / (float)sMotionBlurSamples;
+    }
+
+    float3 SharpenEx( float3 vColor, float2 vTexCoords, float flStrength, float flDistance )
+    {
+        float2 vSize = (1.0f / g_vRenderTargetSize);
+
+        float3 vFinalColor = vColor * (1.0f + (4.0f * flStrength));
+        vFinalColor += (FetchSceneColor(vTexCoords + float2(vSize.x, 0.0f), flDistance).rgb * (-1.0f * flStrength));
+        vFinalColor += (FetchSceneColor(vTexCoords + float2(-vSize.x, 0.0f), flDistance).rgb * (-1.0f * flStrength));
+        vFinalColor += (FetchSceneColor(vTexCoords + float2(0.0f, vSize.y), flDistance).rgb * (-1.0f * flStrength));
+        vFinalColor += (FetchSceneColor(vTexCoords + float2(0.0f, -vSize.y), flDistance).rgb * (-1.0f * flStrength));
+        
+        return vFinalColor;
+    }
+
+
+    PixelOutput MainPs( PixelInput i )
+    {
+        PixelOutput o;
+        float2 vScreenUv = i.vPositionSs.xy / g_vRenderTargetSize;
+
+        float flDepth = ReconstructWorldDepth( Tex2DLevel( g_tDepthBuffer, vScreenUv, 0.0 ).r );
+
+        #if D_PIXELATE
+            float2 vPixelCount = MapFalloff( flPixelateFalloffModifier, flDepth, g_vRenderTargetSize, vPixelatePixelCount );
+            vScreenUv = floor(vScreenUv * vPixelCount) / vPixelCount;
+        #endif
+
+        #if D_PANINI_PROJECTION
+            float2 vViewExtents = ViewExtents( flCameraFOV );
+            float2 vPaniniExtents = PaniniViewExtents( flCameraFOV, flPaniniAmount );
+
+            float2 vScale = vPaniniExtents / vViewExtents;
+            float flPaniniScale = lerp( 1.0f, saturate( max( vScale.x, vScale.y ) ), flPaniniCrop );
+            vScreenUv.y += 0.5f;
+            vScreenUv.y *= 0.5f;
+            vScreenUv = InversePaniniProjection( (2.0f * vScreenUv - 1.0f), flPaniniAmount  ) / (vViewExtents * flPaniniScale);
+            vScreenUv = vScreenUv * 0.5f + 0.5f;
+        #endif
+
+        #if D_LENS_DISTORTION
+            vScreenUv = BarrelDistortion( vScreenUv, flLensDistortionK1, flLensDistortionK2 );
+        #endif
+
+        #if D_MOTION_BLUR
+            // We can't use our predefined motion blur as we need to account for chromatic aberration
+            float3 vFinalColor = MotionBlurEx( vScreenUv, flDepth );
+        #else
+            float3 vFinalColor = FetchSceneColor( vScreenUv, flDepth ).rgb;
+        #endif
+
+        #if D_SHARPEN
+            vFinalColor = SharpenEx( vFinalColor, vScreenUv, MapFalloff( flSharpenFalloffModifier, flDepth, 0.0f, flSharpenStrength ), flDepth );
+        #endif
+
+        o.vColor.rgb = vFinalColor;
+        o.vColor.a = 1.0f;
+        return o;
+    }
+}

@@ -1,0 +1,21 @@
+//
+// Sandbox.DecalDefinition+DecalEntry
+//
+@struct = Sandbox_DecalDefinition_DecalEntry
+[
+	material(material) : "Material" :  : "Material to use."
+	width(vector) { editor = "Ranged()" } : "Width" : "5 5 0" : "Width of the decal."
+	height(vector) { editor = "Ranged()" } : "Height" : "5 5 0" : "Height of the decal."
+	keepaspect(boolean) : "Keep Aspect" : 0 : "Keep aspect ratio of the decal image when using randomly generating Width and Height."
+	depth(vector) { editor = "Ranged()" } : "Depth" : "3 3 0" : "TODO: Describe me"
+	rotation(vector) { editor = "Ranged()" } : "Rotation" : "0 360 1" : "Rotation to apply when placing the decal."
+]
+
+//
+// Sandbox.DecalDefinition
+//
+@BaseClass = decal : ""
+[
+	decals(array:struct:Sandbox_DecalDefinition_DecalEntry) : "Decal List" :  : "A list of decals, from which an entry will be randomly selected when this decal is placed."
+]
+

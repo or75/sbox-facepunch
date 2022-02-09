@@ -1,0 +1,457 @@
+
+@import 'vars';
+@import 'button';
+@import '/styles/base.scss';
+@import '/styles/form.scss';
+
+@import 'ingame';
+@import 'popup';
+@import 'header';
+@import 'footer';
+@import 'gameicon';
+@import 'grid';
+@import 'debug';
+
+@import 'form';
+@import 'sidebar';
+@import 'settings';
+@import 'field';
+
+@import 'home/home.scss';
+@import 'party/party.scss';
+@import 'game/game.scss';
+@import 'gamelist/gamelist.scss';
+@import 'avatar/avatar.scss';
+
+mainmenupanel > navigator
+{
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	padding-left: 100px;
+	padding-right: 100px;
+}
+
+mainmenupanel > navigator > .navigator-canvas
+{
+	opacity: 1;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	bottom: 0px;
+	right: 0px;
+	flex-direction: column;
+	z-index: 0;
+	align-items: center;
+
+	> .navigator-body
+	{
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		right: 0px;
+		padding-top: $padding-head;
+		padding-right: $padding-edge;
+		padding-left: $padding-edge;
+		flex-grow: 1;
+		flex-direction: row;
+		opacity: 1;
+
+		&.fill-screen
+		{
+			padding: 0px;
+		}
+	}
+}
+
+
+
+mainmenupanel
+{
+	background-color: $background;
+	width: 100%;
+	height: 100%;
+	transition: all 0.3s ease-out;
+	flex-direction: column;
+	pointer-events: all;
+	transform-origin: 50% 50%;
+	background-image: url( /ui/mainmenu/bg.png );
+	background-size: cover;
+	background-position: center;
+
+	&.is-vr {
+		border-radius: 48px;
+	}
+
+	&.hidden {
+		transition: all 0.1s ease;
+		opacity: 0;
+		transform: scale( 1.1 );
+		pointer-events: none;
+		backdrop-filter: blur( 0px );
+	}
+
+	&:intro
+	{
+		background-color: rgba( black, 0 );
+	}
+}
+
+mainmenupanel .body
+{
+	width: 100%;
+	position: relative;
+	flex-grow: 1;
+	transition: all 0.2s 0.1s ease-out;
+	padding: 60px;
+	padding-top: 0;
+
+	&:intro
+	{
+		transform: scale( 0.9 );
+		opacity: 0;
+	}
+}
+
+button.primary
+{
+	background-color: #3171E6;
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 13px 40px;
+	border-radius: 50px;
+	cursor: pointer;
+	opacity: 0.8;
+	border: 3px solid transparent;
+
+	&:hover
+	{
+		opacity: 1;
+	}
+}
+
+
+mainmenupanel.has-overlay .body
+{
+	opacity: 0;
+	transition: all 0.1s ease;
+}
+
+.actions
+{
+	button
+	{
+		background-color: #3171E6;
+		color: white;
+		font-size: 15px;
+		font-weight: bold;
+		padding: 10px 30px;
+		border-radius: 50px;
+		cursor: pointer;
+		opacity: 0.8;
+		border: 3px solid transparent;
+		margin-right: 10px;
+
+		&:hover
+		{
+			opacity: 1;
+		}
+
+		&.is-cancel
+		{
+			background-color: #555;
+			color: #aaa;
+		}
+
+		pointer-events: all;
+
+		&.is-danger
+		{
+		}
+	}
+
+	&.actions-side-bar
+	{
+		position: absolute;
+		bottom: 40px;
+		width: 200px;
+		right: 96px;
+
+		.container
+		{
+			flex-direction: column;
+
+			button
+			{
+				margin-right: 0;
+				margin-top: 10px;
+				text-align: center;
+
+				label
+				{
+					width: 100%;
+				}
+			}
+		}
+	}
+}
+
+.scroll
+{
+	overflow: scroll;
+}
+
+.grow
+{
+	flex-grow: 1;
+}
+
+.grow-2
+{
+	flex-grow: 2;
+}
+
+.grow-3
+{
+	flex-grow: 3;
+}
+
+.columns
+{
+	flex-direction: column;
+}
+
+.rows
+{
+	flex-direction: row;
+}
+
+.needs-tools
+{
+	display: none;
+}
+
+.has-tools .needs-tools
+{
+	display: flex;
+}
+
+.needs-edit
+{
+	display: none;
+}
+
+.has-edit .needs-edit
+{
+	display: flex;
+}
+
+.fill-screen > .sidebar
+{
+	padding-top: $padding-head;
+
+	&:first-child
+	{
+		padding-left: $padding-edge;
+	}
+}
+
+.navigator-body
+{
+	flex-grow: 1;
+}
+
+mainmenupanel > navigator > .navigator-canvas.navigator-body > .canvas
+{
+	padding-left: 100px;
+	padding-right: 100px;
+	padding-bottom: 180px;
+	flex-direction: column;
+	flex-grow: 1;
+	overflow: scroll;
+
+	&.icon-canvas
+	{
+		flex-grow: 1;
+		flex-direction: row;
+		flex-wrap: wrap;
+		padding-bottom: $padding-head;
+
+		.cell
+		{
+			padding: 20px;
+		}
+	}
+}
+
+.toolbar
+{
+	flex-shrink: 0;
+
+	.spacer
+	{
+		flex-grow: 1;
+	}
+
+	textentry
+	{
+		background-color: rgba( white, 0.01 );
+		border-radius: 2px;
+		color: white;
+		font-size: 12px;
+
+		.iconpanel
+		{
+			color: rgba( white, 0.5 );
+			font-size: 15px;
+		}
+	}
+}
+
+
+
+.toolbar, .tabcontainer > .tabs
+{
+	border-bottom: 2px solid rgba( white, 0.01 );
+	padding-bottom: 5px;
+	height: 30px;
+
+	.button
+	{
+		border: none;
+		padding: 5px 20px;
+		padding-left: 0px;
+		min-height: 0px;
+		opacity: 0.1;
+		transition: all 0.2s ease;
+		background-color: transparent;
+		mix-blend-mode: lighten;
+		font-size: 15px;
+		font-weight: 300;
+
+		.iconpanel
+		{
+			margin: 0;
+			margin-right: 5px;
+		}
+
+		&.tight
+		{
+			padding: 0;
+			height: 20px; // hack
+			min-width: 0px;
+			justify-content: center;
+		}
+
+		&:hover
+		{
+			border: none;
+			opacity: 0.15;
+		}
+
+		&.active
+		{
+			border: none;
+			opacity: 1;
+		}
+	}
+}
+
+.toolbar.is-secondary
+{
+	height: auto;
+	border: 0;
+	flex-shrink: 0;
+	margin-bottom: 10px;
+
+	.button
+	{
+		min-height: 0;
+		height: auto;
+		padding: 5px 10px;
+	}
+
+	.button .label
+	{
+		font-size: 13px;
+	}
+}
+
+.sidebar .tabcontainer
+{
+	> .sheets
+	{
+		border: none;
+		padding-top: 20px;
+	}
+}
+
+.dialog
+{
+	flex-direction: column;
+	flex-grow: 1;
+
+	> .head
+	{
+		flex-grow: 0;
+		flex-shrink: 0;
+	}
+
+	> .body
+	{
+		flex-grow: 1;
+		flex-direction: column;
+		padding: 10px;
+	}
+
+	> .foot
+	{
+		flex-grow: 0;
+		flex-shrink: 0;
+		padding: 10px;
+		flex-direction: row-reverse;
+	}
+}
+
+.footer-space
+{
+	padding-bottom: 120px;
+}
+
+
+.listinspector
+{
+	max-height: 300px;
+	overflow: scroll;
+
+	> .row
+	{
+		padding: 5px 0px;
+		flex-shrink: 0;
+
+		> .control
+		{
+			padding-right: 5px;
+		}
+
+		.button-delete
+		{
+			border-color: transparent;
+			background-color: transparent;
+
+			.iconpanel
+			{
+				content: 'clear';
+			}
+		}
+	}
+}
+
+localgamelist
+{
+	padding-bottom: 90px;
+}

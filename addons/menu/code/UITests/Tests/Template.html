@@ -1,0 +1,38 @@
+
+<link rel="stylesheet" href="Template.scss" />
+
+<div class="root" style="align-items: center; justify-content: center; flex-direction: column;">
+
+		<button @ref="ClickableButton" onclick="ClickedButton( this )" style="margin: 10px;" text="Click Me!">Hello Click Me!</button>
+
+		<div @ref.optional="MissingRefTest" style="margin: 30px; border: 10px solid red; border-radius: 5px;">
+
+			<label @ref="HoverableLabel" onmouseout="this.SetText( 'Not Hovering' )" onmouseover="this.SetText( 'Hovering' )" style="color: white; font-size: 20px; margin: 10px;">Label with hover events</label>
+
+		</div>
+
+	<div class="column">
+
+		<div class="row">
+			<label class="label">Missing</label>
+			<label class="value" @text="Missing.Missing.Missing.Missing">Missing Property</label>
+		</div>
+
+		<div class="row">
+			<label class="label">CurrentTime</label>
+			<label class="value" @text="CurrentTime">Binding Error</label>
+		</div>		
+		
+		<div class="row">
+			<label class="label">MousePos</label>
+			<label class="value" @text="MousePos">Binding Error</label>
+		</div>		
+
+		<div class="row">
+			<label class="label">ClickableButton.Text</label>
+			<label class="value" @text="ClickableButton.Text">Binding Error</label>
+		</div>
+
+	</div>
+
+</div>

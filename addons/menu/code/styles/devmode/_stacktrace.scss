@@ -1,0 +1,83 @@
+
+stacktrace
+{
+	flex-direction: column;
+	flex-grow: 1;
+
+	.stack-entry
+	{
+		flex-shrink: 0;
+		flex-grow: 0;
+		color: #92e15c;
+		cursor: pointer;
+		opacity: 0.8;
+		font-size: 12px;
+		padding: 9px 4px;
+		flex-direction: row;
+		background-color: rgba( #87bf61, 0.03 );
+		margin-top: 1px;
+		align-items: center;
+
+		// a message, with no function or file
+		.message
+		{
+			padding: 1px 2px;
+			flex-grow: 100;
+			flex-shrink: 0;
+			font-weight: normal;
+			font-size: 11px;
+		}
+
+		.function
+		{
+			padding: 1px 2px;
+			flex-grow: 100;
+			white-space: nowrap;
+			flex-shrink: 0;
+			font-weight: bold;
+		}
+
+		.file
+		{
+			color: #87bf61cc;
+			font-size: 10px;
+			text-align: right;
+			margin-left: 10px;
+			white-space: nowrap;
+			overflow: hidden;
+			flex-shrink: 1;
+			flex-grow: 0;
+		}
+
+		&:hover
+		{
+			opacity: 1;
+			background-color: rgba( #87bf61, 0.05 );
+		}
+
+		&.is-engine
+		{
+			color: #a1cbffaa;
+			background-color: rgba( #a1cbff, 0.03 );
+			font-size: 11px;
+
+			.function
+			{
+				font-weight: normal;
+			}
+
+			.file
+			{
+				margin-right: 10px;
+				color: #a1cbff77;
+				font-size: 9px;
+			}
+
+			&:hover
+			{
+				opacity: 1;
+				background-color: rgba( #a1cbff, 0.05 );
+			}
+		}
+	}
+}

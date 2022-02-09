@@ -1,0 +1,123 @@
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+HEADER
+{
+	DevShader = true;
+	Description = "Compute Shader for water splashes.";
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+MODES
+{
+	Default();
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+FEATURES
+{
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+COMMON
+{
+	#include "common/shared.hlsl" // This should always be the first include in COMMON
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+CS
+{
+	CreateTexture2D(g_tSplashTextureLast) < Attribute("SplashTextureLast"); > ;
+	RWTexture2D<float2> g_tSplashTexture < Attribute("SplashTexture"); > ;
+	float g_flSplashTextureSize < Attribute("SplashTextureSize");
+	Default(256.0f); > ;
+
+	float g_flRadius < Attribute("Radius");
+	Default(512.0f); > ;
+	float g_flTimeDelta < Attribute("TimeDelta");
+	Default(0.0f); > ;
+	float2 g_vViewPosition < Attribute("ViewPosition"); > ;
+	float2 g_vViewPositionLast < Attribute("ViewPositionLast"); > ;
+
+	// Move these to compute buffer
+	float4 g_vSplashInformation0 < Attribute("SplashInformation0"); > ;
+
+	//
+	//
+	//
+	struct SplashInformation_t
+	{
+		float2 vPosition;
+		float flRadius;
+		float flStrength;
+	};
+
+	//
+	// Decode information of the ripple, free since it's all inlined
+	//
+	SplashInformation_t DecodeSplash(float4 vSplash)
+	{
+		SplashInformation_t tSplash;
+
+		tSplash.vPosition = vSplash.xy;
+		tSplash.flRadius = vSplash.z;
+		tSplash.flStrength = vSplash.w;
+
+		return tSplash;
+	}
+
+	//
+	// Sample the last frame's texture
+	//
+	float4 SampleColorOffset(float2 p)
+	{
+		return Tex2DLevel(g_tSplashTextureLast, saturate(p), 0);
+	}
+
+	[numthreads(8, 8, 1)] void MainCs(uint nGroupIndex
+									  : SV_GroupIndex, uint3 vThreadId
+									  : SV_DispatchThreadID)
+	{
+		uint2 vSample = uint2(vThreadId.xy);
+
+		float2 vTexCoord = vThreadId.xy / g_flSplashTextureSize;
+		vTexCoord += 0.5 / g_flSplashTextureSize;
+
+		// Get the offset of how much we moved
+		// This degenerates a bit when movuing since we are bilinear filtering
+		float2 vTexCoordOffset = (g_vViewPosition - g_vViewPositionLast.xy) / (g_flRadius);
+
+		float2 p = vTexCoord + vTexCoordOffset;
+		float4 vOldColor = SampleColorOffset(p);
+
+		//Not quite right, but close enough
+		float e = 0.05f * g_flTimeDelta;
+		float3 epsilon = float3(e, e, 0);
+
+		// Sample ripples in the offset direction
+		// Todo: Could do some depth collision checks here
+		float s0 = vOldColor.y, s1 = SampleColorOffset(p - epsilon.zy).x, s2 = SampleColorOffset(p - epsilon.xz).x, s3 = SampleColorOffset(p + epsilon.xz).x, s4 = SampleColorOffset(p + epsilon.zy).x;
+
+		float fCurrentRipple = 0;
+
+		//Todo: For each splash
+		{
+			SplashInformation_t tSplash = DecodeSplash(g_vSplashInformation0);
+
+			float fSplash = distance(tSplash.vPosition, (vTexCoord * (g_flRadius)) + g_vViewPosition - ((g_flRadius)*0.5)) * 0.001;
+			fSplash = smoothstep(0.0f, 0.02f, fSplash);
+
+			// Add the result to the current ripple
+			fCurrentRipple = max(1 - fSplash, fCurrentRipple) * min(tSplash.flStrength * 0.01f, 0.1f);
+		}
+
+		//http://www.darwin3d.com/gdm1999.htm
+		fCurrentRipple += -(s0 - .5) * 2. + (s1 + s2 + s3 + s4 - 2.);
+		fCurrentRipple = fCurrentRipple * 0.5 + 0.5;
+
+		float2 vColor = float2(fCurrentRipple, vOldColor.x);
+
+		if (vThreadId.x < 10 || vThreadId.y < 10)
+			vColor = 0;
+
+		g_tSplashTexture[vThreadId.xy] = vColor;
+	}
+}

@@ -1,0 +1,130 @@
+HEADER
+{
+	DevShader = true;
+	CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+	Version = 1;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+MODES
+{
+	Default();
+	VrForward();
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+FEATURES
+{
+
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+COMMON
+{
+	#include "ui/common.hlsl"
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+VS
+{
+	#include "ui/vertex.hlsl"
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+PS
+{
+	#include "ui/pixel.hlsl"  
+
+	float BlurScale < Attribute( "BlurScale" ); Default( 10 ); >;
+	float4 CornerRadius < Attribute( "BorderRadius" ); >;
+
+	#if D_WORLDPANEL
+	CreateTexture2D( g_tFrameBufferCopyTexture ) < Attribute( "FrameBufferCopyTexture" ); SrgbRead( false ); Filter( MIN_MAG_MIP_LINEAR ); AddressU( CLAMP ); AddressV( CLAMP ); >;
+	#else
+	CreateTexture2D( g_tFrameBufferCopyTexture ) < Attribute( "FrameBufferCopyTexture" ); SrgbRead( true ); Filter( MIN_MAG_MIP_LINEAR ); AddressU( CLAMP ); AddressV( CLAMP ); >;
+	#endif
+	float4 g_vFBCopyTextureRect < Attribute( "FrameBufferCopyRectangle" ); Default4( 0., 0., 1.0, 1.0 ); >;
+
+	float4 g_vViewport < Source( Viewport ); >; 
+
+	// Render State -------------------------------------------------------------------------------------------------------------------------------------------
+	RenderState( SrgbWriteEnable0, true );
+
+	// Always alpha blend
+	RenderState( BlendEnable, true );
+	RenderState( SrcBlend, SRC_ALPHA );
+	RenderState( DstBlend, INV_SRC_ALPHA );
+
+	// Always write rgba
+	RenderState( ColorWriteEnable0, RGBA );
+	RenderState( FillMode, SOLID );
+
+	// Never cull
+	RenderState( CullMode, NONE );
+
+	// No depth
+	RenderState( DepthWriteEnable, false );
+
+	// Main ---------------------------------------------------------------------------------------------------------------------------------------------------
+	float GetDistanceFromEdge( float2 pos, float2 size )
+	{
+		float minCorner = min(size.x, size.y);
+
+		//Based off https://iquilezles.org/www/articles/distfunctions2d/distfunctions2d.htm
+
+		float4 r = min( CornerRadius * 2.0 , minCorner );
+		r.xy = (pos.x>0.0)?r.xy : r.zw;
+		r.x  = (pos.y>0.0)?r.x  : r.y;
+		float2 q = abs(pos)-(size)+r.x;
+		return min(max(q.x,q.y),0.0) + length(max(q,0.0)) - r.x;
+	}
+
+	float3 DoBackgroundBlur( float3 color, float2 uv, float2 size )
+	{
+		// transform the uv by the g_vFBCopyTextureRect
+		uv.x = uv.x * g_vFBCopyTextureRect.z;
+		uv.y = uv.y * g_vFBCopyTextureRect.w;
+
+		float Pi = 6.28318530718; // Pi*2
+		float Directions = 16.0; // BLUR DIRECTIONS (Default 16.0 - More is better but slower)
+		float Quality = 4.0; // BLUR QUALITY (Default 4.0 - More is better but slower)
+		float taps = 1;
+
+		// Blur calculations
+		[unroll]
+		for( float d=0.0; d<Pi; d+=Pi/Directions)
+		{
+			[unroll]
+			for(float j=1.0/Quality; j<=1.0; j+=1.0/Quality)
+			{
+				taps += 1;
+				color += Tex2D( g_tFrameBufferCopyTexture, uv + float2( cos(d), sin(d) ) * size * j ).rgb;	
+			}
+		}
+		
+		// Output to screen
+		color /= taps;
+
+		return color;
+	}
+
+	PS_OUTPUT MainPs( PS_INPUT i ) 
+	{
+		PS_OUTPUT o;
+
+		UI_CommonProcessing_Pre( i );
+
+		float2 screenPos = (i.vPositionSs.xy / i.vPositionSs.w + 1 ) * 0.5;
+		screenPos.y = 1 - screenPos.y;
+
+		float2 pos = ( BoxSize ) * (i.vTexCoord.xy * 2.0 - 1.0);
+		float dist = GetDistanceFromEdge( pos, BoxSize ); 
+
+		o.vColor = Tex2D( g_tFrameBufferCopyTexture, screenPos.xy );
+
+		o.vColor.rgb = DoBackgroundBlur( o.vColor.rgb, screenPos.xy, BlurScale / g_vViewport.zw ); 
+		o.vColor.a = saturate( -dist * SUBPIXEL_AA_MAGIC ) * i.vColor.a;
+
+		return UI_CommonProcessing_Post( i, o );
+	}
+}

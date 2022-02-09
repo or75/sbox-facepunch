@@ -1,0 +1,25 @@
+<root class="columns">
+
+	<div class="toolbar is-secondary">
+
+		<div class="section">
+			<textentry style="width: 200px;" @value="SearchText" placeholder="Search All Maps.." icon="search"></textentry>
+		</div>
+
+		<div class="spacer"></div>
+
+		<div class="section">
+			<buttongroup>
+				<button activevalue="local" @active="SortOrder" icon="save"></button>
+				<button activevalue="newest" @active="SortOrder" icon="calendar_today">Newest</button>
+				<button activevalue="popular" @active="SortOrder" icon="groups">Popular</button>
+				<button activevalue="trending" @active="SortOrder" icon="trending_up">Trending</button>
+				<button activevalue="live" @active="SortOrder" icon="stream">Live</button>
+			</buttongroup>
+		</div>
+
+	</div>
+
+	<virtualscrollpanel item-width="33%" auto-columns="1" item-height="250" class="canvas icon-canvas grow scroll" @ref="AssetList"></virtualscrollpanel>
+
+</root>

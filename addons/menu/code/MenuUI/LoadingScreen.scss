@@ -1,0 +1,95 @@
+
+loadingscreen
+{
+	background-color: #fff;
+	position: absolute;
+	left: 0;
+	top: 0px;
+	right: 0;
+	bottom: 0;
+	flex-direction: column;
+	transition: all 0.2s ease-out;
+	transform-origin: 50% 50%;
+	transform: scale( 1 );
+	background-image: url( /ui/mainmenu/loading_default.png );
+	background-size: cover;
+	background-position: center;
+	opacity: 1;
+
+	&.hidden
+	{
+		opacity: 0;
+		pointer-events: none;
+		transform: scale( 1.1 );
+		transition: all 0.4s ease-out;
+	}
+}
+
+
+loadingscreen .footer
+{
+	flex-direction: row;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 100px;
+	padding-top: 50px;
+
+	.spacer
+	{
+		flex-grow: 1;
+		flex-shrink: 0;
+	}
+}
+
+loadingscreen .footer .status
+{
+	flex-direction: column;
+	text-align: right;
+	margin-right: 40px;
+	font-family: Poppins;
+	font-size: 30px;
+	color: #fff;
+
+	.title
+	{
+		font-weight: 600;
+	}
+
+	.subtitle
+	{
+		font-size: 18px;
+		font-weight: 200;
+		opacity: 0.5;
+	}
+
+}
+
+
+
+loadingscreen .footer .action
+{
+	flex-grow: 0;
+	flex-shrink: 0;
+
+	button
+	{
+		background-color: #3273eb;
+		padding: 0px 70px;
+		border-radius: 60px;
+		font-size: 33px;
+		font-weight: 600;
+		color: #fff;
+		cursor: pointer;
+		font-family: Poppins;
+		justify-content: center;
+		align-items: center;
+
+		&:hover
+		{
+			background-color: white;
+			color: #3273eb;
+		}
+	}
+}

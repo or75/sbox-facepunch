@@ -1,0 +1,121 @@
+//
+// Sandbox.ModelParticle
+//
+@ModelGameData game_data_list( particles_list ) = particle : "Spawn a particle when the model is used on an entity. Support for this depends on the entity."
+[
+	name(resource:vpcf) : "Particle" :  : ""
+	attachment_point(model_attachment) : "Attachment Point" :  : ""
+	attachment_type(choices) : "Attachment Type" : 5 : "" =
+	[
+		0 : "Origin"
+		1 : "Origin Follow"
+		2 : "Custom Origin"
+		3 : "Custom Origin Follow"
+		4 : "Attachment"
+		5 : "Attachment Follow"
+		6 : "Eyes Follow"
+		7 : "Overhead Follow"
+		8 : "World Origin"
+		9 : "Root Bone Follow"
+		10 : "Render Origin Follow"
+		13 : "Center Follow"
+	]
+	attachment_offset(vector) : "Attachment Offset" :  : ""
+]
+
+//
+// Sandbox.ModelPropData
+//
+@ModelGameData = prop_data : "Generic prop settings. Support for this depends on the entity."
+[
+	allowstatic(boolean) : "Allow As Static Prop" : 0 : "TODO: Implement/Delete"
+	bakelighting(boolean) : "Bake Lighting As Static Prop" : 1 : "TODO: Implement/Delete"
+	spawn_motion_disabled(boolean) : "Spawn as Motion-Disabled" : 0 : "TODO: Implement/Delete"
+	health(float) : "Health" : -1 : "When this model is used as prop_physics, it's health will be set to this value."
+	min_impact_damage_speed(float) : "Minimum Impact Damage Speed" : -1 : "TODO: Implement/Delete"
+	impact_damage(float) : "Impact Damage" : -1 : "TODO: Implement/Delete"
+	parent_bodygroup_name(string) : "Parent Bodygroup Name" :  : "TODO: Implement/Delete"
+	parent_bodygroup_value(integer) : "Parent Bodygroup Value" : 0 : "TODO: Implement/Delete"
+]
+
+//
+// Sandbox.ModelExplosionBehavior
+//
+@ModelGameData 
+sphere
+{
+	"radius_key" = "explosive_radius"
+}
+= explosion_behavior : "Defines the model as explosive. Support for this depends on the entity."
+[
+	explosion_custom_sound(sound) : "Sound" :  : "Sound override for when the prop explodes."
+	explosion_custom_effect(resource:vpcf) : "Effect" :  : "Particle effect override for when the problem explodes."
+	explosive_damage(float) : "Damage" : -1 : "Amount of damage to do at the center on the explosion. It will falloff over distance."
+	explosive_radius(float) : "Radius" : -1 : "Range of explosion's damage."
+	explosive_force(float) : "Force Scale" : -1 : "Scale of the force applied to entities damaged by the explosion and the models break pieces."
+]
+
+//
+// Sandbox.ModelBreakParticle
+//
+@ModelBreakCommand = break_create_particle : "Spawn a particle system when this model breaks."
+[
+	name(resource:vpcf) : "Particle" :  : "The particle to spawn when the model breaks."
+	cp0_model(resource:vmdl) : "Model" :  : "(Optional) Set the particle control point #0 to the specified model."
+	cp0_snapshot(resource:vsnap) : "Snapshot" :  : "(Optional) Set the particle control point #0 to the specified snapshot."
+	damage_position_cp(integer) { nullable = true } : "Damage Position CP" : -1 : "(Optional) Set this control point to the position of the break damage."
+	damage_direction_cp(integer) { nullable = true } : "Damage Direction CP" : -1 : "(Optional) Set this control point to the direction of the break damage."
+	velocity_cp(integer) { nullable = true } : "Velocity CP" : -1 : "(Optional) Set this control point to the velocity of the original prop."
+	angular_velocity_cp(integer) { nullable = true } : "Angular Velocity CP" : -1 : "(Optional) Set this control point to the angular velocity of the original prop."
+	local_gravity_cp(integer) { nullable = true } : "Local Gravity CP" : -1 : "(Optional) Set this control point to global world gravity at the moment the model broke."
+	tint_cp(integer) { nullable = true } : "Tint CP" : -1 : "(Optional) Set this control point to the tint color of the original prop as a vector with values 0 to 1."
+]
+
+//
+// Sandbox.ModelBreakPieceRevoluteJoint
+//
+@ModelBreakCommand 
+locator_axis
+{
+	transform =
+	{
+		origin_key = "anchor_position"
+		angles_key = "anchor_angles"
+	}
+}
+physicsjoint_hinge
+{
+	transform =
+	{
+		origin_key = "anchor_position"
+		angles_key = "anchor_angles"
+	}
+	"min_angle" = "min_angle"
+	"max_angle" = "max_angle"
+	"enable_limit" = "enable_limit"
+}
+= break_create_joint_revolute : "Creates a revolute (hinge) joint between two spawned breakpieces."
+[
+	parent_piece(model_breakpiece) : "Parent Piece" :  : ""
+	child_piece(model_breakpiece) : "Child Piece" :  : ""
+	anchor_position(vector) : "Anchor Position (relative to model)" :  : ""
+	anchor_angles(angle) : "Anchor Axis (relative to model)" :  : "Axis around which the revolute/hinge joint rotates."
+	friction(float) : "Friction" : 0 : "Hinge friction."
+	enable_limit(boolean) : "Limit Angles" : 0 : "Whether the angle limit should be enabled or not."
+	min_angle(float) { min = -179 max = 179 } : "Minimum Angle" : 0 : ""
+	max_angle(float) { min = -179 max = 179 } : "Maximum Angle" : 0 : ""
+]
+
+//
+// Sandbox.ModelDoorSounds
+//
+@ModelGameData = door_sounds : "Sounds to be used by ent_door if it does not override sounds."
+[
+	fully_open_sound(string) : "Fully Open Sound" :  : "Sound to play when the door reaches it's fully open position."
+	fully_closed_sound(string) : "Fully Closed Sound" :  : "Sound to play when the door reaches it's fully closed position."
+	open_sound(string) : "Start opening sound" :  : "Sound to play when the door starts to open."
+	close_sound(string) : "Start closing sound" :  : "Sound to play when the door starts to close."
+	moving_sound(string) : "Moving Sound" :  : "Sound to play while the door is moving. Typically this should be looping or very long."
+	locked_sound(string) : "Locked Sound" :  : "Sound to play when the door is attempted to be opened, but is locked."
+]
+

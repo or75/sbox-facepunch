@@ -1,0 +1,38 @@
+
+MapButton
+{
+	opacity: 0.8;
+
+	&:hover
+	{
+		opacity: 1;
+	}
+
+	image
+	{
+		width: 100px;
+		height: 100px;
+		margin: 5px 0px;
+		margin-right: 10px;
+		border-radius: 10px;
+		flex-shrink: 0;
+		flex-grow: 0;
+	}
+
+	.details
+	{
+		flex-direction: column;
+		flex-grow: 1;
+		padding: 10px 0;
+
+		.map_title
+		{
+		}
+
+		.map_author
+		{
+			font-size: 11px;
+			opacity: 0.6;
+		}
+	}
+}

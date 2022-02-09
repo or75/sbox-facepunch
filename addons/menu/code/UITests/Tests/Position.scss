@@ -1,0 +1,86 @@
+position
+{
+	.child
+	{
+		transition: all 1s ease;
+		cursor: pointer;
+		width: 10px;
+		height: 10px;
+		background-color: white;
+
+		&:hover
+		{
+			width: 20px;
+			height: 20px;
+		}
+	}
+	//
+	// Should be on the inside bottom right
+	//
+	.a
+	{
+		background-color: green;
+		width: 90px;
+		height: 50px;
+		margin: 20px;
+
+		.child
+		{
+			position: absolute;
+			bottom: 0px;
+			right: 0px;
+		}
+	}
+	//
+	// Should be on the outside bottom right
+	//
+	.b
+	{
+		background-color: green;
+		width: 90px;
+		height: 50px;
+		margin: 20px;
+
+		.child
+		{
+			position: absolute;
+			top: 100%;
+			left: 100%;
+		}
+	}
+	//
+	// Should be on the outside top left
+	//
+	.c
+	{
+		background-color: green;
+		width: 90px;
+		height: 50px;
+		margin: 20px;
+
+		.child
+		{
+			position: absolute;
+			bottom: 100%;
+			left: 0px;
+		}
+	}
+
+	//
+	// Should be on the outside top left
+	//
+	.d
+	{
+		background-color: green;
+		width: 90px;
+		height: 50px;
+		margin: 20px;
+
+		.child
+		{
+			position: absolute;
+			top: 100%;
+			left: 0px;
+		}
+	}
+}

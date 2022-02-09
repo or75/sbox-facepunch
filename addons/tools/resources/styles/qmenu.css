@@ -1,0 +1,89 @@
+
+QMenuBar
+{
+	background: transparent;
+	padding: 0px;
+	color: #bbb;
+	border: 0px;
+	padding-left: 4px;
+}
+
+QMenuBar:active
+{
+	color: #ddd;
+}
+
+QMenuBar::item 
+{
+    padding: 6px 6px;
+    background: transparent;
+}
+
+QMenuBar::item:selected 
+{
+    background: #444;
+	color: white;
+}
+
+QMenuBar::item:pressed 
+{
+    background: #444;
+	color: white;
+}
+
+
+
+QMenu
+{
+    background-color: #444;
+	border: 0px;
+    padding: 0px;
+    margin: 0px;
+	color: #ccc;
+}
+
+QMenu::icon, QMenu::indicator
+{
+    left: 10px;
+}
+
+QMenu::item 
+{
+    background-color: #444;
+    padding: 5px 8px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 0px;
+    min-width: 10px;
+}
+
+QMenu::item:selected 
+{
+    background: #3C6CB4;
+	color: white;
+}
+
+QMenu::item:disabled
+{
+    color: #666;
+}
+
+QMenu::item:disabled:selected
+{
+    color: #777;
+    background: #333;
+}
+
+QMenu::separator 
+{
+    height: 2px;
+    background: #2a2a2a;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+QMenu::indicator 
+{
+    width: 13px;
+    height: 13px;
+}

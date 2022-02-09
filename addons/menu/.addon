@@ -1,0 +1,13 @@
+{
+  "SharedAssets": "*.*",
+  "Title": "Menu",
+  "Type": "game",
+  "Org": "local",
+  "Ident": "menu",
+  "Schema": 1,
+  "HasAssets": true,
+  "AssetsPath": "",
+  "HasCode": true,
+  "CodePath": "code",
+  "RootNamespace": "Sandbox"
+}

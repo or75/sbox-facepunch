@@ -1,0 +1,88 @@
+
+QTabBar
+{
+	background: transparent; 
+	border: 0px;
+	font-size: 11px;
+	margin: 0px;
+	padding: 0px;
+	qproperty-drawBase: 0;
+	qproperty-iconSize: 16px;
+}
+
+QTabBar::tab
+{
+	color: #777;
+	min-height: 20px;
+	max-height: 20px;
+	padding: 1px 10px;
+	background-color: #1a191a;
+	border-right: 1px solid rgba( 0, 0, 0, 0.1 );
+}
+
+QTabBar::tab:hover 
+{
+	color: #999;
+}
+
+QTabBar::tab:selected
+{
+	color: #ccc;
+	background-color: #38393C;
+}
+
+QTabBar::tab:bottom
+{
+	border-bottom-left-radius: 3px;
+	border-bottom-right-radius: 3px;
+	
+}
+/*
+QTabBar::tab:top:selected
+{
+	 border-bottom: 2px solid #fff;
+}
+
+QTabBar::tab:bottom:selected
+{
+	 border-top: 2px solid #fff;
+}
+*/
+QTabBar::tab:top
+{
+	border-top-left-radius: 3px;
+	border-top-right-radius: 3px;
+	padding-top: 2px;
+}
+
+QTabWidget 
+{
+	margin: -13px -9px -13px -9px;
+}
+
+QTabWidget::pane 
+{
+    border: 0px;
+	background-color: #333;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+QTabBar::tab #CloseButton
+{
+	background-color: transparent;
+	border-radius: 1px;
+	font-family: "Poppins";
+	font-size: 13px;
+	font-weight: bold;
+	color: rgba( 255, 255, 255, 0.2 );
+	max-height: 15px;
+	max-width: 15px;
+}
+
+QTabBar::tab #CloseButton:hover
+{
+	background-color: rgba( 255, 255, 255, 0.4 );
+	color: rgba( 255, 255, 255, 0.8 );
+}

@@ -1,0 +1,140 @@
+
+
+.treecontrol
+{
+	flex-grow: 1;
+	flex-direction: column;
+	overflow: scroll;
+
+	.treenode
+	{
+		flex-direction: column;
+
+		.node-title
+		{
+			flex-grow: 1;
+			align-items: center;
+		}
+
+		> .node-title .expand
+		{
+			font-size: 15px;
+			align-items: center;
+			justify-content: center;
+			transform: rotateZ( -90deg );
+			transition: transform 0.2s ease;
+			opacity: 0.5;
+			width: 16px;
+			aspect-ratio: 1;
+			//background-color: yellow;
+
+			&:hover
+			{
+				opacity: 1;
+			}
+		}
+
+		> .treenodechildren
+		{
+			flex-direction: column;
+			padding-left: 16px;
+			display: none;
+		}
+
+		&.expanded
+		{
+			> .node-title .expand
+			{
+				transform: rotateZ( 0deg );
+			}
+
+			> .treenodechildren
+			{
+				display: flex;
+			}
+		}
+
+		&:not( .has-children )
+		{
+			> .node-title .expand
+			{
+				opacity: 0;
+			}
+		}
+	}
+}
+
+
+
+.panel-node-button
+{
+	flex-grow: 1;
+	padding: 3px 0px;
+	font-family: Roboto;
+	font-size: 12px;
+	white-space: nowrap;
+	align-items: center;
+	overflow: hidden;
+
+	> .iconpanel
+	{
+		width: 16px;
+		aspect-ratio: 1;
+		//	background-color: green;
+		margin-right: 2px;
+		color: $green;
+		align-items: center;
+		justify-content: center;
+		text-align: center;
+		border-radius: 2px;
+		aspect-ratio: 1;
+		font-size: 13px;
+		text-shadow: 1px 1px 2px black;
+		flex-shrink: 0;
+	}
+
+	> label
+	{
+		font-weight: bold;
+		font-size: 11px;
+		color: $control-label;
+		flex-shrink: 0;
+	}
+
+	> .classnames
+	{
+		font-weight: normal;
+		flex-shrink: 0;
+		color: $green;
+	}
+}
+
+PanelTreeNode
+{
+	flex-shrink: 0;
+
+	&.is-hidden .node-title
+	{
+		opacity: 0.1;
+	}
+
+	.node-title:hover
+	{
+		background-color: rgba( $blue, 0.1 );
+
+		.panel-node-button .iconpanel
+		{
+			background-color: transparent;
+		}
+	}
+
+	&.active > .node-title
+	{
+		background-color: rgba( $blue, 0.1 );
+
+		.panel-node-button .iconpanel
+		{
+			background-color: transparent;
+		}
+	}
+}

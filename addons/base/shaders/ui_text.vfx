@@ -1,0 +1,93 @@
+HEADER
+{
+	DevShader = true;
+	CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+	Version = 1;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+MODES
+{
+	Default();
+	VrForward();
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+FEATURES
+{
+	
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+COMMON
+{
+	#include "ui/common.hlsl"
+}
+  
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+VS
+{
+	#include "ui/vertex.hlsl"  
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+PS
+{
+	#include "ui/pixel.hlsl"  
+
+	DynamicCombo( D_TEXT_BACKGROUND_IMAGE, 0..1, Sys( PC ) );
+	CreateTexture2D( g_tTextBackgroundImage ) 	< Attribute( "TextBackgroundImage" ); SrgbRead( true ); AddressU( CLAMP ); AddressV( CLAMP ); >;
+
+	float TextBackgroundAngle < Default( 0.0 ); Attribute( "TextBackgroundAngle" ); >;
+
+	// Texture Samplers ---------------------------------------------------------------------------------------------------------------------------------------
+	CreateTexture2D( g_tColor ) < Attribute( "Texture" ); SrgbRead( true ); AddressU( CLAMP ); AddressV( CLAMP ); >;
+
+	// Always write rgba
+	RenderState( ColorWriteEnable0, RGBA );
+	RenderState( FillMode, SOLID );
+
+	// Never cull
+	RenderState( CullMode, NONE );
+
+	// No depth
+	RenderState( DepthWriteEnable, false );
+
+	// Main ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+	float2 RotateTexCoord( float2 vTexCoord, float angle, float2 offset = 0.5 )
+	{
+		float2x2 m = float2x2( cos(angle), -sin(angle), sin(angle), cos(angle) );
+		return mul( m, vTexCoord - offset ) + offset ;
+	}
+
+	PS_OUTPUT MainPs( PS_INPUT i )
+	{
+		PS_OUTPUT o;
+
+		UI_CommonProcessing_Pre( i );
+
+		float2 vTexCoord = i.vTexCoord.xy;
+		
+		float4 vColor = Tex2DLevel( g_tColor, vTexCoord, 0.0f );
+		float flAlphaScale = 1.0f;
+
+		float lum = saturate(dot( float3(0.30, 0.59, 0.11), vColor.rgb ) - 0.2);
+		float alpha = vColor.a;
+		alpha = pow(alpha, 0.6 + (lum) * 3 );
+
+		#if D_TEXT_BACKGROUND_IMAGE == 1
+			vTexCoord = RotateTexCoord( vTexCoord, TextBackgroundAngle, 0.5f );
+			float4 vBgColor = Tex2DLevel( g_tTextBackgroundImage, vTexCoord, 0.0f );
+			flAlphaScale = vBgColor.a;
+			vColor.rgb = vBgColor.rgb * (alpha * flAlphaScale);
+		#endif
+
+		vColor.a = alpha * flAlphaScale;
+
+		o.vColor = vColor;
+		o.vColor.a *= i.vColor.a;
+
+		return UI_CommonProcessing_Post( i, o );
+	}
+}

@@ -1,0 +1,98 @@
+
+QToolBar 
+{
+	background-color: transparent;
+    color: #888;
+	border: 0px;
+	padding: 3px;
+	spacing: 1px;
+	min-height: 26px;
+}
+
+QToolBar QLabel 
+{
+	margin: 1px;
+}
+
+QToolBar QPushButton 
+{
+	padding: 0px; 
+	margin: 0px; 
+}
+
+QToolBar QToolButton, QToolBar QPushButton, QToolBar QComboBox
+{
+	background-color: transparent;
+	margin : 0px;
+	padding: 2px;
+	border: 0px;
+	border-radius: 4px;
+}
+
+QToolBar QToolButton[popupMode="1"] 
+{ 
+	padding-right: 8px; 
+}
+
+QToolBar QComboBox::drop-down 
+{
+	border-width: 0px;
+	width: 0px;
+}
+
+QToolBar QToolButton:checked, QToolBar QPushButton:checked, QToolBar QComboBox:checked 
+{ 
+	background: #2a5f7d;
+	color: white;
+}
+
+QToolBar QToolButton:hover, QToolBar QPushButton:hover, QToolBar QComboBox:hover 
+{ 
+	background: #306c8f;
+	color: white;
+}
+
+QToolBar QToolButton:pressed, QToolBar QPushButton:pressed, QToolBar QComboBox:pressed 
+{ 
+	background: white;
+	color: #2a5f7d;
+}
+
+QToolBar#WidgetHeaderToolbar 
+{ 
+	border-top-right-radius: 5px;
+	border-top-left-radius: 5px;
+}
+
+QToolBar::handle:vertical
+{
+    background: rgb(50, 51, 52);
+	margin: 3px 1px;
+	width: 4px;
+	height: 4px;
+	border-radius: 2px;
+}
+
+QToolBar::handle:horizontal
+{
+    background: rgb(50, 51, 52);
+	margin: 1px 3px;
+	width: 4px;
+	height: 4px;
+	border-radius: 2px;
+}
+
+QToolBar::separator
+{
+    background: rgb(50, 51, 52);
+	margin: 5px;
+	width: 1px;
+	height: 1px;
+}
+
+QToolBar LineEdit
+{
+	padding: 3px 5px;
+	border: 0px;
+	min-height: 18px;
+}

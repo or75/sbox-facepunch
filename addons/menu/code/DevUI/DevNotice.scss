@@ -1,0 +1,78 @@
+devnotice
+{
+	background-color: rgba( green, 1 );
+	color: #92ff92;
+	border-radius: 100px;
+	padding: 5px 20px;
+	opacity: 1;
+	box-shadow: 2px 2px 20px rgba( black, 0.4 );
+	margin-top: 5px;
+	margin-right: 20px;
+	font-family: Poppins;
+	transition: all 0.1s ease;
+	position: relative;
+	flex-direction: row;
+	min-height: 36px;
+	align-items: center;
+	justify-content: center;
+
+	&:intro
+	{
+		opacity: 0;
+		min-height: 0px;
+		height: 0;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+		position: relative;
+		right: -20px;
+	}
+
+	&:outro
+	{
+		opacity: 0;
+		min-height: 0px;
+		height: 0;
+		padding: 0;
+		margin: 0;
+		overflow: hidden;
+		position: relative;
+		right: -20px;
+		transition: all 0.3s ease-in;
+	}
+
+	.iconpanel
+	{
+		font-size: 22px;
+		font-weight: normal;
+		border-radius: 1000px;
+		padding-right: 10px;
+	}
+
+	.title
+	{
+		padding: 8px 16px;
+		padding-left: 3px;
+		font-size: 13px;
+		font-weight: 500;
+		text-shadow: 1px 1px 2px rgba( black, 0.7 );
+	}
+
+	&.working
+	{
+		background-color: #0a61cb;
+		color: #9dc9ff;
+	}
+
+	&.success
+	{
+		background-color: green;
+		color: #92ff92;
+	}
+
+	&.error
+	{
+		background-color: #802;
+		color: #fcc4d2;
+	}
+}

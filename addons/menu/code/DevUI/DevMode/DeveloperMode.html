@@ -1,0 +1,24 @@
+
+<link rel="stylesheet" href="/styles/devmode/devmode.scss">
+
+<div class="page"> 
+
+	<DeveloperToolbar></DeveloperToolbar>
+
+	<div class="body">
+
+		<split slot="right" min-left="0.6" min-right="0.2" default-left="0.8" cookie="devmoderight">
+			<split slot="left" class="center" direction="vertical" min-left="0.3" min-right="0.2" default-left="0.4" cookie="devmodecenter">
+
+				<tabs slot="left" class="tabs-bottom" @ref="Top" cookie="devmodetop"></tabs>
+				<tabs slot="right" @ref="Bottom" class="tabs-bottom" cookie="devmodebottom"></tabs>
+
+			</split>
+			<tabs slot="right" @ref="Right" class="tabs-bottom" cookie="devmoderight"></tabs>
+		</split>
+	</div>
+
+	<div class="status">
+	</div>
+
+</div>

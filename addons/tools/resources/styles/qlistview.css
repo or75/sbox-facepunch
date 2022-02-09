@@ -1,0 +1,42 @@
+#Completer
+{
+	background-color: red;
+	border: 0px;
+	font-size: 14px;
+	padding: 0px;
+	margin: 0px;
+}
+
+#Completer::item
+{
+    background: #EEEEEE;
+}
+
+#Completer::item:selected 
+{
+    border: 1px solid green;
+}
+
+#Completer::item:selected:!active 
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #ABAFE5, stop: 1 #8588B2);
+}
+
+#Completer::item:selected:active 
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #6a6ea9, stop: 1 #888dd9);
+}
+
+#Completer::item:hover 
+{
+    background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+}
+
+#Completer::item::text
+{
+    background: #EEEEEE;
+	color: blue;
+}

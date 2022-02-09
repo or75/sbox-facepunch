@@ -1,0 +1,50 @@
+
+.root
+{
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	div
+	{
+		flex-direction: row;
+		padding: 20px;
+	}
+}
+
+icon
+{
+	font-size: 100px;
+	color: white;
+	font-family: MaterialIcons;
+	padding: 10px;
+
+	&.outline
+	{
+		font-family: MaterialIconsOutlined;
+	}
+
+	&.round
+	{
+		font-family: MaterialIconsRound;
+	}
+
+	&.sharp
+	{
+		font-family: MaterialIconsSharp;
+	}
+
+	&.twotone
+	{
+		font-family: MaterialIconsTwoTone;
+	}
+}
+
+
+.special
+{
+	background-color: #0094ff;
+	color: white;
+	border-radius: 10px;
+	text-shadow: 2px 2px 20px black;
+}

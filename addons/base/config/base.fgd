@@ -1,0 +1,790 @@
+
+@BaseClass = BaseProperties_base
+[
+	parentname(target_destination) [ group="Hierarchy" ] : "Parent" : : "The name of this entity's parent in the movement hierarchy. Entities with parents move with their parent."
+	parentAttachmentName(parentAttachment) [ group="Hierarchy" ] : "Parent Model Bone/Attachment Name" : : "The name of the bone or attachment to attach to on the entity's parent in the movement hierarchy. Use !bonemerge to use bone-merge style attachment."
+
+	useLocalOffset(boolean) [ group="Hierarchy" ] : "Use Model Attachment offsets" : 0 : "Whether to respect the specified local offset when doing the initial hierarchical attachment to its parent."
+	local.origin(vector) [ group="Hierarchy" ] : "Model Attachment position offset" : : "Offset in the local space of the parent model's attachment/bone to use in hierarchy. Not used if you are not using parent attachment."
+	local.angles(angle) [ group="Hierarchy" ] : "Model Attachment angular offset" : : "Angular offset in the local space of the parent model's attachment/bone to use in hierarchy. Not used if you are not using parent attachment."
+	local.scales(vector) [ group="Hierarchy" ] : "Model Attachment scale" : : "Scale in the local space of the parent model's attachment/bone to use in hierarchy. Not used if you are not using parent attachment."
+
+	targetname(target_source) : "Name" : : "The name that other entities refer to this entity by."
+	tags(tags) : "Tags" : "" : "A list of general purpose tags for this entity, for interactions with other entities such as triggers."
+]
+
+//
+// Sandbox.Prop
+//
+@PointClass base(BaseProperties_base) tags( Physics ) model() = prop_physics : "A prop that physically simulates as a single rigid body. It can be constrained to other physics objects using hinges or other constraints. It can also be configured to break when it takes enough damage. Note that the health of the object will be overridden by the health inside the model, to ensure consistent health game-wide. If the model used by the prop is configured to be used as a prop_dynamic (i.e. it should not be physically simulated) then it CANNOT be used as a prop_physics. Upon level load it will display a warning in the console and remove itself. Use a prop_dynamic instead."
+[
+	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
+	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
+	bodygroups(bodygroupchoices) { group = "Rendering" hide_when_solid = true } : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	collisiongroupoverride(choices) : "Collision Group Override" : -1 : "" =
+	[
+		-1 : "UNUSED"
+		0 : "COLLISION GROUP ALWAYS"
+		1 : "COLLISION GROUP NONPHYSICAL"
+		4 : "COLLISION GROUP DEFAULT"
+		5 : "COLLISION GROUP DEBRIS"
+		14 : "COLLISION GROUP WEAPON"
+	]
+	static(boolean) : "Static" : 0 : "If set, the prop will spawn with motion disabled and will act as a nav blocker until broken."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnDamaged(void) : "Fired when the entity gets damaged."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
+]
+
+//
+// Sandbox.AtmosphereSky
+//
+@PointClass base(BaseProperties_base) iconsprite( "editor/env_sky_atmosphere.vmat" ) = env_sky_atmosphere : "Fancy dynamic sky"
+[
+	skyname(material) : "Skyname" :  : ""
+]
+
+//
+// Sandbox.SpawnPoint
+//
+@PointClass base(BaseProperties_base) editormodel( "models/editor/playerstart.vmdl", fixedbounds ) 
+metadata
+{
+	entity_tool_name = "Player Spawnpoint"
+	entity_tool_group = "Player"
+	entity_tool_tip = "Defines a point where the player can (re)spawn"
+}
+= info_player_start : "This entity defines the spawn point of the player in first person shooter gamemodes."
+[
+]
+
+//
+// Sandbox.GenericPathEntity
+//
+@PathClass base(BaseProperties_base) 
+metadata
+{
+	node_entity_class = "path_generic_node"
+}
+= path_generic : "A generic multi-purpose path that compiles all nodes as a single entity. This entity can be used with entities like ent_path_platform."
+[
+]
+
+//
+// Sandbox.BasePathNode
+//
+@PathNodeClass = path_generic_node : "A basic node description for the BasePathEntity. Please note that BasePathNodes are NOT actual entities, therefore cannot support inputs and outputs. See BasePathNodeEntity."
+[
+]
+
+//
+// Sandbox.BrushEntity
+//
+@SolidClass base(BaseProperties_base) tags( Dynamic ) = func_brush : "A generic brush/mesh that can toggle its visibilty and collisions, and can be broken."
+[
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	enabled(boolean) : "Enabled" : 1 : "Whether this func_brush is visible/active at all"
+	solid(boolean) : "Solid" : 1 : "Whether this func_brush has collisions"
+	health(float) : "Health" : 0 : "If set to above 0, the entity will have this much health on spawn and will be breakable."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
+	input DisableSolid(void) : "Make this func_brush non solid"
+	input EnableSolid(void) : "Make this func_brush solid"
+	input ToggleSolid(void) : "Toggle solidity of this func_brush"
+	input Enable(void) : "Enable this func_brush, making it visible"
+	input Disable(void) : "Disable this func_brush, making it invisible and non solid"
+	input Toggle(void) : "Toggle this func_brush"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnDamaged(void) : "Fired when the entity gets damaged, even if it is unbreakable."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
+]
+
+//
+// Sandbox.ButtonEntity
+//
+@PointClass base(BaseProperties_base) tags( SupportsSolids, Dynamic ) doorhelper( "movedir", "movedir_islocal", "movedir_type", "distance" ) model() 
+metadata
+{
+	model_archetypes = [ "static_prop_model", "animated_model" ]
+}
+= ent_button : "A generic button that is useful to control other map entities via inputs/outputs."
+[
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
+	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
+	bodygroups(bodygroupchoices) { group = "Rendering" hide_when_solid = true } : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
+	activationsettings(flags) : "Activation Settings" : : "How this button can be activated" =
+	[
+		1 : "Use Activates" : 1
+		2 : "Damage Activates" : 0
+	]
+	spawnsettings(flags) : "Spawn Settings" : : "Settings that are only relevant on spawn" =
+	[
+		1 : "Starts Locked" : 0
+		2 : "Non Solid" : 0
+	]
+	movedir(angle) : "Move Direction" :  : "Specifies the direction to move in when the button is used, or axis of rotation for rotating buttons."
+	movedir_islocal(boolean) : "Move Direction is Expressed in Local Space" : 1 : "If checked, the movement direction angle is in local space and should be rotated by the entity's angles after spawning."
+	movedir_type(choices) : "Movement Type" : 0 : "Movement type of the button." =
+	[
+		0 : "Moving"
+		1 : "Rotating"
+		2 : "Not Moving"
+	]
+	distance(float) : "Distance" : "0" : "Moving button: The amount, in inches, of the button to leave sticking out of the wall it recedes into when pressed. Negative values make the button recede even further into the wall. Rotating button: The amount, in degrees, that the button should rotate when it's pressed."
+	speed(float) : "Speed" : "100" : "The speed that the button moves, in inches per second"
+	reset_delay(float) : "Reset Delay (-1 stay)" : "1" : "Amount of time, in seconds, after the button has been fully pressed before it starts to return to the starting position. Once it has returned, it can be used again. If the value is set to -1, the button never returns."
+	unlocked_sound(sound) : "Activation Sound" :  : "Sound played when the button is pressed and is unlocked"
+	locked_sound(sound) : "Locked Activation Sound" :  : "Sound played when the button is pressed and is locked"
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input Lock(void) : "Become locked"
+	input Unlock(void) : "Become unlocked"
+	input Press(void) : "Simulates the button being pressed"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnUseLocked(void) : "Fired when the button is used while locked"
+	output OnDamaged(void) : "Fired when the button is damaged"
+	output OnPressed(void) : "Fired when the button is pressed"
+	output OnIn(void) : "Fired when the button reaches the in/pressed position"
+	output OnOut(void) : "Fired when the button reaches the out/released position"
+]
+
+//
+// Sandbox.DoorEntity
+//
+@PointClass base(BaseProperties_base) tags( SupportsSolids, Dynamic ) model() doorhelper( "movedir", "movedir_islocal", "movedir_type", "distance" ) 
+metadata
+{
+	model_archetypes = [ "animated_model" ]
+}
+= ent_door : "A basic door entity that can move or rotate. It can be a model or a mesh entity. The door will rotate around the model's origin. For Hammer meshes the mesh origin can be set via the Pivot Tool."
+[
+	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
+	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
+	bodygroups(bodygroupchoices) { group = "Rendering" hide_when_solid = true } : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	spawnsettings(flags) : "Spawn Settings" : : "Settings that are only applicable when the entity spawns" =
+	[
+		1 : "Use Opens" : 1
+		2 : "Start Locked" : 0
+	]
+	movedir(angle) : "Move Direction (Pitch Yaw Roll)" : "0 0 0" : "The direction the door will move, when it opens."
+	movedir_islocal(boolean) : "Move Direction is Expressed in Local Space" : 1 : "If checked, the movement direction angle is in local space and should be rotated by the entity's angles after spawning."
+	movedir_type(choices) : "Movement Type" : 0 : "Movement type of the door." =
+	[
+		0 : "Moving"
+		1 : "Rotating"
+		2 : "Animating Only"
+	]
+	distance(float) : "Distance" : 0 : "Moving door: The amount, in inches, of the door to leave sticking out of the wall it recedes into when pressed. Negative values make the door recede even further into the wall. Rotating door: The amount, in degrees, that the door should rotate when it's pressed."
+	initial_position(float) { group = "Spawn Settings" min = 0 max = 100 } : "Initial Position" : 0 : "How far the door should be open on spawn where 0% = closed and 100% = fully open."
+	open_away(boolean) { group = "Spawn Settings" } : "Open Away From Player" : 0 : "If checked, rotating doors will try to open away from the activator"
+	speed(float) : "Speed" : 100 : "The speed at which the door moves."
+	close_delay(float) : "Auto Close Delay (-1 stay)" : 4 : "Amount of time, in seconds, after the door has opened before it closes automatically. If the value is set to -1, the door never closes itself."
+	other_doors_to_open(target_destination) : "Other Doors To Open" : "" : "If set, opening this door will open all doors with given entity name. You can also simply name all doors the same for this to work."
+	breakable(boolean) : "Breakable" : 0 : "If the door model supports break pieces and has prop_data with health, this option can be used to allow the door to break like a normal prop would."
+	open_sound(sound) { group = "Sounds" } : "Start Opening Sound" : "" : "Sound to play when the door starts to open."
+	fully_open_sound(sound) { group = "Sounds" } : "Fully Open Sound" : "" : "Sound to play when the door reaches it's fully open position."
+	close_sound(sound) { group = "Sounds" } : "Start Closing Sound" : "" : "Sound to play when the door starts to close."
+	fully_closed_sound(sound) { group = "Sounds" } : "Fully Closed Sound" : "" : "Sound to play when the door reaches it's fully closed position."
+	locked_sound(sound) { group = "Sounds" } : "Locked Sound" : "" : "Sound to play when the door is attempted to be opened, but is locked."
+	moving_sound(sound) { group = "Sounds" } : "Moving Sound" : "" : "Sound to play while the door is moving. Typically this should be looping or very long."
+	open_ease(curve) : "Ease Function" :  : "Used to override the open/close animation of moving and rotating doors. X axis (input, left to right) is the animation, Y axis (output, bottom to top) is how open the door is at that point in the animation."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
+	input Toggle(void) : "Toggle the open state of the door. Obeys locked state."
+	input Open(void) : "Open the door. Obeys locked state."
+	input Close(void) : "Close the door. Obeys locked state."
+	input Lock(void) : "Locks the door so it cannot be opened or closed."
+	input Unlock(void) : "Unlocks the door."
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnLockedUse(void) : "Fired when a player tries to open/close this door with +use, but it's locked"
+	output OnDamaged(void) : "Fired when the entity gets damaged, even if it is unbreakable."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
+	output OnOpen(void) : "Fired when the door starts to open. This can be called multiple times during a single \"door opening\""
+	output OnClose(void) : "Fired when the door starts to close. This can be called multiple times during a single \"door closing\""
+	output OnFullyOpen(void) : "Called when the door fully opens."
+	output OnFullyClosed(void) : "Called when the door fully closes."
+]
+
+//
+// Sandbox.ExplosionEntity
+//
+@PointClass base(BaseProperties_base) iconsprite( "editor/env_explosion.vmat" ) sphere( "radius" ) 
+metadata
+{
+	entity_tool_name = "Explosion"
+	entity_tool_group = "Effects"
+	entity_tool_tip = "An entity that creates an explosion at its center."
+}
+= ent_explosion : "An entity that creates an explosion at its center."
+[
+	radius(float) : "Radius" : "100" : "Radius of the explosion."
+	damage(float) : "Damage" : "100" : "Damage the exploision should do at the center. The damage will reduce the farther the target is from the center of the explosion."
+	forcescale(float) : "Force Scale" : "1" : "Scale explosion induced physics forces by this amount."
+	particleoverride(resource:vpcf) : "Particle Override" :  : "If set, will override the default explosion partile effect."
+	soundoverride(sound) : "Sound Override" :  : "If set, will override the default explosion sound."
+	removeonexplode(boolean) : "Remove On Explode" : 1 : "Delete this entity when it is triggered via the Explode input?"
+
+	input Explode(void) : ""
+]
+
+//
+// Sandbox.FuncMonitor
+//
+@SolidClass base(BaseProperties_base) tags( Dynamic ) = func_monitor : "A monitor that renders the view from a given point_camera entity."
+[
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	camera_name(target_destination) : "Camera Name" :  : ""
+	enabled(boolean) : "Enabled" : 1 : "Whether this func_brush is visible/active at all"
+	solid(boolean) : "Solid" : 1 : "Whether this func_brush has collisions"
+	health(float) : "Health" : 0 : "If set to above 0, the entity will have this much health on spawn and will be breakable."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input Break(void) : "Causes this prop to break, regardless if it is actually breakable or not. (i.e. ignores health and whether the model has gibs)"
+	input DisableSolid(void) : "Make this func_brush non solid"
+	input EnableSolid(void) : "Make this func_brush solid"
+	input ToggleSolid(void) : "Toggle solidity of this func_brush"
+	input Enable(void) : "Enable this func_brush, making it visible"
+	input Disable(void) : "Disable this func_brush, making it invisible and non solid"
+	input Toggle(void) : "Toggle this func_brush"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnDamaged(void) : "Fired when the entity gets damaged, even if it is unbreakable."
+	output OnBreak(void) : "Fired when the entity gets destroyed."
+]
+
+//
+// Sandbox.FuncPhysbox
+//
+@SolidClass base(BaseProperties_base) tags( Physics ) = func_physbox : "A generic non model physics object."
+[
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	propdata(string) : "Physical material" :  : "Physical properties of this physbox"
+	health(float) : "Health" : 0 : "Amount of damage this entity can take before breaking"
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+	spawnflags(flags) = [
+		32768 : "Start Motionless" : 0
+		1048576 : "Start Asleep" : 0
+	]
+
+	input Wake(void) : "Wake up this physics object, if it is sleeping."
+	input Sleep(void) : "Wake up this physics object, if it is sleeping."
+	input EnableMotion(void) : "Enable motion (gravity, etc) on this entity"
+	input DisableMotion(void) : "Disable motion (gravity, etc) on this entity"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnDamaged(void) : "Fired when the entity gets damaged"
+]
+
+//
+// Sandbox.LogicEntity
+//
+@PointClass base(BaseProperties_base) tags( Logic ) iconsprite( "materials/editor/ent_logic.vmat" ) = ent_logic : "A logic entity that allows to do a multitude of logic operations with Map I/O. TODO: This is a stop-gap solution and may be removed in the future in favor of \"map blueprints\" or node based Map I/O."
+[
+	enabled(boolean) : "Enabled" : 1 : "The (initial) enabled state of the logic entity."
+	variablea(float) : "Variable A" : 0 : "The (initial) value for Variable A"
+	variableb(float) : "Variable B" : 0 : "The (initial) value for Variable B"
+
+	input Enable(void) : "Enables the entity."
+	input Disable(void) : "Disables the entity, so that it would not fire any outputs."
+	input Toggle(void) : "Toggles the enabled state of the entity."
+	input Trigger(void) : "Trigger the \"OnTrigger\" output."
+	input CompareInput(float) : "Compares the given number to Variable B and fires the appropriate output."
+	input Compare(void) : "Compares Variable A to Variable B and fires the appropriate output."
+	input SetVariableA(float) : "Sets the Variable A and fires approprivate outputs."
+	input SetVariableB(float) : "Sets the Variable B and fires approprivate outputs."
+
+	output OnMapSpawn(void) : ""
+	output OnTrigger(void) : "Fired when the this entity receives the \"Trigger\" input."
+	output OnEqual(void) : "Fired when the value given to \"CompareInput\" or Variable A (\"Compare\" input) matches our Variable B."
+	output OnNotEqual(void) : "Fired when the value given to \"CompareInput\" or Variable A (\"Compare\" input) is NOT equal our Variable B."
+	output OnLessThan(void) : "Fired when the value given to \"CompareInput\" or Variable A (\"Compare\" input) is less than our Variable B."
+	output OnGreaterThan(void) : "Fired when the value given to \"CompareInput\" or Variable A (\"Compare\" input) is greater than our Variable B."
+]
+
+//
+// Sandbox.MovementPathEntity
+//
+@PathClass base(BaseProperties_base) 
+metadata
+{
+	node_entity_class = "movement_path_node"
+	spawn_node_entities = 1
+}
+= movement_path : "A movement path. Compiles each node as its own entity, allowing usage of inputs and outputs such as OnPassed. This entity can be used with entities like ent_path_platform."
+[
+]
+
+//
+// Sandbox.MovementPathNodeEntity
+//
+@PathNodeClass base(BaseProperties_base) = movement_path_node : "A movement path node."
+[
+	speed(float) : "Speed" : 0 : "When passing this node, the moving entity will have its speed set to this value. 0 or less mean do not change."
+
+	output OnPassed(void) : "Fired when an entity passes this node, depending on the entity implementation."
+]
+
+//
+// Sandbox.NavBlockerEntity
+//
+@SolidClass base(BaseProperties_base) tags( Navigation ) 
+metadata
+{
+	auto_apply_material = "materials/tools/toolsnavattribute.vmat"
+	entity_tool_name = "Nav Blocker"
+	entity_tool_group = "Navigation"
+}
+= ent_nav_blocker : ""
+[
+	enabled(boolean) : "Enabled" : 1 : "Enabled state of this entity."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input Enable(void) : "Enables this blocker."
+	input Disable(void) : "Disables this blocker."
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
+// Sandbox.ParticleSystemEntity
+//
+@PointClass base(BaseProperties_base) tags( Particles ) editormodel( "models/editor/cone_helper.vmdl" ) particle() 
+metadata
+{
+	entity_tool_name = "Particle system"
+	entity_tool_group = "Effects"
+	entity_tool_tip = "A particle system"
+}
+= info_particle_system : "A entity that represents and allows control of a single particle system."
+[
+	effect_name(particlesystem) { report = true } : "Particle System Name" :  : "The name of the particle system."
+	start_active(boolean) : "Start Active" : 1 : "Should this system start active when it enters a player's PVS?"
+	snapshot_file(string) : "Snapshot File" :  : "Name of .PSF (Particle Snapshot File) to be loaded and used by this particle system (e.g. 'smoke_snapshot1')"
+	cpoint0(target_destination) : "Control Point 0" :  : "If set, control point 0 of the effect will be at this entity's location. (Otherwise it is at the info_particle_system origin)"
+	cpoint1(target_destination) : "Control Point 1" :  : "If set, control point 1 of the effect will be at this entity's location."
+	cpoint2(target_destination) : "Control Point 2" :  : "If set, control point 2 of the effect will be at this entity's location. If control point 1 is not set, this will be ignored."
+	cpoint3(target_destination) : "Control Point 3" :  : ""
+	cpoint4(target_destination) : "Control Point 4" :  : ""
+	cpoint5(target_destination) : "Control Point 5" :  : ""
+	cpoint6(target_destination) : "Control Point 6" :  : ""
+	cpoint7(target_destination) : "Control Point 7" :  : ""
+	cpoint8(target_destination) : "Control Point 8" :  : ""
+	cpoint9(target_destination) : "Control Point 9" :  : ""
+	cpoint10(target_destination) : "Control Point 10" :  : ""
+	cpoint11(target_destination) : "Control Point 11" :  : ""
+	cpoint12(target_destination) : "Control Point 12" :  : ""
+	cpoint13(target_destination) : "Control Point 13" :  : ""
+	cpoint14(target_destination) : "Control Point 14" :  : ""
+	cpoint15(target_destination) : "Control Point 15" :  : ""
+	cpoint16(target_destination) : "Control Point 16" :  : ""
+	cpoint17(target_destination) : "Control Point 17" :  : ""
+	cpoint18(target_destination) : "Control Point 18" :  : ""
+	cpoint19(target_destination) : "Control Point 19" :  : ""
+	cpoint20(target_destination) : "Control Point 20" :  : ""
+	cpoint21(target_destination) : "Control Point 21" :  : ""
+	cpoint22(target_destination) : "Control Point 22" :  : ""
+	cpoint23(target_destination) : "Control Point 23" :  : ""
+	cpoint24(target_destination) : "Control Point 24" :  : ""
+	cpoint25(target_destination) : "Control Point 25" :  : ""
+	cpoint26(target_destination) : "Control Point 26" :  : ""
+	cpoint27(target_destination) : "Control Point 27" :  : ""
+	cpoint28(target_destination) : "Control Point 28" :  : ""
+	cpoint29(target_destination) : "Control Point 29" :  : ""
+	cpoint30(target_destination) : "Control Point 30" :  : ""
+	cpoint31(target_destination) : "Control Point 31" :  : ""
+	cpoint32(target_destination) : "Control Point 32" :  : ""
+	cpoint33(target_destination) : "Control Point 33" :  : ""
+	cpoint34(target_destination) : "Control Point 34" :  : ""
+	cpoint35(target_destination) : "Control Point 35" :  : ""
+	cpoint36(target_destination) : "Control Point 36" :  : ""
+	cpoint37(target_destination) : "Control Point 37" :  : ""
+	cpoint38(target_destination) : "Control Point 38" :  : ""
+	cpoint39(target_destination) : "Control Point 39" :  : ""
+	cpoint40(target_destination) : "Control Point 40" :  : ""
+	cpoint41(target_destination) : "Control Point 41" :  : ""
+	cpoint42(target_destination) : "Control Point 42" :  : ""
+	cpoint43(target_destination) : "Control Point 43" :  : ""
+	cpoint44(target_destination) : "Control Point 44" :  : ""
+	cpoint45(target_destination) : "Control Point 45" :  : ""
+	cpoint46(target_destination) : "Control Point 46" :  : ""
+	cpoint47(target_destination) : "Control Point 47" :  : ""
+	cpoint48(target_destination) : "Control Point 48" :  : ""
+	cpoint49(target_destination) : "Control Point 49" :  : ""
+	cpoint50(target_destination) : "Control Point 50" :  : ""
+	cpoint51(target_destination) : "Control Point 51" :  : ""
+	cpoint52(target_destination) : "Control Point 52" :  : ""
+	cpoint53(target_destination) : "Control Point 53" :  : ""
+	cpoint54(target_destination) : "Control Point 54" :  : ""
+	cpoint55(target_destination) : "Control Point 55" :  : ""
+	cpoint56(target_destination) : "Control Point 56" :  : ""
+	cpoint57(target_destination) : "Control Point 57" :  : ""
+	cpoint58(target_destination) : "Control Point 58" :  : ""
+	cpoint59(target_destination) : "Control Point 59" :  : ""
+	cpoint60(target_destination) : "Control Point 60" :  : ""
+	cpoint61(target_destination) : "Control Point 61" :  : ""
+	cpoint62(target_destination) : "Control Point 62" :  : ""
+	cpoint63(target_destination) : "Control Point 63" :  : ""
+	cpoint1_parent(integer) : "Control Point 1's Parent" : 0 : "If set and nonzero, control point 1 of the effect will use this point for its parent."
+	cpoint2_parent(integer) : "Control Point 2 Parent" : 0 : ""
+	cpoint3_parent(integer) : "Control Point 3 Parent" : 0 : ""
+	cpoint4_parent(integer) : "Control Point 4 Parent" : 0 : ""
+	cpoint5_parent(integer) : "Control Point 5 Parent" : 0 : ""
+	cpoint6_parent(integer) : "Control Point 6 Parent" : 0 : ""
+	cpoint7_parent(integer) : "Control Point 7 Parent" : 0 : ""
+
+	input Start(void) : "Tell the particle system to start emitting"
+	input Stop(void) : "Tell the particle system to stop emitting."
+	input StopPlayEndCap(void) : "Tell the particle system to stop emitting and play its End Cap Effect."
+	input DestroyImmediately(void) : "Destroy the particle system and remove all particles immediately"
+	input SetControlPoint(void) : "Set a Control Point via format - CP: X Y Z"
+]
+
+//
+// Sandbox.PathPlatformEntity
+//
+@PointClass base(BaseProperties_base) tags( SupportsSolids, Dynamic ) model() drawangles( "movedir" ) = ent_path_platform : "A platform that moves between nodes on a predefined path. See path_generic in the Path Tool."
+[
+	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
+	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
+	bodygroups(bodygroupchoices) { group = "Rendering" hide_when_solid = true } : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	speed(float) : "Speed" : "64" : "The speed to move/rotate with."
+	length(float) : "Length" : "32" : "This represents imaginary \"distance to wheels\" length from the center of the platform in either direction and is used to calculate correct angles when turning.<br /> Higher values will make turns smoother. This value should not exceed half of the platform's length in the direction of movement."
+	path_entity(target_destination) : "Path Entity" :  : "The path_generic entity that defines path nodes for this platform."
+	starts_moving(boolean) { group = "Automatic Movement" } : "Starts Moving on Spawn" : 0 : "If set, will automatically start moving forwards from first node on spawn."
+	rotate_along_path(boolean) { group = "Automatic Rotation" } : "Rotate Alongside Path" : 0 : "If set, the entity will automatically rotate to face the direction of movement. Moving backwards will NOT flip the rotation 180 degrees."
+	movedir(angle) { group = "Automatic Rotation" } : "Forward Direction" :  : "Specifies the direction to move in when the platform is used, or axis of rotation for rotating platforms."
+	end_action(choices) { group = "Automatic Movement" } : "End Action" : 0 : "What to do when reaching the end of the path when movement was initiated by the \"StartMoving\" input or \"Starts Moving\" flag. This also applies when moving backwards." =
+	[
+		0 : "Stop"
+		1 : "Warp To Start"
+		2 : "Reverse Direction"
+	]
+	start_move_sound(sound) { group = "Sounds" } : "Start Move Sound" :  : "Sound to play when starting to move."
+	stop_move_sound(sound) { group = "Sounds" } : "Stop Move Sound" :  : "Sound to play when we stopped moving."
+	moving_sound(sound) { group = "Sounds" } : "Moving Sound" :  : "Sound to play while platform is moving."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input StartMoving(void) : "Start moving through our nodes in whatever direction we were moving before until we reach either end of the path."
+	input StartForward(void) : "Start moving forward through our nodes until we reach end of the path."
+	input StartBackwards(void) : "Start moving backwards through our nodes until we reach start of the path."
+	input ReverseDirection(void) : "Reverse current movement direction, regardless whether we are currently moving or not."
+	input StopMoving(void) : "Stop moving."
+	input GoToPoint(integer) : "Go to specific node (Starting with 1) set by the parameter and stop there."
+	input GoToNextPoint(void) : "Go to the next node on the path and stop there."
+	input GoToPrevPoint(void) : "Go to the previous node on the path and stop there."
+	input WarpToPoint(integer) : "Teleport to a given node (Starting with 1). Does not stop or start movement."
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnMovementStart(void) : "Fired when the platform starts to move."
+	output OnMovementEnd(integer) : "Fired when the platform stops moving. Sends current point number as parameter."
+	output OnAlreadyThere(integer) : "Fired when the platform is already at given node number, when using inputs to move it. Carries the current node number as parameter."
+]
+
+//
+// Sandbox.PlatformEntity
+//
+@PointClass base(BaseProperties_base) tags( SupportsSolids, Dynamic ) model() doorhelper( "movedir", "movedir_islocal", "movedir_type", "movedistance" ) = ent_platform : "A simple platform that moves between two locations and can be controlled through map IO."
+[
+	model(resource:vmdl) { report = true hide_when_solid = true }: "World Model" : "" : "The model this entity should use."
+	skin(materialgroup) { group = "Rendering" hide_when_solid = true } : "Skin" : "default" : "Some models have multiple versions of their textures, called skins." 
+	bodygroups(bodygroupchoices) { group = "Rendering" hide_when_solid = true } : "Body Groups" : "" : "Some models have multiple variations of certain items, such as characters having different hair styles, etc."
+	rendercolor(color255) { alpha = true } : "Color (R G B A)" : "255 255 255 255" : "The color tint of this entity."
+	movedir(angle) : "Move Direction" :  : "Specifies the direction to move in when the platform is used, or axis of rotation for rotating platforms."
+	movedir_islocal(boolean) : "Move Direction is Expressed in Local Space" : 1 : "If checked, the movement direction angle is in local space and should be rotated by the entity's angles after spawning."
+	movedir_type(choices) : "Movement Type" : 3 : "Movement type of the platform.<br /><b>Moving</b>: Moving linearly and reversing direction at final position if Looping is enabled.<br /><b>Rotating</b>: Rotating and reversing direction at final rotation if Looping is enabled.<br /><b>Rotating Continious</b>: Rotating continiously past Move Distance. OnReached outputs are fired every Move Distance degrees.<br />" =
+	[
+		3 : "Moving"
+		1 : "Rotating"
+		4 : "Rotating Continious"
+	]
+	movedistance(float) : "Move Distance" : "100" : "How much to move in the move direction, or rotate around the axis for rotating move type."
+	speed(float) : "Speed" : "64" : "The speed to move/rotate with."
+	timetohold(float) : "Time To Hold" : "0" : "If set to above 0 and <b>Loop Movement</b> is enabled, the amount of time to wait before automatically toggling direction."
+	loopmovement(boolean) : "Loop Movement" : 0 : "If set, the platform will automatically go back upon reaching either end of the movement range."
+	startsmoving(boolean) { group = "Spawn Settings" } : "Starts Moving" : 1 : "If set, the platform will start moving on spawn."
+	startposition(float) { group = "Spawn Settings" min = 0 max = 100 } : "Start Position" : 0 : "At what percentage between start and end positions should the platform spawn in"
+	startmovesound(sound) { group = "Sounds" } : "Start Move Sound" :  : "Sound to play when starting to move"
+	stopmovesound(sound) { group = "Sounds" } : "Stop Move Sound" :  : "Sound to play when we stopped moving"
+	moving_sound(sound) { group = "Sounds" } : "Moving Sound" :  : "Sound to play while platform is moving."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input StartMoving(void) : "Start moving in platform's current move direction"
+	input StartMovingForward(void) : "Set the move direction to forwards and start moving"
+	input StartMovingBackwards(void) : "Set the move direction to backwards and start moving"
+	input ReverseMoving(void) : "Reverse current move direction. Will NOT start moving if stopped"
+	input StopMoving(void) : "Stop moving, preserving move direction"
+	input ToggleMoving(void) : "Toggle moving, preserving move direction"
+	input SetSpeed(float) : "Sets the move speed"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnReachedStart(void) : "Fired when the platform reaches its beginning location"
+	output OnReachedEnd(void) : "Fired when the platform reaches its end location (startPos + dir * distance)"
+]
+
+//
+// Sandbox.PointCamera
+//
+@PointClass base(BaseProperties_base) frustum_boundless( "fov", "znear", "zfar" ) editormodel( "models/editor/camera.vmdl" ) = point_camera : "Camera"
+[
+	fov(float) : "Fov" : "90" : "Field of view in degrees"
+	znear(float) : "Znear" : "4" : "Distance to the near plane"
+	zfar(float) : "Zfar" : "10000" : "Distance to the far plane"
+	aspect(float) : "Aspect" : "1" : "Aspect ratio"
+]
+
+//
+// Sandbox.PrecipitationEntity
+//
+@SolidClass base(BaseProperties_base) 
+metadata
+{
+	auto_apply_material = "materials/tools/toolsprecipitation.vmat"
+}
+= func_precipitation : "A brush entity that creates rain and snow inside its volume."
+[
+	innerneareffect(resource:vpcf) { group = "Particle System" } : "Particle Effect Inner Near" : "particles/precipitation/rain_inner.vpcf" : ""
+	innerfareffect(resource:vpcf) { group = "Particle System" } : "Particle Effect Inner Far" : "particles/precipitation/rain_inner.vpcf" : ""
+	outereffect(resource:vpcf) { group = "Particle System" } : "Particle Effect Outer" : "particles/precipitation/rain_outer.vpcf" : ""
+	innerneardistance(float) { group = "Distance" } : "Inner Near Distance" : "32" : ""
+	innerfardistance(float) { group = "Distance" } : "Inner Far Distance" : "180" : ""
+	particletint(color255) : "Particle Tint" : "255 255 255 255" : "Set the Tint of the Particle, which will set control point 4 on the particle system."
+	isrunning(boolean) : "Start On" : 1 : "Sets if the particles are running by default"
+	fadingtime(float) : "Fade Time" : "5" : "Sets the time particles take to fade in or out when turned on or off"
+	density(float) : "Density" : "100" : "Set the Density of the Particle, which will set control point 3 on the particle system."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input ChangeDensity(float) : "Change the density via input."
+	input Start(void) : "Start the particles."
+	input Stop(void) : "Stop the particles."
+	input FreezeParticles(void) : "Freezes Particles in current state."
+	input UnFreezeParticles(void) : "UnFreezes Particles in current state."
+	input ParticleTimeScale(float) : "Slow or speed up particles. 1 = normal, 0.5  half speed, 2 = twice the speed."
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
+// Sandbox.SoundEventEntity
+//
+@PointClass base(BaseProperties_base) tags( Sound ) iconsprite( "editor/snd_event.vmat" ) = snd_event_point : "Plays a sound event from a point. The point can be this entity or a specified entity's position."
+[
+	soundname(sound) : "Sound Name" :  : "Name of the sound to play."
+	sourceentityname(target_destination) : "Source Entity Name" :  : "The entity to use as the origin of the sound playback. If not set, will play from this snd_event_point."
+	startonspawn(boolean) : "Start On Spawn" : 0 : "Start the sound on spawn"
+	stoponnew(boolean) : "Stop before repeat" : 0 : "Stop the sound before starting to play it again"
+
+	input StartSound(void) : "Start the sound event. If an entity name is provided, the sound will originate from that entity"
+	input StopSound(void) : "Stop the sound event"
+]
+
+//
+// Sandbox.TriggerHurt
+//
+@SolidClass base(BaseProperties_base) tags( Trigger ) 
+metadata
+{
+	auto_apply_material = "materials/tools/toolstrigger.vmat"
+}
+= trigger_hurt : "A trigger volume that damages entities that touch it."
+[
+	damage(float) : "Damage" : "10" : "Amount of damage to deal to touching entities per second."
+	startdisabled(boolean) : "Start Disabled" : 0 : "Should this entity start disabled?"
+	actvationtags(tags) : "Actvation Tags" :  : "Entities with these tags can activate this trigger."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+	spawnflags(flags) = [
+		1 : "Clients" : 1
+		2 : "Npcs" : 0
+		4 : "Pushables" : 0
+		8 : "Physics Objects" : 0
+		16 : "Allied Npcs" : 0
+		32 : "Client In Vehicle" : 0
+		64 : "Everything" : 0
+		512 : "Client Not In Vehicle" : 0
+		1024 : "Physics Debris" : 0
+	]
+
+	input SetDamage(float) : "Sets the damage per second for this trigger_hurt"
+	input Enable(void) : "Enables this trigger"
+	input Disable(void) : "Disables this trigger"
+	input Toggle(void) : "Toggles this trigger between enabled and disabled states"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnHurtPlayer(void) : "Fired when a player gets hurt by this trigger"
+	output OnHurt(void) : "Fired when anything BUT a player gets hurt by this trigger"
+	output OnStartTouch(void) : "Fired when an entity starts touching this trigger. The touching entity must pass this trigger's filters to cause this output to fire."
+	output OnEndTouch(void) : "Fired when an entity stops touching this trigger. Only entities that passed this trigger's filters will cause this output to fire."
+	output OnStartTouchAll(void) : "Fired when an entity starts touching this trigger while no other passing entities are touching it."
+	output OnEndTouchAll(void) : "Fired when all entities touching this trigger have stopped touching it."
+]
+
+//
+// Sandbox.TriggerMultiple
+//
+@SolidClass base(BaseProperties_base) tags( Trigger ) 
+metadata
+{
+	auto_apply_material = "materials/tools/toolstrigger.vmat"
+}
+= trigger_multiple : "A volume that can be triggered multiple times, including at an interval while something is inside the trigger volume."
+[
+	wait(float) : "Delay before reset" : 1 : "Amount of time, in seconds, after the trigger_multiple has triggered before it can be triggered again. If set to -1, it will never trigger again (in which case you should just use a trigger_once). This affects OnTrigger output."
+	startdisabled(boolean) : "Start Disabled" : 0 : "Should this entity start disabled?"
+	actvationtags(tags) : "Actvation Tags" :  : "Entities with these tags can activate this trigger."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+	spawnflags(flags) = [
+		1 : "Clients" : 1
+		2 : "Npcs" : 0
+		4 : "Pushables" : 0
+		8 : "Physics Objects" : 0
+		16 : "Allied Npcs" : 0
+		32 : "Client In Vehicle" : 0
+		64 : "Everything" : 0
+		512 : "Client Not In Vehicle" : 0
+		1024 : "Physics Debris" : 0
+	]
+
+	input Enable(void) : "Enables this trigger"
+	input Disable(void) : "Disables this trigger"
+	input Toggle(void) : "Toggles this trigger between enabled and disabled states"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnTrigger(void) : "Called every \"Delay before reset\" seconds as long as at least one entity that passes filters is touching this trigger"
+	output OnStartTouch(void) : "Fired when an entity starts touching this trigger. The touching entity must pass this trigger's filters to cause this output to fire."
+	output OnEndTouch(void) : "Fired when an entity stops touching this trigger. Only entities that passed this trigger's filters will cause this output to fire."
+	output OnStartTouchAll(void) : "Fired when an entity starts touching this trigger while no other passing entities are touching it."
+	output OnEndTouchAll(void) : "Fired when all entities touching this trigger have stopped touching it."
+]
+
+//
+// Sandbox.TriggerOnce
+//
+@SolidClass base(BaseProperties_base) tags( Trigger ) 
+metadata
+{
+	auto_apply_material = "materials/tools/toolstrigger.vmat"
+}
+= trigger_once : "A simple trigger volume that fires once and then removes itself."
+[
+	startdisabled(boolean) : "Start Disabled" : 0 : "Should this entity start disabled?"
+	actvationtags(tags) : "Actvation Tags" :  : "Entities with these tags can activate this trigger."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+	spawnflags(flags) = [
+		1 : "Clients" : 1
+		2 : "Npcs" : 0
+		4 : "Pushables" : 0
+		8 : "Physics Objects" : 0
+		16 : "Allied Npcs" : 0
+		32 : "Client In Vehicle" : 0
+		64 : "Everything" : 0
+		512 : "Client Not In Vehicle" : 0
+		1024 : "Physics Debris" : 0
+	]
+
+	input Enable(void) : "Enables this trigger"
+	input Disable(void) : "Disables this trigger"
+	input Toggle(void) : "Toggles this trigger between enabled and disabled states"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnTrigger(void) : "Called once at least a single entity that passes filters is touching this trigger, just before this trigger getting deleted"
+	output OnStartTouch(void) : "Fired when an entity starts touching this trigger. The touching entity must pass this trigger's filters to cause this output to fire."
+	output OnEndTouch(void) : "Fired when an entity stops touching this trigger. Only entities that passed this trigger's filters will cause this output to fire."
+	output OnStartTouchAll(void) : "Fired when an entity starts touching this trigger while no other passing entities are touching it."
+	output OnEndTouchAll(void) : "Fired when all entities touching this trigger have stopped touching it."
+]
+
+//
+// Sandbox.TriggerTeleport
+//
+@SolidClass base(BaseProperties_base) tags( Trigger ) 
+metadata
+{
+	auto_apply_material = "materials/tools/toolstrigger.vmat"
+}
+= trigger_teleport : "A simple trigger volume that teleports entities that touch it."
+[
+	target(string) : "Remote Destination" :  : "The entity specifying a location to which entities should be teleported to."
+	teleport_relative(boolean) : "Teleport Relatively" : 0 : "If set, teleports the entity with an offset depending on where the entity was in the trigger teleport. Think world portals. Place the target entity accordingly."
+	keep_velocity(boolean) : "Keep Velocity" : 0 : "If set, the teleported entity will not have it's velocity reset to 0."
+	startdisabled(boolean) : "Start Disabled" : 0 : "Should this entity start disabled?"
+	actvationtags(tags) : "Actvation Tags" :  : "Entities with these tags can activate this trigger."
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+	spawnflags(flags) = [
+		1 : "Clients" : 1
+		2 : "Npcs" : 0
+		4 : "Pushables" : 0
+		8 : "Physics Objects" : 0
+		16 : "Allied Npcs" : 0
+		32 : "Client In Vehicle" : 0
+		64 : "Everything" : 0
+		512 : "Client Not In Vehicle" : 0
+		1024 : "Physics Debris" : 0
+	]
+
+	input Enable(void) : "Enables this trigger"
+	input Disable(void) : "Disables this trigger"
+	input Toggle(void) : "Toggles this trigger between enabled and disabled states"
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnTriggered(void) : "Fired when the trigger teleports an entity"
+	output OnStartTouch(void) : "Fired when an entity starts touching this trigger. The touching entity must pass this trigger's filters to cause this output to fire."
+	output OnEndTouch(void) : "Fired when an entity stops touching this trigger. Only entities that passed this trigger's filters will cause this output to fire."
+	output OnStartTouchAll(void) : "Fired when an entity starts touching this trigger while no other passing entities are touching it."
+	output OnEndTouchAll(void) : "Fired when all entities touching this trigger have stopped touching it."
+]
+
+//
+// Sandbox.ShatterGlass
+//
+@SolidClass base(BaseProperties_base) tags( PhysicsTypeOverride_Mesh ) = func_shatterglass : "A procedurally shattering glass panel."
+[
+	glass_thickness(float) : "Glass Thickness" : "1" : "Thickness of the glass"
+	glass_material(resource:vmat) : "Glass Material" : "materials/glass/sbox_glass.vmat" : "Material to use for the glass"
+	brokenmaterial(resource:vmat) : "Glass Material When Broken" :  : "Material to use for the glass when it is broken. If not set, the material will not change on break."
+	constraint(choices) : "Constraint" : 0 : "Glass constraint.<br /><b>Glass with static edges</b> will not be affected by gravity (glass pieces will) and will shatter piece by piece.<br /><b>Physics glass</b> is affected by gravity and will shatter all at the same time.<br /><b>Physics but asleep</b> is same as physics but will not move on spawn." =
+	[
+		0 : "Static Edges"
+		1 : "Physics"
+		2 : "Physics But Asleep"
+	]
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input Break(void) : "Breaks the glass at its center."
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+
+	output OnBreak(void) : "Fired when the panel initially breaks."
+]
+
+//
+// Sandbox.VoxelSurface
+//
+@SolidClass base(BaseProperties_base) tags( PhysicsTypeOverride_Mesh ) = func_voxelsurface : "A procedurally breakable voxel surface."
+[
+	width(integer) : "Width" : 32 : "How many voxels on the width (Limited to 64)"
+	height(integer) : "Height" : 32 : "How many voxels on the height (Limited to 64)"
+	thickness(float) : "Thickness" : 1 : "How thick is the surface (Limited to 64)"
+	material(resource:vmat) : "Material" : "materials/dev/black_grid_8.vmat" : "Material to use for the surface"
+	frozen(boolean) : "Is Frozen" : 1 : "Is the panel frozen"
+	enable_shadows(boolean) { group = "Rendering" } : "Shadow Casting" : 1 : "Whether this entity should cast shadows or not"
+
+	input SetColor(string) : "Sets the color of this entity. Format is '255 255 255 255'."
+]
+
+//
+// Sandbox.WaterFunc
+//
+@SolidClass base(BaseProperties_base) = func_water : "Generic water volume. Make sure to have light probe volume envelop the volume of the water for the water to gain proper lighting."
+[
+	watermaterial(resource:vmat) : "Water Material" : "materials/shadertest/test_water.vmat" : "Material to use for water"
+]
+

@@ -1,0 +1,36 @@
+﻿
+<root class="settings-page">
+
+	<column>
+		<label class="heading">Video Mode</label>
+
+		<setting-row name="videomode" type="dropdown" @ref="VideoMode">
+			<title>Video Mode</title>
+			<option value="window" icon="web_asset">Windowed</option>
+			<option value="borderless" icon="fullscreen">Full Screen Borderless</option>
+			<option value="exclusive" icon="monitor">Full Screen Exclusive</option>
+		</setting-row>
+
+		<setting-row name="resolution" type="resolution" @ref="Resolution">Resolution</setting-row>
+		<setting-row name="vsync" type="switch" @ref="Vsync">VSync</setting-row>
+
+		<setting-row name="filtermode" type="dropdown" @ref="TextureFilteringMode">
+			<title>Texture Filtering</title>
+			<option value="0">Bilinear</option>
+			<option value="1">Trilinear</option>
+			<option value="2">2x Anisotropic</option>
+			<option value="3">4x Anisotropic</option>
+			<option value="4">8x Anisotropic</option>
+			<option value="5">16x Anisotropic</option>
+		</setting-row>
+
+		<setting-row name="framerate_cap" min="60" max="300" step="2" type="slider" @ref="RefreshRate">Framerate Cap</setting-row>
+		<setting-row name="field_of_view" min="60" max="120" step="5" type="slider" convar="default_fov" format="0">Default Field of View</setting-row>
+	</column>
+
+	<column>
+		<label class="heading">Render Quality</label>
+
+	</column>
+
+</root>

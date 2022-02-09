@@ -1,0 +1,45 @@
+
+<link rel="stylesheet" href="/styles/mainmenu.scss" />
+
+<root class="mainmenu">
+
+	<navigator @ref="Navigator" default="/home">
+
+		<div class="header">
+			<div class="left">
+				<img src="/ui/mainmenu/sbox.png" class="gamelogoicon" style="background-repeat: no-repeat;" />
+				<navlink class="button tight" href="/home" icon="home"></navlink>
+
+				<div class="button_group">
+					<navlink class="button" href="/games/all" icon="games">games</navlink>
+					<navlink class="button" href="/games/local" icon="save"></navlink>
+					<!--
+					<navlink class="button tight" href="/games/live" icon="plumbing"></navlink>
+					-->
+				</div>
+				<navlink href="/activegame" class="button showingame" icon="electrical_services">current game</navlink>
+			</div>
+
+			<div class="right">
+
+				<streamdeck></streamdeck>
+
+				<partydeck></partydeck>
+
+				<navlink href="/avatar" class="button tight" icon="emoji_people"></navlink>
+				<navlink href="/settings" class="button tight" icon="settings"></navlink>
+				<navlink icon="science" class="tight" href="/test/ui"></navlink>
+				<button @ref="FriendsButton" onclick="ToggleFriendList()" class="button" icon="people">0</button>
+				<button @ref="QuitButton" class="button tight" icon="power_settings_new" onclick.console="quit"></button>
+			</div>
+		</div>
+
+		<div class="navigator-canvas" slot="navigator-canvas"></div>
+
+		<div class="footer">
+			<LobbyBar></LobbyBar>
+		</div>
+
+	</navigator>
+
+</root>

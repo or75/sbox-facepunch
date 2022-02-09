@@ -1,0 +1,45 @@
+<root class="columns">
+
+	<div class="dialog">
+		<div class="head">
+
+		</div>
+		<form class="body">
+
+			<div class="form is-vertical grow">
+				
+				<div class="rows is-vertical">
+
+					<field class="is-half">
+						<label>Title</label>
+						<control><textentry @value="Package.Title"></textentry></control>
+					</field>
+
+					<field class="is-half">
+						<label>Category</label>
+						<control><dropdown @value="Package.GameCategory"></dropdown></control>
+					</field>
+
+				</div>
+
+				<field>
+					<label>Summary</label>
+					<control><textentry @value="Package.Summary"></textentry></control>
+				</field>
+
+				<field class="grow">
+					<label>Description</label>
+					<control class="grow"><textentry class="grow" multiline="true" @value="Package.Description"></textentry></control>
+				</field>
+
+			</div>
+
+		</form>
+		<div class="foot">
+			<field>
+				<button icon="save" @ref="SaveButton" class="is-save" onclick="SaveChanges()">Save Changes</button>
+			</field>
+		</div>
+	</div>
+
+</root>

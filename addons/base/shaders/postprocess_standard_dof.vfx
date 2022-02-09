@@ -1,0 +1,354 @@
+HEADER
+{
+    CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+    Description = "Depth of Field";
+    DevShader = true;
+}
+
+MODES
+{
+    Default();
+    VrForward();
+}
+
+FEATURES
+{
+}
+
+COMMON
+{
+    #include "postprocess/shared.hlsl"
+}
+
+struct VertexInput
+{
+    float3 vPositionOs : POSITION < Semantic( PosXyz ); >;
+    float2 vTexCoord : TEXCOORD0 < Semantic( LowPrecisionUv ); >;
+};
+
+struct PixelInput
+{
+    float2 vTexCoord : TEXCOORD0;
+
+	// VS only
+	#if ( PROGRAM == VFX_PROGRAM_VS )
+		float4 vPositionPs		: SV_Position;
+	#endif
+
+	// PS only
+	#if ( ( PROGRAM == VFX_PROGRAM_PS ) )
+		float4 vPositionSs		: SV_ScreenPosition;
+	#endif
+};
+
+VS
+{
+    PixelInput MainVs( VertexInput i )
+    {
+        PixelInput o;
+        o.vPositionPs = float4(i.vPositionOs.xyz, 1.0f);
+        o.vTexCoord = i.vTexCoord;
+        return o;
+    }
+}
+
+PS
+{
+    #include "postprocess/common.hlsl"
+
+    RenderState( DepthWriteEnable, false );
+    RenderState( DepthEnable, false );
+
+    CreateTexture2D( g_tColorBuffer ) < Attribute( "ColorBuffer" );  	SrgbRead( true ); Filter( MIN_MAG_LINEAR_MIP_POINT ); AddressU( MIRROR ); AddressV( MIRROR ); >;
+    CreateTexture2D( g_tDepthBuffer ) < Attribute( "DepthBuffer" ); 	SrgbRead( false ); Filter( POINT ); AddressU( CLAMP ); AddressV( CLAMP ); >;
+    CreateTexture2D( g_tDownscaled ) < Attribute( "ColorDownscaleBuffer" );  	SrgbRead( true ); Filter( MIN_MAG_LINEAR_MIP_POINT ); AddressU( MIRROR ); AddressV( MIRROR ); >;
+    CreateTexture2D( g_tUpscaled ) < Attribute( "ColorUpscaleBuffer" );  	SrgbRead( true ); Filter( MIN_MAG_LINEAR_MIP_POINT ); AddressU( MIRROR ); AddressV( MIRROR ); >;
+    CreateTexture2D( g_tCoC ) < Attribute( "CocLut" );  	SrgbRead( true ); Filter( POINT ); AddressU( MIRROR ); AddressV( MIRROR ); >;
+
+    DECLARE_TEXTURE_DIM_VAR( g_tColorBuffer );
+    DECLARE_TEXTURE_DIM_VAR( g_tCoC );
+
+    float flDOFFocusPlane< Attribute("standard.dof.focusplane"); Default(1.0f); >;
+    float flDOFRadius< Attribute("standard.dof.radius"); Default(0.0f); >;
+    float flDOFLens< Attribute("standard.dof.lens"); Default(1.0f); >;
+    float flDOFMaxCoC< Attribute("standard.dof.maxcoc"); Default(0.0f); >;
+    float3 vDOFBlurColor< Attribute("standard.dof.blurcolor"); Default3(1.0f, 1.0f, 1.0f); >;
+
+    DynamicCombo( D_DOF_BLUR_COC, 0..1, Sys( PC ) );
+    DynamicCombo( D_DOF_COLOR_BLUR, 0..2, Sys( PC ) );
+    DynamicCombo( D_DOF_COC_IGNORE_ELIPSON, 0..1, Sys( PC ) );
+    
+
+    DynamicCombo( D_DOF_PASS, 0..6, Sys( PC ) );
+    DynamicCombo( D_DOF_QUALITY, 0..2, Sys( PC ) );
+
+    struct PixelOutput
+    {
+        float4 vColor : SV_Target0;
+    };
+
+    float UnitsToMm(float flUnits)
+    {
+        return flUnits * 0.0393701f;
+    }
+
+    float CalculateCoC( float flDepth, float flFocalPoint )
+    {
+        if(flDOFRadius <= 0.0f) return 0.0f;
+
+        float flCoC = (flDepth - flFocalPoint) * flDOFLens / max( flDepth, 0.0001f );
+        return saturate(flCoC * 0.5f * flDOFMaxCoC + 0.5f);
+    }
+
+	float FetchDepth( float2 vTexCoord )
+	{
+		float flProjectedDepth = Tex2DLevel( g_tDepthBuffer, vTexCoord, 0.0 ).r;
+
+		// Remap depth to viewport depth range
+		flProjectedDepth = RemapValClamped( flProjectedDepth, g_flViewportMinZ, g_flViewportMaxZ, 0.0, 1.0 );
+
+		float flZScale = g_vInvProjRow3.z;
+		float flZTran = g_vInvProjRow3.w;
+
+		float flDepthRelativeToRayLength = 1.0 / ( ( flProjectedDepth * flZScale + flZTran ) );
+
+		return flDepthRelativeToRayLength;
+	}
+
+    PixelOutput DownscalePass( float2 vScreenUv )
+    {
+        PixelOutput o;
+        o.vColor.rgb = Tex2DLevel( g_tColorBuffer, vScreenUv, 0.0f ).rgb;
+        o.vColor.a = 1.0f;
+        return o;
+    }
+
+    static float2 points16[16] = {
+            float2( 0.00000, 0.00000 ), float2( 0.21094, -0.13418 ), float2( 0.14985, -0.32023 ), float2( -0.05565, -0.42942 ),
+            float2( -0.32035, -0.38389 ), float2( -0.53257, -0.16990 ), float2( -0.59215, 0.15609 ), float2( -0.44917, 0.48554 ),
+            float2( -0.12656, 0.69569 ), float2( 0.28278, 0.69465 ), float2( 0.64451, 0.45783 ), float2( 0.82807, 0.04234 ),
+            float2( 0.75350, -0.42690 ), float2( 0.42324, -0.79584 ), float2( -0.07268, -0.93259 ), float2( -0.58159, -0.77411 )
+    };
+
+    static float2 points64[64] = {
+            float2( -0.08244, 0.07552 ), float2( 0.01382, -0.15751 ), float2( 0.11782, 0.15368 ), float2( -0.22019, -0.03895 ),
+            float2( -0.07110, 0.26447 ), float2( -0.13634, -0.26251 ), float2( 0.29704, 0.10848 ), float2( -0.31003, 0.12798 ),
+            float2( 0.11098, 0.35381 ), float2( -0.33509, -0.19419 ), float2( 0.39371, -0.08656 ), float2( -0.24059, 0.34222 ),
+            float2( 0.34196, 0.28821 ), float2( -0.46058, 0.01905 ), float2( 0.33623, -0.33459 ), float2( -0.02251, 0.48682 ),
+            float2( 0.50777, 0.06832 ), float2( -0.43046, 0.29950 ), float2( 0.11768, -0.52312 ), float2( 0.27232, 0.47523 ),
+            float2( 0.51752, -0.23911 ), float2( -0.22428, 0.53591 ), float2( -0.20023, -0.55669 ), float2( 0.53295, 0.28011 ),
+            float2( 0.33667, -0.52360 ), float2( 0.10712, 0.62332 ), float2( -0.50779, -0.39326 ), float2( 0.64969, -0.05383 ),
+            float2( 0.00327, -0.67081 ), float2( 0.45693, 0.50370 ), float2( -0.68626, -0.06360 ), float2( 0.55617, -0.42211 ),
+            float2( -0.38129, -0.60590 ), float2( 0.69880, 0.19151 ), float2( -0.65227, 0.33473 ), float2( 0.25780, -0.69537 ),
+            float2( -0.68523, -0.32474 ), float2( 0.73246, -0.22583 ), float2( -0.39165, 0.66829 ), float2( -0.16431, -0.76518 ),
+            float2( -0.79231, 0.09874 ), float2( 0.52257, -0.61394 ), float2( 0.02966, 0.81340 ), float2( -0.57668, -0.58518 ),
+            float2( -0.64498, 0.53292 ), float2( 0.11664, -0.83600 ), float2( 0.48289, 0.70130 ), float2( -0.83691, -0.19257 ),
+            float2( -0.26945, 0.83060 ), float2( -0.36533, -0.80096 ), float2( 0.81693, 0.34658 ), float2( -0.84311, 0.29861 ),
+            float2( 0.22723, 0.87941 ), float2( -0.76733, -0.49870 ), float2( 0.90938, -0.15172 ), float2( -0.57223, 0.73148 ),
+            float2( 0.68841, 0.64311 ), float2( -0.94864, -0.00926 ), float2( 0.71063, -0.63836 ), float2( -0.09343, 0.95722 ),
+            float2( 0.95808, 0.17913 ), float2( -0.83288, 0.51847 ), float2( 0.26563, -0.95102 ), float2( 0.44939, 0.88631 )
+    };
+
+    static float3 weights[4] = {
+        float3( 0.5625f, 0.1875f, 0.1875f ),
+        float3( 0.1875f, 0.5625f, 0.0625f ),
+        float3( 0.1875f, 0.0625f, 0.5625f ),
+        float3( 0.0625f, 0.1875f, 0.1875f )
+    };
+
+    static float CocElipson = 0.01f;
+
+
+    float3 BokehBlur( float2 vScreenUv, float flCoc )
+    {
+        float2 vTexelSize = 1.0f / TextureDimensions2D(g_tDownscaled, 0);
+        float2 vTexelSizeLut = 1.0f / TextureDimensions2D(g_tCoC, 0);
+        
+        float2 vStep = vTexelSize * flDOFRadius * flCoc;
+        float2 vLutStep = vTexelSizeLut * (2.0f * flDOFRadius) * flCoc;
+
+        float3 vOutput = float3(0,0,0);
+
+        float flTaps = 0.0f;
+
+        [unroll]
+        for(int i = 0; i < 64; i++)
+        {
+            float2 vSampleUv = vScreenUv + vStep * points64[i];
+            float2 vSampleLutUv = vScreenUv + vLutStep * points64[i];
+            float4 vTap = Tex2DLevel( g_tDownscaled, vSampleUv, 0.0 );
+            float cocAmount = Tex2DLevel( g_tCoC, vSampleLutUv.xy, 0.0 ).r;
+            vTap = lerp( float4(0,0,0,0), vTap, cocAmount );
+            #if D_DOF_COC_IGNORE_ELIPSON
+                vOutput += vTap.rgb;
+                flTaps += 1.0f;
+            #else
+                if( cocAmount > CocElipson ) {
+                    vOutput += vTap.rgb;
+                    flTaps += 1.0f;
+                }
+            #endif
+        }
+
+        return vOutput / flTaps;
+    }
+
+    float3 BokehFill( float2 vScreenUv, float flCoc )
+    {
+        float2 vTexelSize = 1.0f / TextureDimensions2D(g_tDownscaled, 0);
+        float2 vTexelSizeLut = 1.0f / TextureDimensions2D(g_tCoC, 0);
+        float2 vStep = vTexelSize * flDOFRadius * flCoc;
+        float2 vLutStep = vTexelSizeLut * (2.0f * flDOFRadius) * flCoc;
+
+        float3 vBrightest = float3(0,0,0);
+        float flMaxLuminence = 0.0f;
+
+        [unroll]
+        for(int i = 0; i < 16; i++)
+        {
+            float2 vSampleUv = vScreenUv + vStep * points16[i];
+            float2 vSampleLutUv = vScreenUv + vLutStep * points16[i];
+            float cocAmount = Tex2DLevel( g_tCoC, vSampleLutUv.xy, 0.0 ).r;
+            float3 vTap = Tex2DLevel( g_tDownscaled, vSampleUv, 0.0 ).rgb;
+            vTap = lerp( float3(0,0,0), vTap, cocAmount );
+            float flLuminence = GetLuminance( vTap );
+
+            #if D_DOF_COC_IGNORE_ELIPSON
+                if( flLuminence > flMaxLuminence ) {
+                    vBrightest = vTap;
+                    flMaxLuminence = flLuminence;
+                }
+            #else
+                if( cocAmount > CocElipson && flLuminence > flMaxLuminence ) {
+                    vBrightest = vTap;
+                    flMaxLuminence = flLuminence;
+                }
+            #endif
+        }
+        return vBrightest;
+    }
+
+    PixelOutput CocTexturePass( float2 vScreenUv )
+    {
+        vScreenUv = saturate( vScreenUv ); // AMD Driver bug workaround, driver wraps the UV incorrectly on the second polygon when reading the R32F texture
+        float flDepth = FetchDepth( vScreenUv.xy ).r;
+        PixelOutput o;
+        o.vColor.r = CalculateCoC( UnitsToMm( flDepth ), flDOFFocusPlane );
+        o.vColor.gba = 0.0f;
+        return o;
+    }
+
+    PixelOutput CocTextureBlur( float2 vScreenUv )
+    {
+        PixelOutput o;
+
+        float fl2PI = 6.28318530718f;
+        float flDirections = 16.0f;
+        float flQuality = 2.0f;
+        float flTaps = 1.0f;
+        float2 texelSize = 1.0f / TextureDimensions2D(g_tCoC, 0);
+
+        // Gaussian blur CoC
+
+        float flCoc = Tex2DLevel( g_tCoC, vScreenUv, 0.0 ).r;
+        #if D_DOF_BLUR_COC
+            [unroll]
+            for( float d=0.0; d<fl2PI; d+=fl2PI/flDirections)
+            {
+                [unroll]
+                for(float j=1.0/flQuality; j<=1.0; j+=1.0/flQuality)
+                {
+                    flTaps += 1;
+                    flCoc += Tex2DLevel( g_tCoC, vScreenUv + float2( cos(d), sin(d) ) * texelSize * j, 0.0 ).r;    
+                }
+            }
+
+            flCoc /= flTaps;
+        #endif
+        
+        o.vColor.r = flCoc;
+        o.vColor.gba = 0.0f;
+        return o;
+    }
+
+    PixelOutput DiscBlurPass( float2 vScreenUv )
+    {
+        PixelOutput o;
+        float flCoc = Tex2DLevel( g_tCoC, vScreenUv, 0.0 ).r;
+        o.vColor = float4( BokehBlur(vScreenUv, flCoc), 1.0f );
+        return o;
+    }
+
+    PixelOutput DiscFillPass( float2 vScreenUv )
+    {
+        PixelOutput o;
+        float flCoc = Tex2DLevel( g_tCoC, vScreenUv.xy, 0.0 ).r;
+        o.vColor = float4( BokehFill(vScreenUv, flCoc), 1.0f );
+        return o;
+    }
+
+    PixelOutput UpscalePass( float2 vScreenUv )
+    {
+        PixelOutput o;
+
+        float2 texelSize = 1.0f / TextureDimensions2D(g_tDownscaled, 0);
+
+        float4 vColor = float4(0,0,0,1);
+
+
+        vColor.rgb += Tex2DLevel( g_tDownscaled, vScreenUv.xy, 0.0 ).rgb;
+        //vColor.rgb += Tex2DLevel( g_tDownscaled, vScreenUv.xy + (float2(1, 0) * texelSize), 0.0 ).rgb * weights[1];
+        //vColor.rgb += Tex2DLevel( g_tDownscaled, vScreenUv.xy + (float2(0, 1) * texelSize), 0.0 ).rgb * weights[2];
+        //vColor.rgb += Tex2DLevel( g_tDownscaled, vScreenUv.xy + (float2(1, 1) * texelSize), 0.0 ).rgb * weights[3];
+
+        float flCoc = Tex2DLevel( g_tCoC, vScreenUv.xy, 0.0 ).r;
+        // float flCoc = vColor.a;
+
+        o.vColor = vColor;
+
+        return o;
+    }
+
+    PixelOutput MergePass( float2 vScreenUv, float2 vScreenUv2 )
+    {
+        PixelOutput o;
+
+        float flCoC = Tex2DLevel( g_tCoC, vScreenUv2.xy, 0.0 ).r;
+
+        float3 vBlurColor = Tex2DLevel( g_tUpscaled, vScreenUv2.xy, 0.0 ).rgb;
+
+        #if D_DOF_COLOR_BLUR == 1
+            vBlurColor *= vDOFBlurColor;
+        #elif D_DOF_COLOR_BLUR == 2
+            vBlurColor = dot(vBlurColor, float3(0.2126f, 0.7152f, 0.0722f));
+        #endif
+
+        o.vColor.rgb = lerp( Tex2DLevel( g_tColorBuffer, vScreenUv.xy, 0.0 ).rgb, vBlurColor, flCoC );
+        
+        o.vColor.a = 1.0f;
+        return o;
+    }
+
+    PixelOutput MainPs( PixelInput i )
+    {
+        PixelOutput o;
+        
+        const float2 vTexCoord = i.vTexCoord.xy;
+       
+        #if D_DOF_PASS == 0
+            return DownscalePass( vTexCoord );
+        #elif D_DOF_PASS == 1
+            return CocTexturePass( vTexCoord );
+        #elif D_DOF_PASS == 2
+            return CocTextureBlur( vTexCoord );
+        #elif D_DOF_PASS == 3
+            return DiscBlurPass( vTexCoord );
+        #elif D_DOF_PASS == 4
+            return DiscFillPass( vTexCoord );
+        #elif D_DOF_PASS == 5
+            return UpscalePass( vTexCoord );
+        #else
+            return MergePass( vTexCoord, CalculateViewportUvFromInvSize( i.vPositionSs.xy - g_vViewportOffset, 1.0f / g_vViewportSize ) );
+        #endif
+    }
+}

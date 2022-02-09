@@ -1,0 +1,76 @@
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+HEADER
+{
+	DevShader = true;
+    CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+	Description = "Cheap shader that just clears RGBA";
+}
+
+//=========================================================================================================================
+MODES
+{
+    ToolsVis( S_MODE_TOOLS_VIS );
+	Default();
+	Forward();
+}
+
+//=========================================================================================================================
+FEATURES
+{
+    #include "common/features.hlsl"
+}
+
+//=========================================================================================================================
+COMMON
+{
+	#include "common/shared.hlsl"
+    #define COLOR_WRITE_ALREADY_SET
+}
+
+//=========================================================================================================================
+
+struct VertexInput
+{
+	#include "common/vertexinput.hlsl"
+};
+
+//=========================================================================================================================
+
+struct PixelInput
+{
+	#include "common/pixelinput.hlsl"
+};
+
+//=========================================================================================================================
+
+VS
+{
+	#include "common/vertex.hlsl"
+	//
+	// Main
+	//
+	PixelInput MainVs( INSTANCED_SHADER_PARAMS( VS_INPUT i ) )
+	{
+		PixelInput o = ProcessVertex( i );
+		return FinalizeVertex( o );
+	}
+}
+
+//=========================================================================================================================
+
+PS
+{
+    #include "common/pixel.hlsl"
+    
+    RenderState( ColorWriteEnable0, RGBA );
+
+	//
+	// Main
+	//
+	PixelOutput MainPs( PixelInput i )
+	{
+        PixelOutput o;
+        o.vColor = float4( 0.0f, 0.0f, 0.0f, 1.0f );
+		return o;
+	}
+}

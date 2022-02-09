@@ -1,0 +1,66 @@
+
+mainmenupanel .sidebar
+{
+	.lobbychat
+	{
+		flex-direction: column;
+		flex-grow: 1;
+
+		> .canvas
+		{
+			overflow: scroll;
+			flex-direction: column;
+			background-color: rgba( black, 0.5 );
+			padding: 16px;
+			color: white;
+			border-radius: 10px 10px 0 0;
+			margin: 0;
+			height: 150px;
+			flex-grow: 1;
+
+			.entry
+			{
+				flex-shrink: 0;
+				font-size: 14px;
+
+				.name
+				{
+					font-weight: bold;
+					margin-right: 10px;
+					flex-shrink: 0;
+				}
+
+				.message
+				{
+					font-size: 13px;
+					margin-top: 2px;
+					opacity: 0.5;
+				}
+
+				&.in-game
+				{
+					.name
+					{
+						color: #7f7;
+					}
+				}
+
+				&.not-ready
+				{
+					.name
+					{
+						color: $secondary;
+					}
+				}
+			}
+		}
+
+		> textentry.textentry
+		{
+			border-radius: 0px 0px 10px 10px;
+			border: 0px;
+			background-color: rgba( black, 0.6 );
+			margin: 0;
+		}
+	}
+}

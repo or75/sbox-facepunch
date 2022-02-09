@@ -1,0 +1,21 @@
+//
+// Sandbox.SoundEvent
+//
+@BaseClass = sound : "A sound event."
+[
+	ui(boolean) : "UI" : 0 : "Is this sound 2D?"
+	volume(float) : "Volume" : "1" : "How loud the sound should be."
+	volumerandom(float) : "Volume Random" : 0 : "How much to vary the volume by."
+	pitch(float) : "Pitch" : "1" : "The base pitch of the sound."
+	pitchrandom(float) : "Pitch Random" : 0 : "How much to vary the pitch by."
+	distancemax(float) : "Max Distance" : "2000" : "The furthest away to hear this sound."
+	sounds(array:string) { editor = "AssetBrowse(vsnd)" } : "Sounds" :  : "A random sound from the list will be selected to be played."
+	selectionmode(choices) : "Selection Mode" : 3 : "Selection strategy to use when picking from multiple sounds." =
+	[
+		1 : "Forward"
+		2 : "Backward"
+		3 : "Random"
+		4 : "Random Exclusive"
+	]
+]
+

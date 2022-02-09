@@ -1,0 +1,122 @@
+//=========================================================================================================================
+// Optional
+//=========================================================================================================================
+HEADER
+{
+	CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+	Description = "Template Shader for S&box";
+	DevShader = true
+}
+
+//=========================================================================================================================
+// Optional
+//=========================================================================================================================
+FEATURES
+{
+    #include "common/features.hlsl"
+	
+    Feature( F_MULTIBLEND, 0..3 ( 0="1 Layers", 1="2 Layers", 2="3 Layers", 3="4 Layers", 4="5 Layers" ), "Number Of Blendable Layers" );
+}
+
+//=========================================================================================================================
+// Optional
+//=========================================================================================================================
+MODES
+{
+    Reflection();
+	ToolsVis( S_MODE_TOOLS_VIS );
+}
+
+//=========================================================================================================================
+COMMON
+{
+	#include "common/shared.hlsl"
+	#define COLOR_WRITE_ALREADY_SET
+}
+
+//=========================================================================================================================
+
+struct VertexInput
+{
+	float4 vColorBlendValues : TEXCOORD4 < Semantic( VertexPaintBlendParams ); >;
+	float4 vColorPaintValues : TEXCOORD5 < Semantic( VertexPaintTintColor ); >;
+	#include "common/vertexinput.hlsl"
+};
+
+//=========================================================================================================================
+
+struct PixelInput
+{
+	float4 vBlendValues		 : TEXCOORD14;
+	float4 vPaintValues		 : TEXCOORD15;
+	#include "common/pixelinput.hlsl"
+};
+
+//=========================================================================================================================
+
+VS
+{
+	#include "common/vertex.hlsl"
+	//
+	// Main
+	//
+	PixelInput MainVs( INSTANCED_SHADER_PARAMS( VS_INPUT i ) )
+	{
+		PixelInput o = ProcessVertex( i );
+		return FinalizeVertex( o );
+	}
+}
+
+//=========================================================================================================================
+
+PS
+{
+	#include "common/pixel.hlsl"
+    #include "common/pixel.blend.hlsl"
+
+	#include "common/pixel.raytrace.sdf.hlsl"
+
+	//
+	// Combos
+	//
+	StaticCombo( S_MULTIBLEND, F_MULTIBLEND, Sys( PC ) );
+    
+	//
+	// Render state
+	//
+	RenderState( DepthBias, -250 ); // Value is steps in depth buffer (i.e. out of 2^24 if the depth buffer is 24 bit)
+	RenderState( SlopeScaleDepthBias, -0.5 );
+	RenderState( DepthBiasClamp, -0.0005 );
+	
+	RenderState( ColorWriteEnable0, RGBA );
+	
+	//
+	// Main
+	//
+	PixelOutput MainPs( PixelInput i )
+	{
+        PixelOutput o;
+
+		float2 vUV = i.vTextureCoords.xy;
+
+		#ifdef S_MULTIBLEND
+			Material material = ToMaterialMultiblend( vUV, i );
+		#else
+			Material material = ToMaterial( 
+					Tex2DS( g_tColor, TextureFiltering, vUV ), 
+					Tex2DS( g_tNormal, TextureFiltering, vUV ), 
+					Tex2DS( g_tRma, TextureFiltering, vUV ), 
+					g_flTintColorA
+				);
+		#endif
+		
+		float r = TraceSDF( material, i );
+
+		float3 vColor = 0;
+
+		//Todo: Experiment sampling lightmap color
+
+        o.vColor = float4(  vColor, 1.0 - r );
+		return o;
+	}
+}

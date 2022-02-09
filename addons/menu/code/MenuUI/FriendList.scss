@@ -1,0 +1,149 @@
+
+friendlist
+{
+	flex-direction: column;
+	font-family: Poppins;
+	z-index: 50;
+	position: absolute;
+	right: 100px;
+	top: 140px;
+	width: 350px;
+	background-color: #1B202a;
+	padding: 10px;
+	padding-top: 0;
+	border-radius: 5px;
+	box-shadow: 3px 3px 40px rgba( black, 0.5 );
+	transition: all 0.1s ease-out;
+	transform-origin: 70% -20px;
+
+
+	&:intro, &:outro
+	{
+		top: 120px;
+		opacity: 0;
+		transform: scale( 0.6 );
+	}
+
+	.title
+	{
+		font-size: 20px;
+		font-family: Poppins;
+		font-weight: 500;
+		color: #eee;
+		flex-shrink: 0;
+		padding: 20px 5px;
+	}
+
+	.canvas
+	{
+		//background-color: rgba( black, 0.5 );
+		flex-direction: column;
+		overflow: scroll;
+		padding: 0;
+		border-radius: 3px;
+	}
+
+	friendpanel
+	{
+		flex-direction: column;
+		color: #6bc1ff;
+		justify-content: center;
+		flex-shrink: 0;
+		border-radius: 5px;
+		margin-bottom: 5px;
+		opacity: 0.9;
+
+		.avatar
+		{
+			width: 40px;
+			height: 40px;
+			position: absolute;
+			border-radius: 2px;
+			left: 5px;
+			top: 5px;
+			border-radius: 100px;
+		}
+
+		.name
+		{
+			font-size: 16px;
+			font-weight: 500;
+			padding-left: 60px;
+			padding-top: 5px;
+			color: #fff;
+		}
+
+		.status
+		{
+			font-size: 11px;
+			opacity: 0.7;
+			padding-left: 60px;
+			padding-bottom: 5px;
+			font-weight: 300;
+			color: #8cf360;
+		}
+
+		.meta
+		{
+			display: none;
+			height: 0px;
+			transition: all 0.1s ease-in-out;
+			margin-top: 5px;
+			background-color: rgba( black, 0.5 );
+			border-radius: 2px;
+			padding: 5px;
+			cursor: default;
+		}
+
+		.join
+		{
+			position: absolute;
+			right: 0px;
+			background-color: #8cf36033;
+			color: #8cf360;
+			font-weight: bold;
+			font-size: 13px;
+			padding: 4px 12px;
+			transition: all 0.1s ease-out;
+			cursor: pointer;
+			align-items: center;
+			border-radius: 100px;
+
+			&:hover
+			{
+				background-color: #8cf360aa;
+				color: #c5f7b0;
+			}
+
+			&:active
+			{
+				background-color: #8cf360ff;
+				color: #fff;
+			}
+
+			opacity: 0;
+		}
+
+		&.joinable
+		{
+			.join
+			{
+				opacity: 1;
+			}
+		}
+
+		&.open
+		{
+			.meta
+			{
+				display: flex;
+				height: 100px;
+			}
+		}
+
+		&:hover
+		{
+			opacity: 1;
+		}
+	}
+}

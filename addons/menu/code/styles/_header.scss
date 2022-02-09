@@ -1,0 +1,159 @@
+
+$header-height: 120px !default;
+$header-spacing-top: 40px !default;
+$header-spacing-bottom: 32px !default;
+
+.mainmenu > navigator > .header
+{
+	left: 0px;
+	right: 0px;
+	padding: 40px;
+	padding-bottom: 25px;
+	flex-direction: column;
+	position: absolute;
+	flex-direction: row;
+	z-index: 1000;
+	background-image: linear-gradient( #191e28ff, #191e2800 );
+	background-repeat: no-repeat;
+	height: $header-height;
+	padding-top: $header-spacing-top;
+	padding-bottom: $header-spacing-bottom;
+	align-items: center;
+	pointer-events: none;
+
+	> .left
+	{
+		flex-grow: 1;
+		align-items: center;
+
+
+		.button
+		{
+			margin-right: 16px;
+			pointer-events: all;
+		}
+
+		.gamelogoicon
+		{
+			width: 200px;
+			height: 100px;
+		}
+
+		.button_group
+		{
+			margin-right: 16px;
+
+			.button
+			{
+				margin-right: 0;
+				margin-left: 0;
+				border-radius: 0;
+
+				&:first-child
+				{
+					border-radius: 100px 0 0 100px;
+				}
+
+				&:last-child
+				{
+					border-radius: 0 100px 100px 0;
+				}
+			}
+		}
+	}
+
+	> .right
+	{
+		align-items: center;
+
+		.button
+		{
+			margin-left: 16px;
+			pointer-events: all;
+		}
+	}
+
+	.button
+	{
+		font-size: 21px;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: cover;
+
+		&.is-task
+		{
+			border: 2px solid rgba( $primary, 0.1 );
+
+			&:hover:not( .active )
+			{
+				border: 2px solid rgba( $primary, 0.4 );
+			}
+
+			&.active
+			{
+				border: 2px solid $primary;
+			}
+		}
+
+		iconpanel
+		{
+			font-size: 26px;
+		}
+
+		.alert
+		{
+			position: absolute;
+			background-color: $primary;
+			border-radius: 100px;
+			padding: 5px;
+			font-size: 14px;
+			top: -7px;
+			right: -7px;
+			color: $primary-fg;
+			display: none;
+		}
+
+		&.has-alert .alert
+		{
+			display: flex;
+		}
+	}
+
+	.streamdeck
+	{
+		margin-right: 30px;
+
+		&.has-label > iconpanel
+		{
+			margin-right: 0px;
+		}
+
+		> label
+		{
+			font-size: 11px;
+			position: absolute;
+			background-color: white;
+			color: $primary;
+			font-weight: bold;
+			border-radius: 100px;
+			pointer-events: none;
+			padding: 3px 6px;
+			justify-content: center;
+			align-items: center;
+			right: -7px;
+			top: -7px;
+			box-shadow: 0px 5px 10px rgba( black, 0.4 );
+		}
+	}
+}
+
+.streamdeck
+{
+	display: none;
+}
+
+.has-streamer-account .streamdeck
+{
+	display: flex;
+}
+

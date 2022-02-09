@@ -1,0 +1,12 @@
+
+QPushButton[type="icon-large"]
+{
+    height: 32px;
+    width: 32px;
+    qproperty-iconSize: 22px;
+}
+
+QLabel[is-icon="true"]
+{
+    font-family: "Material Icons";
+}

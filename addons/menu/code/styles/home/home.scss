@@ -1,0 +1,53 @@
+
+.page-home
+{
+	margin: 0;
+}
+
+.page-home .about-player
+{
+	width: 515px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	bottom: 0px;
+	padding-top: 200px;
+
+	.avatar
+	{
+		flex-grow: 1;
+		left: 0px;
+		position: absolute;
+		top: 0px;
+		bottom: 0;
+		right: 0px;
+		opacity: 1;
+		color: white;
+	}
+
+	.player-footer
+	{
+		position: absolute;
+		bottom: 0px;
+		height: 400px;
+		left: 0px;
+		right: 0px;
+	}
+}
+
+.page-home .home-body
+{
+	position: absolute;
+	left: 600px;
+	right: $padding-edge;
+	bottom: 0px;
+	top: $header-height;
+	padding-bottom: 90px;
+
+	.favourites
+	{
+		width: 100%;
+		justify-content: flex-start;
+		flex-wrap: nowrap;
+	}
+}

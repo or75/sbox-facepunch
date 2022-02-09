@@ -1,0 +1,236 @@
+
+.gametiles
+{
+	flex-wrap: wrap;
+	overflow: scroll;
+	align-items: flex-start;
+
+	.grid
+	{
+		flex-wrap: wrap;
+	}
+}
+
+.gameicon
+{
+	margin-bottom: 8px;
+	margin-right: 18px;
+	flex-direction: column;
+	cursor: pointer;
+	font-family: poppins;
+	color: #ccc;
+	transition: padding 0.6s bounce-out;
+	max-width: 600px;
+	min-width: 240px;
+	flex-grow: 1;
+	margin-top: 20px;
+	transition: all 0.1s ease-out;
+	opacity: 1;
+	//background-color: red;
+
+	> .icon
+	{
+		background-image: url( /ui/mainmenu/game_default.png );
+		background-color: rgba( 255 255 255, 0.1 );
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+		border-radius: 3px;
+		aspect-ratio: 1.8;
+		flex-shrink: 1;
+	}
+
+	> .infocard
+	{
+		flex-shrink: 0;
+
+		> .icon
+		{
+			width: 32px;
+			height: 32px;
+			aspect-ratio: 1;
+			background-size: cover;
+			background-position: center;
+			background-repeat: no-repeat;
+			flex-grow: 0;
+			flex-shrink: 0;
+			margin-top: 10px;
+			margin-right: 15px;
+			border-radius: 100px;
+			background-image: url( /ui/tests/background.png );
+		}
+
+		> .information
+		{
+			flex-direction: column;
+			flex-grow: 1;
+		}
+	}
+
+
+
+	.title
+	{
+		margin-top: 10px;
+		font-weight: 700;
+		font-size: 14px;
+		color: #fff;
+		text-align: left;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.author
+	{
+		font-size: 11px;
+		color: #fff;
+		opacity: 0.3;
+		text-align: left;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.meta
+	{
+		font-size: 11px;
+		color: #fff;
+		opacity: 0.3;
+		text-align: left;
+		overflow: hidden;
+		white-space: nowrap;
+	}
+
+	.players
+	{
+		font-weight: 700;
+		font-size: 14px;
+		color: #ccc;
+		position: absolute;
+		right: -4px;
+		top: 10px;
+		padding: 5px 10px;
+		background-color: red;
+		border-radius: 4px 1px 1px 4px;
+		aspect-ratio: 1;
+		box-shadow: -2px 5px 10px rgba( black, 0.4 );
+	}
+
+	&.no-players
+	{
+		.players
+		{
+			display: none;
+		}
+	}
+
+	&:hover
+	{
+		z-index: 100;
+		sound-in: ui.button.over;
+		opacity: 1;
+
+		> .icon
+		{
+			border: 2px solid white;
+		}
+	}
+
+	&:active
+	{
+		sound-in: ui.button.press;
+	}
+
+	&.players-none
+	{
+		.players
+		{
+			opacity: 0.3;
+			font-weight: 100;
+		}
+	}
+
+	&.has-lobby
+	{
+		.meta
+		{
+			color: $secondary;
+			font-weight: 500;
+			opacity: 1;
+		}
+	}
+}
+
+
+.favourites .gameicon
+{
+	width: 94;
+	height: 94;
+	max-width: 104px;
+	min-width: 0px;
+	padding: 0;
+	margin: 0;
+	margin-right: 10px;
+
+	.icon
+	{
+		width: 94;
+		height: 94;
+		aspect-ratio: 1;
+		border-radius: 5px;
+	}
+
+	.infocard
+	{
+		display: none;
+	}
+
+	> .quick-resume
+	{
+		position: absolute;
+		right: -4px;
+		margin: 0px;
+		background-color: $primary;
+		color: white;
+		font-size: 12px;
+		padding: 3px 5px;
+		min-height: 30px;
+		bottom: -4px;
+		border-radius: 5px;
+		box-shadow: 0px 3px 10px rgba( black, 0.2 );
+
+		.remove
+		{
+			display: none;
+		}
+
+		&:hover
+		{
+			background-color: white;
+			color: $primary;
+
+			.remove
+			{
+				iconpanel
+				{
+					content: 'delete';
+					font-size: 18px;
+				}
+
+				display: flex;
+				position: absolute;
+				right: 32px;
+				background-color: $secondary;
+				color: black;
+				border-radius: 5px 0 0 5px;
+				padding: 2px 5px;
+				min-height: 0;
+				color: $secondary-fg;
+
+				&:hover
+				{
+					color: white;
+				}
+			}
+		}
+	}
+}

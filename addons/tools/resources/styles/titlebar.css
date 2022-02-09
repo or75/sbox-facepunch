@@ -1,0 +1,89 @@
+
+#TitleBar
+{
+	
+}
+
+#TitleBar:hover
+{
+	background-color: rgba( 70, 110, 150, 0.1 );
+}
+
+#TitleBar:active
+{
+
+}
+
+#TitleBar QMenuBar
+{
+	background-color: transparent;
+	border: 0px;
+	padding: 0px;
+	spacing: 0px;
+}
+
+
+#TitleBar QMenuBar::item 
+{
+	padding: 10px 10px;
+	margin: 0px;
+	min-height: 200px;
+	height: 200px;
+    margin: 0px;
+}
+
+#TitleBar #Icon
+{
+	background-color: transparent;
+	margin: 5px 10px;
+	padding: 0;
+	border: 0px;
+	qproperty-iconSize: 24px;
+}
+
+#TitleBar #WindowTitle
+{
+	text-transform: uppercase;
+	font-weight: bold;
+	text-align: center;
+	padding: 0px 10px;
+	padding-top: 3px;
+	qproperty-alignment: 'AlignVCenter | AlignHCenter';
+	font-family: "Poppins";
+	font-weight: 500;
+	font-size: 12px;
+	color :#888;
+}
+
+#TitleBar[is-dialog="true"] #WindowTitle
+{
+	qproperty-alignment: 'AlignVCenter | AlignLeft';
+	padding-left: 0px;
+}
+
+#TitleBar #WindowTitle:active
+{
+	color :#eee;
+	
+}
+
+
+#TitleBar #Close, #TitleBar #Minimize, #TitleBar #Restore
+{
+	border: 0px;
+	background-color: transparent;
+	margin-right: 0px;
+	opacity: 0.1;
+	qproperty-iconSize: 11px;
+	padding: 12px 15px;
+}
+
+#TitleBar #Close:hover, #TitleBar #Minimize:hover, #TitleBar #Restore:hover
+{
+	background-color: rgba( 255, 255, 255, 0.1 );
+}
+
+#TitleBar #Close:pressed, #TitleBar #Minimize:pressed, #TitleBar #Restore:pressed
+{
+	background-color: #2a5f7d;
+}

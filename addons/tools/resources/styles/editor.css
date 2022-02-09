@@ -1,0 +1,105 @@
+
+PanelRow #Icon
+{
+	
+	color: #59ace4;
+	font-size: 13px;
+}
+
+PanelRow #Element
+{
+	color: white;
+	font-weight: bold;
+	padding: 0px 2px;
+}
+
+PanelRow #Classes
+{
+	color:  #59ace4;
+	border-radius: 3px;
+}
+
+
+
+
+EntityRow #Icon
+{
+	font-size: 13px;
+}
+
+EntityRow #Element
+{
+	font-weight: bold;
+	padding: 0px 2px;
+}
+
+EntityRow #Classes
+{
+	border-radius: 3px;
+}
+
+
+EntityRow #Icon, EntityRow #Element, EntityRow #Classes
+{
+	color: #45c04f;
+}
+
+EntityRow[entity="server"] #Icon, EntityRow[entity="server"] #Element, EntityRow[entity="server"] #Classes
+{
+	color: #59ace4;
+}
+
+EntityRow[entity="client"] #Icon, EntityRow[entity="client"] #Element, EntityRow[entity="client"] #Classes
+{
+	color: #cfb833;
+}
+
+
+QScrollArea 
+{
+	background: transparent; 
+	border: 0px;
+}
+
+PropertySheet LineEdit
+{
+	border: 0;
+	padding: 1px 4px;
+}
+
+FloatEditor LineEdit
+{
+	background: transparent;
+	border: 0;
+	padding: 1px 4px;
+}
+
+#PropertyHeader
+{
+	font-weight: 450;
+	padding: 5px;
+	color: #eee;
+}
+
+
+ErrorBox
+{
+	padding: 10px;
+	border: 1px solid #df483d;
+	background-color: rgb(73, 38, 38);
+	color: #df483d;
+}
+
+FieldTitle
+{
+	font-weight: bold;
+	font-size: 9pt;
+	color: rgba( 255, 255, 255, 0.9 );
+	text-transform: uppercase;	
+}
+
+FieldSubtitle
+{
+	font-size: 8pt;
+	color: rgba( 255, 255, 255, 0.3 );	
+}

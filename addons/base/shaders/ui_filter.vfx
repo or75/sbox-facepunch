@@ -1,0 +1,144 @@
+HEADER
+{
+	DevShader = true;
+	CompileTargets = ( IS_SM_50 && ( PC || VULKAN ) );
+	Version = 1;
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+MODES
+{
+	Default();
+	VrForward();
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+FEATURES
+{
+	
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+COMMON
+{
+	#include "ui/common.hlsl"
+}
+  
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+VS
+{
+	#include "ui/vertex.hlsl"  
+}
+
+//-------------------------------------------------------------------------------------------------------------------------------------------------------------
+PS
+{
+	#include "ui/pixel.hlsl"  
+
+	float4 g_vViewport < Source( Viewport ); >; 
+
+	// Texture Samplers ---------------------------------------------------------------------------------------------------------------------------------------
+	CreateTexture2D( g_tColor ) < Attribute( "Texture" ); SrgbRead( true ); AddressU( BORDER ); AddressV( BORDER ); BorderColor( float4( 0, 0, 0, 0 ) ); >;
+	float4 g_vInvTextureDim < Source( InvTextureDim ); SourceArg( g_tColor ); >;
+
+	float FilterBrightness< UiType( Slider ); Default( 1.0f ); Attribute( "FilterBrightness" ); >;
+	float FilterHueRotate < UiType( Slider ); Default( 0.0f ); Attribute( "FilterHueRotate" ); >;
+	float FilterBlur < UiType( Color ); Default( 0 ); Attribute( "FilterBlur" ); >;
+	float FilterSaturate< UiType( Slider ); Default( 1.0f ); Attribute( "FilterSaturate" ); >;
+	float FilterSepia< UiType( Slider ); Default( 0.0f ); Attribute( "FilterSepia" ); >;
+	float FilterInvert< UiType( Slider ); Default( 0.0f ); Attribute( "FilterInvert" ); >;
+	float FilterContrast< UiType( Slider ); Default( 1.0f ); Attribute( "FilterContrast" ); >;
+	float4 FilterTint< UiType( Color ); Default4(1.0f, 1.0f, 1.0f, 1.0f); Attribute("FilterTint"); >;
+
+	// Always write rgba
+	RenderState( ColorWriteEnable0, RGBA );
+	RenderState( FillMode, SOLID );
+
+	// Never cull
+	RenderState( CullMode, NONE );
+
+	// No depth
+	RenderState( DepthWriteEnable, false );
+
+	// Main ---------------------------------------------------------------------------------------------------------------------------------------------------
+
+	// https://drafts.fxtf.org/filter-effects/#elementdef-fecolormatrix
+	float4 DoColorMatrix( float4 color, float4x4 mColorMatrix )
+	{
+		return saturate(mul(mColorMatrix, color));
+	}
+
+	float3 DoColorMatrix( float3 color, float4x4 mColorMatrix )
+	{
+		return mul(mColorMatrix, float4( color, 1.0f )).rgb;
+	}
+
+	float4 FetchLayeredTexel( float2 uv )
+	{
+		float4 vColor = Tex2DLevel( g_tColor, uv, 0 );
+
+		// Contrast
+		vColor.rgb = saturate( (vColor.rgb - 0.5f) * FilterContrast + 0.5f );
+
+		// Sepia
+		vColor = DoColorMatrix (
+			vColor, 
+			float4x4(
+				0.393f + 0.607f * (1.0f - FilterSepia), 0.769f - 0.769f * (1.0f - FilterSepia), 0.189f - 0.189f * (1.0f - FilterSepia), 0.0f,
+				0.349f - 0.349f * (1.0f - FilterSepia), 0.686f + 0.314f * (1.0f - FilterSepia), 0.168f - 0.168f * (1.0f - FilterSepia), 0.0f,
+				0.272f - 0.272f * (1.0f - FilterSepia), 0.534f - 0.534f * (1.0f - FilterSepia), 0.131f + 0.869f * (1.0f - FilterSepia), 0.0f,
+				0.0f, 0.0f, 0.0f, 1.0f
+			)
+		);
+
+		// Invert
+		vColor.rgb = lerp( vColor.rgb, 1.0f - vColor.rgb, FilterInvert );
+
+		float3 vHsvColor = RgbToHsv( vColor.rgb );
+		vHsvColor.r = frac( vHsvColor.r + ( FilterHueRotate / 360.0f ) );
+		vHsvColor.g = lerp( 0.0f, vHsvColor.g, FilterSaturate );
+		vHsvColor.b *= FilterBrightness;
+
+		vColor.rgb = HsvToRgb( vHsvColor );
+
+
+		return vColor * FilterTint;
+	}
+
+	float4 DoBlur( float4 color, float2 uv, float2 size ) 
+	{
+		float Pi = M_PI * 2;
+		float Directions = 16.0; // BLUR DIRECTIONS (Default 16.0 - More is better but slower)
+		float Quality = 6.0; // BLUR QUALITY (Default 4.0 - More is better but slower)
+	
+		// Blur calculations
+		for( float d=0.0; d<Pi; d+=Pi/Directions)
+		{
+			for(float j=1.0/Quality; j<=1.0; j+=1.0/Quality)
+			{
+				color += FetchLayeredTexel( uv + float2( cos(d), sin(d) ) * size * j );	
+			}
+		}
+		
+		// Output to screen
+		color /= Quality * Directions - 15.0;
+
+		return color;
+	}
+
+	PS_OUTPUT MainPs( PS_INPUT i )
+	{
+		PS_OUTPUT o;
+		
+		UI_CommonProcessing_Pre( i );
+
+		o.vColor = FetchLayeredTexel( i.vTexCoord.xy );
+
+		if ( FilterBlur > 0 ) 
+		{
+        	o.vColor = DoBlur( o.vColor, i.vTexCoord.xy, FilterBlur * g_vInvTextureDim.xy );
+		}
+
+		return UI_CommonProcessing_Post( i, o );
+	}
+}

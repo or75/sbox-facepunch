@@ -1,0 +1,43 @@
+﻿
+<root class="fill-screen">
+
+	<div class="sidebar is-vertical">
+		<div class="sidebar-inner">
+
+			<div class="section">
+				<textentry @value="SearchText" placeholder="Search All Games.." icon="search"></textentry>
+			</div>
+
+			<div class="section grow">
+				<text class="section-header">Category</text>
+				<div class="grow columns scroll listbox" @ref="Categories">
+					
+				</div>
+			</div>
+
+			<div class="section">
+				<text class="section-header">Control Mode</text>
+				<div class="grow listbox buttongroup" @ref="Modes">
+					
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="game_canvas">
+
+		<div class="toolbar game_header">
+			<button icon="calendar_today" activevalue="newest" @active="SortOrder">Newest</button>
+			<button activevalue="popular" @active="SortOrder" icon="groups">Popular</button>
+			<button activevalue="trending" @active="SortOrder" icon="trending_up">Trending</button>
+			<button activevalue="live" @active="SortOrder" icon="stream">Live</button>
+		</div>
+
+		<div @ref="canvas" class="game_list">
+
+		</div>
+	</div>
+	
+
+</root>

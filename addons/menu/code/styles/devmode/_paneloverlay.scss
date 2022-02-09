@@ -1,0 +1,67 @@
+
+PanelOverlay
+{
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	pointer-events: none;
+
+	.inner, .outer, .rect, .dimensions
+	{
+		position: absolute;
+		min-height: 1px;
+		min-width: 1px;
+	}
+
+	.rect
+	{
+		border: 1px solid #0f0;
+		opacity: 0.6;
+	}
+
+	.inner
+	{
+		border: 1px solid #0fa;
+		background-color: rgba( #0f0, 0.05 );
+	}
+
+	.outer
+	{
+		border: 1px solid #0fa;
+		opacity: 0.2;
+	}
+
+	.dimensions
+	{
+		background-color: #000a;
+		color: #fff;
+		font-family: Roboto;
+		font-weight: 400;
+		font-size: 10px;
+		padding: 2px 4px;
+		border-radius: 0px 0px 4px 4px;
+	}
+
+	&.selected
+	{
+		.rect
+		{
+			border: 1px solid #ff0;
+			opacity: 0.5;
+		}
+
+		.inner
+		{
+			border: 1px solid #fa0;
+			background-color: rgba( #ff0, 0.05 );
+		}
+
+		.outer
+		{
+			border: 1px solid #fa0;
+			opacity: 0.5;
+		}
+	}
+}

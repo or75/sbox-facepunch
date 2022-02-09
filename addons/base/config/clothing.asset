@@ -1,0 +1,93 @@
+//
+// Sandbox.Clothing
+//
+@BaseClass = clothing : "A piece of player model customization."
+[
+	title(string) : "Title" :  : "Name of the clothing to show in UI."
+	subtitle(string) : "Subtitle" :  : "A subtitle for this clothing piece."
+	category(choices) : "Category" : 0 : "What kind of clothing this is?" =
+	[
+		0 : "None"
+		1 : "Hat"
+		2 : "Hair"
+		3 : "Skin"
+		4 : "Footwear"
+		5 : "Bottoms"
+		6 : "Tops"
+	]
+	model(resource:vmdl) : "Model" :  : "The model to bonemerge to the player when this clothing is equpped."
+	materialgroup(string) : "Material Group" :  : "Which material group of the model to use."
+	slotsunder(flags) { editor = "BitFlags()" } : "Slots Under" : : "" =
+	[
+		1 : "Skin" : 0
+		2 : "Head Top" : 0
+		4 : "Head Bottom" : 0
+		8 : "Face" : 0
+		16 : "Chest" : 0
+		32 : "Left Arm" : 0
+		64 : "Right Arm" : 0
+		128 : "Left Wrist" : 0
+		256 : "Right Wrist" : 0
+		512 : "Left Hand" : 0
+		1024 : "Right Hand" : 0
+		2048 : "Groin" : 0
+		4096 : "Left Thigh" : 0
+		8192 : "Right Thigh" : 0
+		16384 : "Left Knee" : 0
+		32768 : "Right Knee" : 0
+		65536 : "Left Shin" : 0
+		131072 : "Right Shin" : 0
+		262144 : "Left Foot" : 0
+		524288 : "Right Foot" : 0
+		1048576 : "Glasses" : 0
+		2097152 : "Eye Brows" : 0
+		4194304 : "Eyes" : 0
+		8388608 : "Ears" : 0
+		16777216 : "Lips" : 0
+		33554432 : "Chin" : 0
+		67108864 : "Philtrum" : 0
+		134217728 : "Teeth" : 0
+		268435456 : "Waist" : 0
+	]
+	slotsover(flags) { editor = "BitFlags()" } : "Slots Over" : : "" =
+	[
+		1 : "Skin" : 0
+		2 : "Head Top" : 0
+		4 : "Head Bottom" : 0
+		8 : "Face" : 0
+		16 : "Chest" : 0
+		32 : "Left Arm" : 0
+		64 : "Right Arm" : 0
+		128 : "Left Wrist" : 0
+		256 : "Right Wrist" : 0
+		512 : "Left Hand" : 0
+		1024 : "Right Hand" : 0
+		2048 : "Groin" : 0
+		4096 : "Left Thigh" : 0
+		8192 : "Right Thigh" : 0
+		16384 : "Left Knee" : 0
+		32768 : "Right Knee" : 0
+		65536 : "Left Shin" : 0
+		131072 : "Right Shin" : 0
+		262144 : "Left Foot" : 0
+		524288 : "Right Foot" : 0
+		1048576 : "Glasses" : 0
+		2097152 : "Eye Brows" : 0
+		4194304 : "Eyes" : 0
+		8388608 : "Ears" : 0
+		16777216 : "Lips" : 0
+		33554432 : "Chin" : 0
+		67108864 : "Philtrum" : 0
+		134217728 : "Teeth" : 0
+		268435456 : "Waist" : 0
+	]
+	hidebody(flags) { editor = "BitFlags()" } : "Hide Body" : : "Which bodyparts of the player model should not show when this clothing is equpped." =
+	[
+		1 : "Head" : 0
+		2 : "Chest" : 0
+		4 : "Legs" : 0
+		8 : "Hands" : 0
+		16 : "Feet" : 0
+	]
+]
+
